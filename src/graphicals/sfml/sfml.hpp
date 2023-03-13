@@ -52,6 +52,6 @@ namespace GUI
             sf::RenderWindow _windows;
             sf::Event _event;
             sf::Sound _sound;
-            sf::vector<sound_t> _sounds;
+            std::vector<sound_t> _sounds;
     };
 }
