@@ -31,7 +31,7 @@ clean:
 	rm -f $(OBJ_CORE) $(OBJ_GAME) $(OBJ_GRAPH)
 
 fclean:	clean
-	rm -f $(NAME) libgames.so libgraphicals.so
+	rm -f $(NAME) lib/libgames.so lib/libgraphicals.so
 
 
 re:	fclean all
@@ -40,9 +40,9 @@ core: $(OBJ_CORE)
 	$(CCPP) -o $(NAME) $(OBJ_CORE) -ldl
 
 games: $(OBJ_GAME)
-	$(CCPP) -o libgames.so -shared -fPIC $(OBJ_GAME)
+	$(CCPP) -o lib/libgames.so -shared -fPIC $(OBJ_GAME)
 
 graphicals: $(OBJ_GRAPH)
-	$(CCPP) -o libgraphicals.so -shared -fPIC $(OBJ_GRAPH)
+	$(CCPP) -o lib/libgraphicals.so -shared -fPIC $(OBJ_GRAPH)
 
 .PHONY:	all clean fclean re core games graphicals

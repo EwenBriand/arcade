@@ -10,8 +10,11 @@
 
 int main(int argc, char **argv)
 {
-    if (argc != 2)
+    if (argc != 2) {
+        std::cerr << "Usage: ./test [library]" << std::endl;
         return 84;
+    }
+    std::cout << "Loading library..." << std::endl;
     void *handle = dlopen(argv[1], RTLD_LAZY);
     if (!handle) {
         std::cerr << dlerror() << std::endl;
