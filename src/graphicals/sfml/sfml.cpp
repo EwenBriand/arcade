@@ -6,8 +6,19 @@
 */
 
 #include "sfml.hpp"
+#include <filesystem>
 
 extern "C" {
+    void GUI::Sfml::setUnits(const int &pxpu)
+    {
+        _pxpu = pxpu;
+    }
+
+    int GUI::Sfml::getUnits() const
+    {
+        return _pxpu;
+    }
+
     void GUI::Sfml::openWindow(const int &w, const int &h)
     {
         _windows.create(sf::VideoMode(w, h), "Arcade");
@@ -121,6 +132,74 @@ extern "C" {
             }
         }
         return events;
+    }
+
+    void GUI::Sfml::updatePixels(const std::vector<GUI::Sfml::pixel_t> pixels)
+    {
+        sf::RectangleShape _pixel;
+
+        for (auto &pixel : pixels) {
+            _pixel.setSize(sf::Vector2f(_pxpu, _pxpu));
+            _pixel.setFillColor(sf::Color(pixel.color));
+            _pixel.setPosition(pixel.x * _pxpu, pixel.y * _pxpu);
+            _windows.draw(_pixel);
+        }
+    }
+
+    void GUI::Sfml::drawText(const std::string &text, int x, int y, const GUI::Sfml::color_t &color)
+    {
+        sf::Text _text;
+        sf::Font _font;
+
+        _font.loadFromFile("./assets/fonts/Montserrat-Regular.ttf");
+        _text.setFont(_font);
+        _text.setString(text);
+        _text.setCharacterSize(10);
+        _text.setFillColor(sf::Color::White);
+        _text.setPosition(x, y);
+        _windows.draw(_text);
+    }
+
+    void GUI::Sfml::playSound(const std::string &id, bool loop = false)
+    {
+        sf::SoundBuffer _buffer;
+
+        _buffer.loadFromFile("./assets/sounds/" + id + ".wav");
+        _sound.setBuffer(_buffer);
+        _sound.setLoop(loop);
+        _sound.play();
+    }
+
+    void GUI::Sfml::stopSound(const std::string &id)
+    {
+        _sound.stop();
+    }
+
+    void GUI::Sfml::setVolume(const int &between_zero_and_100)
+    {
+        _sound.setVolume(between_zero_and_100);
+    }
+
+    void GUI::Sfml::setPitch(const float &multiplyer)
+    {
+        _sound.setPitch(multiplyer);
+    }
+
+    void GUI::Sfml::setLoop(const bool &loop)
+    {
+        _sound.setLoop(loop);
+    }
+
+    std::vector<GUI::Sfml::sound_t> GUI::Sfml::loadSounds(const std::string &dir)
+    {
+        for (const auto &file : std::filesystem::directory_iterator(dir)) {
+            GUI::Sfml::sound_t sound;
+
+            sound.path = file.path();
+            sound.id = file.path().filename().string();
+            _sounds.push_back(sound);
+        }
+        return _sounds;
     }
 
     GUI::IDisplayModule *entrypoint()

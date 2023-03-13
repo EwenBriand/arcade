@@ -46,9 +46,12 @@ namespace GUI
             void draw();
             void updatePixels(std::vector<pixel_t> pixels) override;
             void drawText(const std::string &text, int x, int y, const color_t &color) override;
+
         private:
+            int _pxpu;
             sf::RenderWindow _windows;
             sf::Event _event;
-            sf::Music _music;
+            sf::Sound _sound;
+            sf::vector<sound_t> _sounds;
     };
 }
