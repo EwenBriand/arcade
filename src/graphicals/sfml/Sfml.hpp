@@ -13,6 +13,8 @@
 #include <SFML/System.hpp>
 #include <SFML/Audio.hpp>
 
+#include <ctime>
+
 #define MOUSE_LEFT 0
 #define MOUSE_RIGHT 1
 #define MOUSE_MIDDLE 2
@@ -31,6 +33,8 @@ namespace GUI
 
             void setMapSpecs(mapSpecs_t mapspecs) override;
 
+            void checkKeyEvent(sf::Keyboard::Key key, GUI::Sfml::bindingType_t bindingKey, std::vector<event_t> &events, event_t event);
+            void checkMouseEvent(sf::Mouse::Button mouse, bool isPressed, std::vector<event_t> &events, event_t event);
             std::vector<event_t> pollEvents() override;
 
             void loadSound(const std::string &label, const std::string &path) override;
@@ -52,5 +56,6 @@ namespace GUI
             mapSpecs_t _mapspecs;
             std::vector<std::pair<std::string, sf::Sound>> _sounds;
             std::vector<std::pair<std::string, sf::Text>> _texts;
+            std::time_t _start_time;
     };
 }

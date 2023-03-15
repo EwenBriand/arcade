@@ -5,10 +5,16 @@
 ** sfml.cpp
 */
 
-#include "sfml.hpp"
+#include "Sfml.hpp"
 #include <filesystem>
+#include <iostream>
 
 extern "C" {
+    GUI::Sfml::Sfml()
+    {
+        _start_time = std::time(nullptr);
+    }
+
     void GUI::Sfml::setUnits(const int &pxpu)
     {
         _pxpu = pxpu;
@@ -49,6 +55,53 @@ extern "C" {
         _mapspecs = mapspecs;
     }
 
+    void GUI::Sfml::loadSound(const std::string &label, const std::string &path)
+    {
+        sf::SoundBuffer buffer;
+        sf::Sound sound;
+
+        if (!buffer.loadFromFile(path)) {
+            std::cerr << "Error: Can't load sound file" << std::endl;
+            return;
+        }
+        sound.setBuffer(buffer);
+        _sounds.push_back(std::make_pair(label, sound));
+    }
+
+    void GUI::Sfml::checkKeyEvent(sf::Keyboard::Key key, GUI::Sfml::bindingType_t bindingKey, std::vector<event_t> &events, event_t event)
+    {
+        if (_event.key.code == key) {
+            event._name = bindingKey;
+            event.timeStamp = float(std::time(nullptr) - _start_time);
+            events.push_back(event);
+        }
+    }
+
+    void GUI::Sfml::checkMouseEvent(sf::Mouse::Button mouse, bool isPressed, std::vector<event_t> &events, event_t event)
+    {
+        if (_event.mouseButton.button == mouse) {
+            event._name = MOUSE_CLICK;
+            event.timeStamp = float(std::time(nullptr) - _start_time);
+            event._ivalues.push_back(_event.mouseButton.x);
+            event._ivalues.push_back(_event.mouseButton.y);
+            switch (mouse) {
+                case sf::Mouse::Left:
+                    event._ivalues.push_back(MOUSE_LEFT);
+                    break;
+                case sf::Mouse::Right:
+                    event._ivalues.push_back(MOUSE_RIGHT);
+                    break;
+                case sf::Mouse::Middle:
+                    event._ivalues.push_back(MOUSE_MIDDLE);
+                    break;
+                default:
+                    break;
+            }
+            event._ivalues.push_back(isPressed ? MOUSE_PRESSED : MOUSE_RELEASED);
+            events.push_back(event);
+        }
+    }
+
     std::vector<GUI::Sfml::event_t> GUI::Sfml::pollEvents()
     {
         std::vector<GUI::Sfml::event_t> events;
@@ -57,83 +110,31 @@ extern "C" {
         while (_windows.pollEvent(_event)) {
             if (_event.type == sf::Event::Closed) {
                 event._name = QUIT;
+                event.timeStamp = float(std::time(nullptr) - _start_time);
                 events.push_back(event);
-                GUI::Sfml::closeWindow();
+                closeWindow();
             }
             if (_event.type == sf::Event::KeyPressed) {
                 if (_event.key.code == sf::Keyboard::Escape) {
                     event._name = QUIT;
+                    event.timeStamp = float(std::time(nullptr) - _start_time);
                     events.push_back(event);
-                    GUI::Sfml::closeWindow();
+                    closeWindow();
                 }
-                if (_event.key.code == sf::Keyboard::Left) {
-                    event._name = LEFT;
-                    events.push_back(event);
-                }
-                if (_event.key.code == sf::Keyboard::Right) {
-                    event._name = RIGHT;
-                    events.push_back(event);
-                }
-                if (_event.key.code == sf::Keyboard::Up) {
-                    event._name = UP;
-                    events.push_back(event);
-                }
-                if (_event.key.code == sf::Keyboard::Down) {
-                    event._name = DOWN;
-                    events.push_back(event);
-                }
+                checkKeyEvent(sf::Keyboard::Left, LEFT, events, event);
+                checkKeyEvent(sf::Keyboard::Right, RIGHT, events, event);
+                checkKeyEvent(sf::Keyboard::Up, UP, events, event);
+                checkKeyEvent(sf::Keyboard::Down, DOWN, events, event);
             }
             if (_event.type == sf::Event::MouseButtonPressed) {
-                if (_event.mouseButton.button == sf::Mouse::Left) {
-                    event._name = MOUSE_CLICK;
-                    event._ivalues.push_back(_event.mouseButton.x);
-                    event._ivalues.push_back(_event.mouseButton.y);
-                    event._ivalues.push_back(MOUSE_LEFT);
-                    event._ivalues.push_back(MOUSE_PRESSED);
-                    events.push_back(event);
-                }
-                if (_event.mouseButton.button == sf::Mouse::Right) {
-                    event._name = MOUSE_CLICK;
-                    event._ivalues.push_back(_event.mouseButton.x);
-                    event._ivalues.push_back(_event.mouseButton.y);
-                    event._ivalues.push_back(MOUSE_RIGHT);
-                    event._ivalues.push_back(MOUSE_PRESSED);
-                    events.push_back(event);
-                }
-                if (_event.mouseButton.button == sf::Mouse::Middle) {
-                    event._name = MOUSE_CLICK;
-                    event._ivalues.push_back(_event.mouseButton.x);
-                    event._ivalues.push_back(_event.mouseButton.y);
-                    event._ivalues.push_back(MOUSE_MIDDLE);
-                    event._ivalues.push_back(MOUSE_PRESSED);
-                    events.push_back(event);
-                }
+                checkMouseEvent(sf::Mouse::Left, true, events, event);
+                checkMouseEvent(sf::Mouse::Right, true, events, event);
+                checkMouseEvent(sf::Mouse::Middle, true, events, event);
             }
             if (_event.type == sf::Event::MouseButtonReleased) {
-                if (_event.mouseButton.button == sf::Mouse::Left) {
-                    event._name = MOUSE_CLICK;
-                    event._ivalues.push_back(_event.mouseButton.x);
-                    event._ivalues.push_back(_event.mouseButton.y);
-                    event._ivalues.push_back(MOUSE_LEFT);
-                    event._ivalues.push_back(MOUSE_RELEASED);
-                    events.push_back(event);
-                }
-                if (_event.mouseButton.button == sf::Mouse::Right) {
-                    event._name = MOUSE_CLICK;
-                    event._ivalues.push_back(_event.mouseButton.x);
-                    event._ivalues.push_back(_event.mouseButton.y);
-                    event._ivalues.push_back(MOUSE_RIGHT);
-                    event._ivalues.push_back(MOUSE_RELEASED);
-                    events.push_back(event);
-                }
-                if (_event.mouseButton.button == sf::Mouse::Middle) {
-                    event._name = MOUSE_CLICK;
-                    event._ivalues.push_back(_event.mouseButton.x);
-                    event._ivalues.push_back(_event.mouseButton.y);
-                    event._ivalues.push_back(MOUSE_MIDDLE);
-                    event._ivalues.push_back(MOUSE_RELEASED);
-                    events.push_back(event);
-                }
+                checkMouseEvent(sf::Mouse::Left, false, events, event);
+                checkMouseEvent(sf::Mouse::Right, false, events, event);
+                checkMouseEvent(sf::Mouse::Middle, false, events, event);
             }
         }
         return events;
@@ -147,7 +148,7 @@ extern "C" {
             _pixel.setSize(sf::Vector2f(_pxpu, _pxpu));
             _pixel.setFillColor(sf::Color(pixel.color));
             _pixel.setPosition(pixel.x * _pxpu, pixel.y * _pxpu);
-            _windows.draw(_pixel);
+            draw();
         }
     }
 
