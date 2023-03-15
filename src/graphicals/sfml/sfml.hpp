@@ -29,14 +29,12 @@ namespace GUI
             void setUnits(const int &pxpu) override;
             int getUnits() const override;
 
+            void setMapSpecs(mapSpecs_t mapspecs) override;
+
             std::vector<event_t> pollEvents() override;
 
-            void playSound(const std::string &id, bool loop = false) override;
-            void stopSound(const std::string &id) override;
-            void setVolume(const int &between_zero_and_100) override;
-            void setPitch(const float &multiplier) override;
-            void setLoop(const bool &loop) override;
-            std::vector<sound_t> loadSounds(const std::string &dir) override;
+            void loadSound(const std::string &label, const std::string &path) override;
+            void playSound(const std::string &label, const bool &loop = false) override;
 
             void setWindowSize(const int &w, const int &h) override;
             void openWindow(const int &w, const int &h) override;
@@ -45,13 +43,14 @@ namespace GUI
 
             void draw();
             void updatePixels(std::vector<pixel_t> pixels) override;
-            void drawText(const std::string &text, int x, int y, const color_t &color) override;
+            void setText(std::string label, text_t text) override;
 
         private:
             int _pxpu;
             sf::RenderWindow _windows;
             sf::Event _event;
-            sf::Sound _sound;
-            std::vector<sound_t> _sounds;
+            mapSpecs_t _mapspecs;
+            std::vector<std::pair<std::string, sf::Sound>> _sounds;
+            std::vector<std::pair<std::string, sf::Text>> _texts;
     };
 }

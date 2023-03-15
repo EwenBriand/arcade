@@ -44,6 +44,11 @@ extern "C" {
         _windows.setSize(sf::Vector2u(w, h));
     }
 
+    void GUI::Sfml::setMapSpecs(mapSpecs_t mapspecs)
+    {
+        _mapspecs = mapspecs;
+    }
+
     std::vector<GUI::Sfml::event_t> GUI::Sfml::pollEvents()
     {
         std::vector<GUI::Sfml::event_t> events;
@@ -146,60 +151,40 @@ extern "C" {
         }
     }
 
-    void GUI::Sfml::drawText(const std::string &text, int x, int y, const GUI::Sfml::color_t &color)
+    void GUI::Sfml::setText(std::string label, text_t text)
     {
         sf::Text _text;
         sf::Font _font;
 
         _font.loadFromFile("./assets/fonts/Montserrat-Regular.ttf");
         _text.setFont(_font);
-        _text.setString(text);
-        _text.setCharacterSize(10);
-        _text.setFillColor(sf::Color::White);
-        _text.setPosition(x, y);
-        _windows.draw(_text);
+        _text.setString(text.str);
+        _text.setCharacterSize(text.scale);
+        _text.setFillColor(sf::Color(text.color));
+        _text.setPosition(text.x, text.y);
+        _texts.push_back(std::make_pair(label, _text));
     }
 
-    void GUI::Sfml::playSound(const std::string &id, bool loop = false)
+    void GUI::Sfml::loadSound(const std::string &label, const std::string &path)
     {
-        sf::SoundBuffer _buffer;
+        sf::SoundBuffer buffer;
 
-        _buffer.loadFromFile("./assets/sounds/" + id + ".wav");
-        _sound.setBuffer(_buffer);
-        _sound.setLoop(loop);
-        _sound.play();
+        if (!buffer.loadFromFile(path))
+            throw std::runtime_error("Error while loading sound");
+        _sounds.push_back(std::make_pair(label, sf::Sound(buffer)));
     }
 
-    void GUI::Sfml::stopSound(const std::string &id)
+    void GUI::Sfml::playSound(const std::string &label, const bool &loop = false)
     {
-        _sound.stop();
-    }
-
-    void GUI::Sfml::setVolume(const int &between_zero_and_100)
-    {
-        _sound.setVolume(between_zero_and_100);
-    }
-
-    void GUI::Sfml::setPitch(const float &multiplyer)
-    {
-        _sound.setPitch(multiplyer);
-    }
-
-    void GUI::Sfml::setLoop(const bool &loop)
-    {
-        _sound.setLoop(loop);
-    }
-
-    std::vector<GUI::Sfml::sound_t> GUI::Sfml::loadSounds(const std::string &dir)
-    {
-        for (const auto &file : std::filesystem::directory_iterator(dir)) {
-            GUI::Sfml::sound_t sound;
-
-            sound.path = file.path();
-            sound.id = file.path().filename().string();
-            _sounds.push_back(sound);
+        for (auto &sound : _sounds) {
+            if (sound.first == label) {
+                sound.second.play();
+                if (loop)
+                    sound.second.setLoop(true);
+                return;
+            }
         }
-        return _sounds;
+        throw std::runtime_error("Error while playing sound");
     }
 
     GUI::IDisplayModule *entrypoint()
