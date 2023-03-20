@@ -125,6 +125,8 @@ extern "C" {
                 checkKeyEvent(sf::Keyboard::Right, RIGHT, events, event);
                 checkKeyEvent(sf::Keyboard::Up, UP, events, event);
                 checkKeyEvent(sf::Keyboard::Down, DOWN, events, event);
+                checkKeyEvent(sf::Keyboard::Backspace, BACKSPACE, events, event);
+                checkKeyEvent(sf::Keyboard::Enter, ENTER, events, event);
             }
             if (_event.type == sf::Event::MouseButtonPressed) {
                 checkMouseEvent(sf::Mouse::Left, true, events, event);
