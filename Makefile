@@ -9,6 +9,8 @@ NAME    =	arcade
 
 CCPP    =	g++
 
+LIBALL	=	./lib/lib_sfml.so ./lib/lib_nibbler.so ./lib/lib_snake.so
+
 SRC_GAME 	=	./src/games/test.cpp
 
 SRC_GRAPH 	=	./src/graphicals/test.cpp
@@ -31,7 +33,9 @@ clean:
 	rm -f $(OBJ_CORE) $(OBJ_GAME) $(OBJ_GRAPH)
 
 fclean:	clean
-	rm -f $(NAME) lib/libgames.so lib/libgraphicals.so
+	rm -f $(NAME) $(LIBALL)
+	$(MAKE) fclean -C ./src/games/
+	$(MAKE) fclean -C ./src/graphicals/
 
 
 re:	fclean all
@@ -40,9 +44,9 @@ core: $(OBJ_CORE)
 	$(CCPP) -o $(NAME) $(OBJ_CORE) -ldl
 
 games: $(OBJ_GAME)
-	$(CCPP) -o lib/libgames.so -shared -fPIC $(OBJ_GAME)
+	$(MAKE) -C ./src/games/
 
 graphicals: $(OBJ_GRAPH)
-	$(CCPP) -o lib/libgraphicals.so -shared -fPIC $(OBJ_GRAPH)
+	$(MAKE) -C ./src/graphicals/
 
 .PHONY:	all clean fclean re core games graphicals
