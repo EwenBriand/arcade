@@ -23,8 +23,12 @@ class GameSnake : public Game::IGameModule
         GameSnake();
         ~GameSnake() = default;
         void initWall();
-        bool run(GUI::IDisplayModule &gui, bool &stopGame) override;
-        bool checkEvent(GUI::IDisplayModule &gui);
+        bool processFrame(std::vector<GUI::IDisplayModule::event_t> events) override;
+        GUI::IDisplayModule::mapSpecs_t getMapSpecs() override;
+        std::vector<GUI::IDisplayModule::pixel_t> getPixels() override;
+        std::vector<GUI::IDisplayModule::text_t> getTexts() override;
+        std::vector<std::string> getSounds() override;
+        bool checkEvent(std::vector<GUI::IDisplayModule::event_t> events);
         bool checkCollision();
         void changeDirection(GUI::IDisplayModule::event_t &event);
         void moveSnake();

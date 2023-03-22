@@ -9,48 +9,81 @@
 
 GameSnake::GameSnake()
 {
+    GUI::IDisplayModule::deltaRGB_t green = {0, 128, 0};
     _dir = direction::LEFT;
-    _snake.push_back({GUI::IDisplayModule::color_t::GREEN, 's', 25, 25});
-    _snake.push_back({GUI::IDisplayModule::color_t::GREEN, 'c', 26, 25});
-    _snake.push_back({GUI::IDisplayModule::color_t::GREEN, 'c', 27, 25});
-    _snake.push_back({GUI::IDisplayModule::color_t::GREEN, 'c', 28, 25});
+    _snake.push_back({GUI::IDisplayModule::color_t::GREEN, green, 's', 25, 25});
+    _snake.push_back({GUI::IDisplayModule::color_t::GREEN, green, 'c', 26, 25});
+    _snake.push_back({GUI::IDisplayModule::color_t::GREEN, green, 'c', 27, 25});
+    _snake.push_back({GUI::IDisplayModule::color_t::GREEN, green, 'c', 28, 25});
     initWall();
     initApple();
 }
 
 void GameSnake::initWall()
 {
-    for (unsigned int i = 0; i < 50; i++) {
-        _wall.push_back({GUI::IDisplayModule::color_t::WHITE, 'M', i, 0});
-        _wall.push_back({GUI::IDisplayModule::color_t::WHITE, 'M', i, 50});
-        _wall.push_back({GUI::IDisplayModule::color_t::WHITE, 'M', 0, i});
-        _wall.push_back({GUI::IDisplayModule::color_t::WHITE, 'M', 50, i});
+    GUI::IDisplayModule::deltaRGB_t white = {0, 0, 0};
+    for (int i = 0; i < 50; i++) {
+        _wall.push_back({GUI::IDisplayModule::color_t::WHITE, white, 'M', i, 0});
+        _wall.push_back({GUI::IDisplayModule::color_t::WHITE, white, 'M', i, 50});
+        _wall.push_back({GUI::IDisplayModule::color_t::WHITE, white, 'M', 0, i});
+        _wall.push_back({GUI::IDisplayModule::color_t::WHITE, white, 'M', 50, i});
     }
 }
 
 void GameSnake::initApple()
 {
-    unsigned int random = rand() % 49 + 1;
+    GUI::IDisplayModule::deltaRGB_t red = {256, 0, 0};
+    int random = rand() % 49 + 1;
     for (auto &i : _snake) {
         if (i.x == random && i.y == random) {
             random = rand() % 49 + 1;
             i = _snake[0];
         }
     }
-    _apple.push_back({GUI::IDisplayModule::color_t::RED, 'a', random, random});
+    _apple.push_back({GUI::IDisplayModule::color_t::RED, red, 'a', random, random});
 }
 
-bool GameSnake::run(GUI::IDisplayModule &gui, bool &stopGame)
+std::vector<GUI::IDisplayModule::pixel_t> GameSnake::getPixels()
 {
-    if (!checkEvent(gui))
+    std::vector<GUI::IDisplayModule::pixel_t> pixels;
+    pixels.insert(pixels.end(), _snake.begin(), _snake.end());
+    pixels.insert(pixels.end(), _wall.begin(), _wall.end());
+    pixels.insert(pixels.end(), _apple.begin(), _apple.end());
+    return pixels;
+}
+
+std::vector<GUI::IDisplayModule::text_t> GameSnake::getTexts()
+{
+    std::vector<GUI::IDisplayModule::text_t> texts;
+    // GUI::IDisplayModule::text_t text;
+    // text._text = "Score: " + std::to_string(_score);
+    // text._x = 0;
+    // text._y = 0;
+    // texts.push_back(text);
+    return texts;
+}
+
+std::vector<std::string> GameSnake::getSounds()
+{
+    std::vector<std::string> sounds;
+    return sounds;
+}
+
+GUI::IDisplayModule::mapSpecs_t GameSnake::getMapSpecs()
+{
+    GUI::IDisplayModule::mapSpecs_t specs;
+    return specs;
+}
+
+bool GameSnake::processFrame(std::vector<GUI::IDisplayModule::event_t> events)
+{
+    if (!checkEvent(events))
         return false;
     moveSnake();
     if (checkCollision())
         return false;
     eatApple();
-    gui.updatePixels(_apple);
-    gui.updatePixels(_snake);
-    gui.updatePixels(_wall);
+    return true;
 }
 
 void GameSnake::changeDirection(GUI::IDisplayModule::event_t &event)
@@ -77,9 +110,9 @@ void GameSnake::changeDirection(GUI::IDisplayModule::event_t &event)
     }
 }
 
-bool GameSnake::checkEvent(GUI::IDisplayModule &gui)
+bool GameSnake::checkEvent(std::vector<GUI::IDisplayModule::event_t> events)
 {
-    for (auto &event : gui.pollEvents()) {
+    for (auto &event : events) {
         if (event._name == GUI::IDisplayModule::bindingType_t::QUIT)
             return false;
         changeDirection(event);
@@ -89,15 +122,16 @@ bool GameSnake::checkEvent(GUI::IDisplayModule &gui)
 
 void GameSnake::moveSnake()
 {
+    GUI::IDisplayModule::deltaRGB_t green = {0, 128, 0};
     _snake[0].repr = 'c';
     if (_dir == direction::UP)
-        _snake.insert(_snake.begin(), {GUI::IDisplayModule::color_t::GREEN, 's', _snake[0].x, _snake[0].y + 1});
+        _snake.insert(_snake.begin(), {GUI::IDisplayModule::color_t::GREEN, green, 's', _snake[0].x, _snake[0].y + 1});
     if (_dir == direction::DOWN)
-        _snake.insert(_snake.begin(), {GUI::IDisplayModule::color_t::GREEN, 's', _snake[0].x, _snake[0].y - 1});
+        _snake.insert(_snake.begin(), {GUI::IDisplayModule::color_t::GREEN, green, 's', _snake[0].x, _snake[0].y - 1});
     if (_dir == direction::LEFT)
-        _snake.insert(_snake.begin(), {GUI::IDisplayModule::color_t::GREEN, 's', _snake[0].x - 1, _snake[0].y});
+        _snake.insert(_snake.begin(), {GUI::IDisplayModule::color_t::GREEN, green, 's', _snake[0].x - 1, _snake[0].y});
     if (_dir == direction::RIGHT)
-        _snake.insert(_snake.begin(), {GUI::IDisplayModule::color_t::GREEN, 's', _snake[0].x + 1, _snake[0].y});
+        _snake.insert(_snake.begin(), {GUI::IDisplayModule::color_t::GREEN, green, 's', _snake[0].x + 1, _snake[0].y});
     _snake.pop_back();
 }
 
@@ -116,8 +150,9 @@ bool GameSnake::checkCollision()
 
 void GameSnake::eatApple()
 {
+    GUI::IDisplayModule::deltaRGB_t green = {0, 128, 0};
     if (_snake[0].x == _apple[0].x && _snake[0].y == _apple[0].y) {
-        _snake.push_back({GUI::IDisplayModule::color_t::GREEN, 'c', _snake[_snake.size() - 1].x, _snake[_snake.size() - 1].y});
+        _snake.push_back({GUI::IDisplayModule::color_t::GREEN, green, 'c', _snake[_snake.size() - 1].x, _snake[_snake.size() - 1].y});
         _apple.clear();
         initApple();
         _score += 100;
