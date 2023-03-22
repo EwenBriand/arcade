@@ -49,7 +49,7 @@ extern "C" {
 
     void Game::Nibbler::generateApple()
     {
-        unsigned int random = rand() % 49 + 1;
+        int random = rand() % 49 + 1;
 
         for (auto &i : _snake) {
             if (i.x == random && i.y == random) {

@@ -27,7 +27,7 @@ namespace Game
             void generateApple();
             void moveSnake();
             bool checkCollision();
-            bool Game::Nibbler::checkEvent(GUI::IDisplayModule::event_t &event);
+            bool checkEvent(GUI::IDisplayModule::event_t &event);
             void changeDirection(GUI::IDisplayModule::event_t &event);
             void updateScore();
             bool processFrame(std::vector<GUI::IDisplayModule::event_t>) override;

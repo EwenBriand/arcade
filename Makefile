@@ -11,17 +11,9 @@ CCPP    =	g++
 
 LIBALL	=	./lib/lib_sfml.so ./lib/lib_nibbler.so ./lib/lib_snake.so
 
-SRC_GAME 	=	./src/games/test.cpp
-
-SRC_GRAPH 	=	./src/graphicals/test.cpp
-
 SRC_CORE 	=	./src/core/main.cpp
 
 OBJ_CORE  	=	$(SRC_CORE:.cpp=.o)
-
-OBJ_GRAPH   =	$(SRC_GRAPH:.cpp=.o)
-
-OBJ_GAME  	=	$(SRC_GAME:.cpp=.o)
 
 CPPFLAGS =	-W -Wall -Wextra -g3 -I ./include
 
@@ -30,7 +22,8 @@ all:	$(NAME)
 $(NAME):	games graphicals core
 
 clean:
-	rm -f $(OBJ_CORE) $(OBJ_GAME) $(OBJ_GRAPH)
+	$(MAKE) clean -C ./src/games/
+	$(MAKE) clean -C ./src/graphicals/
 
 fclean:	clean
 	rm -f $(NAME) $(LIBALL)
