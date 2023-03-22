@@ -11,7 +11,7 @@
 int main(int argc, char **argv)
 {
     if (argc != 2) {
-        std::cerr << "Usage: ./test [library]" << std::endl;
+        std::cerr << "Usage: ./arcade [library]" << std::endl;
         return 84;
     }
     std::cout << "Loading library..." << std::endl;
