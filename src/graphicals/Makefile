@@ -4,7 +4,7 @@ OBJ_SFML	=	$(SRC_SFML:.c=.o)
 
 MAIN	=	main.c
 
-PLACE	=	../../lib/
+PLACE	=	../../lib/graph/
 
 LIBFLAG	=	-shared -fPIC
 

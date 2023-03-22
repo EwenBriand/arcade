@@ -8,7 +8,7 @@ OBJ_NIB	=	$(SRC_NIB:.c=.o)
 
 MAIN	=	main.c
 
-PLACE	=	../../lib/
+PLACE	=	../../lib/game/
 
 LIBFLAG	=	-shared -fPIC
 

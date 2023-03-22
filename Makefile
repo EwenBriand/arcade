@@ -9,7 +9,7 @@ NAME    =	arcade
 
 CCPP    =	g++
 
-LIBALL	=	./lib/lib_sfml.so ./lib/lib_nibbler.so ./lib/lib_snake.so
+LIBALL	=	./lib/game/* ./lib/graph/*
 
 SRC_CORE 	=
 
