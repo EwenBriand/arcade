@@ -11,7 +11,9 @@ CCPP    =	g++
 
 LIBALL	=	./lib/lib_sfml.so ./lib/lib_nibbler.so ./lib/lib_snake.so
 
-SRC_CORE 	=	./src/core/main.cpp
+SRC_CORE 	=
+
+MAIN	=	main.cpp
 
 OBJ_CORE  	=	$(SRC_CORE:.cpp=.o)
 
@@ -30,11 +32,10 @@ fclean:	clean
 	$(MAKE) fclean -C ./src/games/
 	$(MAKE) fclean -C ./src/graphicals/
 
-
 re:	fclean all
 
 core: $(OBJ_CORE)
-	$(CCPP) -o $(NAME) $(OBJ_CORE) -ldl
+	$(CCPP) $(MAIN) -o $(NAME) $(OBJ_CORE) -ldl
 
 games: $(OBJ_GAME)
 	$(MAKE) -C ./src/games/
