@@ -7,6 +7,9 @@
 
 #include <dlfcn.h>
 #include <iostream>
+#include "IDisplayModule.hpp"
+#include "IGameModule.hpp"
+#include "src/core/Core.hpp"
 
 int main(int argc, char **argv)
 {
@@ -15,12 +18,10 @@ int main(int argc, char **argv)
         return 84;
     }
     std::cout << "Loading library..." << std::endl;
-    void *handle = dlopen(argv[1], RTLD_LAZY);
-    if (!handle) {
-        std::cerr << dlerror() << std::endl;
-        return 84;
-    }
-    std::cout << "Library loaded" << std::endl;
-    dlclose(handle);
+
+    auto core = new CORE::Core(argv[1]);
+    core->launchGame();
+    delete (core);
+
     return 0;
 }

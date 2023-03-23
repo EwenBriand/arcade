@@ -30,7 +30,6 @@ my_snake:	$(OBJ_SNK)
 
 clean:
 	rm -rf *~
-	rm -rf $(OBJ)
 
 fclean: clean
 	rm -f $(NAME)

@@ -11,13 +11,20 @@ CCPP    =	g++
 
 LIBALL	=	./lib/game/* ./lib/graph/*
 
-SRC_CORE 	=
+
+SRC_CORE 	=	src/core/Core.cpp
 
 MAIN	=	main.cpp
+
+CPPFLAGS	=	-I ../../include
 
 OBJ_CORE  	=	$(SRC_CORE:.cpp=.o)
 
 CPPFLAGS =	-W -Wall -Wextra -g3 -I ./include
+
+NFLAGS	=	-lncurses -lmenu
+
+SFLAGS	=	-lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio
 
 all:	$(NAME)
 
@@ -35,7 +42,7 @@ fclean:	clean
 re:	fclean all
 
 core: $(OBJ_CORE)
-	$(CCPP) $(MAIN) -o $(NAME) $(OBJ_CORE) -ldl
+	$(CCPP) $(MAIN) -o $(NAME) $(OBJ_CORE) -ldl $(CPPFLAGS) $(NFLAGS) $(SFLAGS)
 
 games: $(OBJ_GAME)
 	$(MAKE) -C ./src/games/
