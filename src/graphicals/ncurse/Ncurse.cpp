@@ -85,7 +85,7 @@ void GUI::Ncurse::setWindowSize(const int &x, const int &y)
     for (int i = 0; i < x; i++)
         for (int j = 0; j < y; j++)
             _map[i + _mapspecs.posx][j + _mapspecs.posy] = {
-                GUI::IDisplayModule::WHITE, {}, ' ', i, j, "", 0};
+                GUI::IDisplayModule::WHITE, {}, ' ', i, j};
 
     for (int i = 0; i < x; i++) {
         for (int j = 0; j < y; j++)
@@ -154,10 +154,10 @@ void GUI::Ncurse::updatePixels(std::vector<pixel_t> pixels)
             .deltaRGB = pixels[i].deltaRGB;
         _map[pixels[i].x + _mapspecs.posx][pixels[i].y + _mapspecs.posy].repr =
             pixels[i].repr;
-        _map[pixels[i].x + _mapspecs.posx][pixels[i].y + _mapspecs.posy]
-            .spritePath = pixels[i].spritePath;
-        _map[pixels[i].x + _mapspecs.posx][pixels[i].y + _mapspecs.posy]
-            .rotation = pixels[i].rotation;
+        // _map[pixels[i].x + _mapspecs.posx][pixels[i].y + _mapspecs.posy]
+        //     .spritePath = pixels[i].spritePath;
+        // _map[pixels[i].x + _mapspecs.posx][pixels[i].y + _mapspecs.posy]
+        //     .rotation = pixels[i].rotation;
     }
 
     for (int i = 0; i < _mapspecs.pixw; i++) {
@@ -173,7 +173,7 @@ void GUI::Ncurse::setText(std::string label, text_t text)
     _texts[label] = text;
 }
 
-#pragma GCC diagnostic ignored "-Wunused-parameter"
-void GUI::Ncurse::setSprite(char label, std::string path)
-{
-}
+// #pragma GCC diagnostic ignored "-Wunused-parameter"
+// void GUI::Ncurse::setSprite(char label, std::string path)
+// {
+// }

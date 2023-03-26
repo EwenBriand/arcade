@@ -31,7 +31,7 @@ namespace GUI
         virtual void draw() override;
         virtual void updatePixels(std::vector<pixel_t> pixels) override;
         virtual void setText(std::string label, text_t text) override;
-        virtual void setSprite(char label, std::string path) override;
+        // virtual void setSprite(char label, std::string path) override;
 
       private:
         int _units;
