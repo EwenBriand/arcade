@@ -13,6 +13,8 @@
 #include <ncurses.h>
 #include <stddef.h>
 #include <thread>
+#include<unistd.h>
+
 
 CORE::Core::Core(std::string filename)
 {
@@ -84,9 +86,10 @@ void CORE::Core::setGame(std::string &ngame)
     }
 
     _game = entry_point_func();
+    _game->processFrame({});
     std::stringstream ss(ngame);
     while (std::getline(ss, _ngame, '/')) {}
-    dlclose(handle);
+    // dlclose(handle);
 }
 
 std::vector<std::string> CORE::Core::find_so_files(const std::string &path)
@@ -108,41 +111,47 @@ void CORE::Core::launchGame()
     std::vector<std::string> lib_graph = find_so_files("./lib/graph");
     std::cout << _ndisplay << std::endl;
     std::cout << lib_graph[0] << std::endl;
+    _ngame = "./lib/game/" + lib_game[0];
+    setGame(_ngame);
 
     std::cout << "launched" << std::endl;
-    _displays->openWindow(100, 100);
+    _displays->openWindow(1000, 1000);
     _displays->setMapSpecs({10, 10, 10, 10});
     auto status = true;
+    // std::cout << _game << std::endl;
     while (status) {
+
         _displays->clearScr();
+        // for (auto i = 0; i < lib_game.size(); ++i)
+        //     if (lib_game[i] == _ngame)
+        //         _displays->setText(lib_game[i],
+        //             {lib_game[i], 120, 25 + 2 * i, 1,
+        //                 GUI::IDisplayModule::RED});
+        //     else
+        //         _displays->setText(lib_game[i],
+        //             {lib_game[i], 120, 25 + 2 * i, 1,
+        //                 GUI::IDisplayModule::WHITE});
 
-        for (auto i = 0; i < lib_game.size(); ++i)
-            if (lib_game[i] == _ngame)
-                _displays->setText(lib_game[i],
-                    {lib_game[i], 120, 25 + 2 * i, 1,
-                        GUI::IDisplayModule::RED});
-            else
-                _displays->setText(lib_game[i],
-                    {lib_game[i], 120, 25 + 2 * i, 1,
-                        GUI::IDisplayModule::WHITE});
-
-        for (auto i = 0; i < lib_graph.size(); ++i)
-            if (lib_graph[i] == _ndisplay)
-                _displays->setText(lib_graph[i],
-                    {lib_graph[i], 65, 25 + 2 * i, 1,
-                        GUI::IDisplayModule::RED});
-            else
-                _displays->setText(lib_graph[i],
-                    {lib_graph[i], 65, 25 + 2 * i, 1,
-                        GUI::IDisplayModule::WHITE});
-
-        _displays->draw();
+        // for (auto i = 0; i < lib_graph.size(); ++i)
+        //     if (lib_graph[i] == _ndisplay)
+        //         _displays->setText(lib_graph[i],
+        //             {lib_graph[i], 65, 25 + 2 * i, 1,
+        //                 GUI::IDisplayModule::RED});
+        //     else
+        //         _displays->setText(lib_graph[i],
+        //             {lib_graph[i], 65, 25 + 2 * i, 1,
+        //                 GUI::IDisplayModule::WHITE});
 
         event = _displays->pollEvents();
         for (int i = 0; i < event.size(); i++) {
             if (event[i]._name == GUI::IDisplayModule::QUIT)
                 status = false;
         }
+        _game->processFrame(event);
+        // _displays->drawMap(_game->getMap());
+        _displays->updatePixels(_game->getPixels());
+        _displays->draw();
+
         std::this_thread::sleep_until(std::chrono::system_clock::now()
             + std::chrono::milliseconds(1000));
     }

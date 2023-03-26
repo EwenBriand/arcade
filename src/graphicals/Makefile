@@ -22,7 +22,7 @@ NFLAGS	=	-lncurses -lmenu
 
 SFLAGS	=	-lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio
 
-SDLFLAGS	=	-lSDL2 -lSDL2_ttf
+SDLFLAGS	=	-lSDL2 -lSDL2_ttf -lSDL2_mixer
 
 CFLAGS	=	-Wall -Wextra
 

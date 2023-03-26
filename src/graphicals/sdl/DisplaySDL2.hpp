@@ -15,6 +15,7 @@
 #include <vector>
 #include <ctime>
 #include "IDisplayModule.hpp"
+#include <SDL2/SDL_mixer.h>
 
 namespace GUI
 {
@@ -27,9 +28,10 @@ namespace GUI
             SDL_Event _event;
             mapSpecs_t _mapspecs;
             std::map<std::string, text_t> _texts;
-            // std::map<std::string, SDL_MixAudio> _sounds;
+            std::map<std::string, Mix_Music *> _sounds;
             time_t _lastTime;
             TTF_Font *_font;
+            std::vector<pixel_t> _pixels;
         public:
             DisplaySDL2();
             ~DisplaySDL2();

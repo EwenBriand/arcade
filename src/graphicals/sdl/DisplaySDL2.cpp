@@ -18,12 +18,10 @@ extern "C"
 
 GUI::DisplaySDL2::DisplaySDL2()
 {
-    std::cout << "Creating openWindow..." << std::endl;
     SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO | SDL_INIT_EVENTS);
     TTF_Init();
     _font = TTF_OpenFont("assets/fonts/Montserrat-Regular.ttf", 20);
-    if (_font == nullptr)
-        std::cout << "Font not found" << std::endl;
+    Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048);
     _mapspecs = {0, 0, 0, 0};
     _pxpu = 5;
 }
@@ -35,6 +33,7 @@ GUI::DisplaySDL2::~DisplaySDL2()
     TTF_CloseFont(_font);
     closeWindow();
     TTF_Quit();
+    Mix_CloseAudio();
     SDL_Quit();
 }
 
@@ -55,12 +54,15 @@ void GUI::DisplaySDL2::setMapSpecs(mapSpecs_t mapspecs)
 
 void GUI::DisplaySDL2::playSound(const std::string &label, const bool &loop)
 {
-
+    if (loop)
+        Mix_PlayMusic(_sounds[label], -1);
+    else
+        Mix_PlayMusic(_sounds[label], 1);
 }
 
 void GUI::DisplaySDL2::loadSound(const std::string &label, const std::string &path)
 {
-
+    _sounds[label] = Mix_LoadMUS(path.c_str());
 }
 
 void GUI::DisplaySDL2::setWindowSize(const int &w, const int &h)
@@ -120,44 +122,18 @@ void GUI::DisplaySDL2::draw()
         SDL_FreeSurface(surface);
         SDL_DestroyTexture(texture);
     }
+    for (auto pixels : _pixels) {
+        SDL_Rect rect = {pixels.x * _pxpu, pixels.y * _pxpu, _pxpu, _pxpu};
+        SDL_SetRenderDrawColor(_renderer, pixels.deltaRGB.r, pixels.deltaRGB.g, pixels.deltaRGB.b, 0);
+        SDL_RenderFillRect(_renderer, &rect);
+    }
+    SDL_SetRenderDrawColor(_renderer, 0, 0, 0, 255);
     SDL_RenderPresent(_renderer);
 }
 
 void GUI::DisplaySDL2::updatePixels(std::vector<pixel_t> pixels)
 {
-    for (auto &pixel : pixels) {
-        SDL_Rect rect = {pixel.x * _pxpu, pixel.y * _pxpu, _pxpu, _pxpu};
-        switch (pixel.color)
-        {
-        case GUI::IDisplayModule::BLACK:
-            SDL_SetRenderDrawColor(_renderer, 0, 0, 0, 255);
-            break;
-        case GUI::IDisplayModule::WHITE:
-            SDL_SetRenderDrawColor(_renderer, 255, 255, 255, 255);
-            break;
-        case GUI::IDisplayModule::RED:
-            SDL_SetRenderDrawColor(_renderer, 255, 0, 0, 255);
-            break;
-        case GUI::IDisplayModule::GREEN:
-            SDL_SetRenderDrawColor(_renderer, 0, 255, 0, 255);
-            break;
-        case GUI::IDisplayModule::BLUE:
-            SDL_SetRenderDrawColor(_renderer, 0, 0, 255, 255);
-            break;
-        case GUI::IDisplayModule::YELLOW:
-            SDL_SetRenderDrawColor(_renderer, 255, 255, 0, 255);
-            break;
-        case GUI::IDisplayModule::MAGENTA:
-            SDL_SetRenderDrawColor(_renderer, 255, 0, 255, 255);
-            break;
-        case GUI::IDisplayModule::CYAN:
-            SDL_SetRenderDrawColor(_renderer, 0, 255, 255, 255);
-            break;
-        default:
-            break;
-        }
-        SDL_RenderFillRect(_renderer, &rect);
-    }
+    _pixels = pixels;
 }
 
 std::vector<GUI::IDisplayModule::event_t> GUI::DisplaySDL2::pollEvents()
@@ -167,35 +143,34 @@ std::vector<GUI::IDisplayModule::event_t> GUI::DisplaySDL2::pollEvents()
     while (SDL_PollEvent(&_event)) {
         switch (_event.type) {
             case SDL_QUIT:
-                events.push_back({GUI::IDisplayModule::QUIT, (float)difftime(_lastTime, now), {}});
+                events.push_back({GUI::IDisplayModule::QUIT, (float)difftime(_lastTime, now), {}, {}});
                 std::cout << "Closing window..." << std::endl;
                 break;
             case SDL_MOUSEBUTTONDOWN:
-                std::cout << "Mouse click at " << _event.button.x << " " << _event.button.y << std::endl;
                 events.push_back({GUI::IDisplayModule::MOUSE_CLICK, (float)difftime(_lastTime, now), {static_cast<float>(_event.button.x), static_cast<float>(_event.button.y)}, {}});
                 break;
             case SDL_KEYDOWN:
                 switch (_event.key.keysym.sym) {
                     case SDLK_ESCAPE:
-                        events.push_back({GUI::IDisplayModule::QUIT, (float)difftime(_lastTime, now), {}});
+                        events.push_back({GUI::IDisplayModule::QUIT, (float)difftime(_lastTime, now), {}, {}});
                         break;
                     case SDLK_UP:
-                        events.push_back({GUI::IDisplayModule::UP, (float)difftime(_lastTime, now), {}});
+                        events.push_back({GUI::IDisplayModule::UP, (float)difftime(_lastTime, now), {}, {}});
                         break;
                     case SDLK_DOWN:
-                        events.push_back({GUI::IDisplayModule::DOWN, (float)difftime(_lastTime, now), {}});
+                        events.push_back({GUI::IDisplayModule::DOWN, (float)difftime(_lastTime, now), {}, {}});
                         break;
                     case SDLK_LEFT:
-                        events.push_back({GUI::IDisplayModule::LEFT, (float)difftime(_lastTime, now), {}});
+                        events.push_back({GUI::IDisplayModule::LEFT, (float)difftime(_lastTime, now), {}, {}});
                         break;
                     case SDLK_RIGHT:
-                        events.push_back({GUI::IDisplayModule::RIGHT, (float)difftime(_lastTime, now), {}});
+                        events.push_back({GUI::IDisplayModule::RIGHT, (float)difftime(_lastTime, now), {}, {}});
                         break;
                     case SDLK_BACKSPACE:
-                        events.push_back({GUI::IDisplayModule::BACKSPACE, (float)difftime(_lastTime, now), {}});
+                        events.push_back({GUI::IDisplayModule::BACKSPACE, (float)difftime(_lastTime, now), {}, {}});
                         break;
                     default:
-                        events.push_back({GUI::IDisplayModule::KEYCODE, (float)difftime(_lastTime, now), {}});
+                        events.push_back({GUI::IDisplayModule::KEYCODE, (float)difftime(_lastTime, now), {}, {}});
                 }
                 break;
             default:
