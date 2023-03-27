@@ -27,14 +27,20 @@ namespace CORE
         Game::IGameModule *_game;
         std::string _ndisplay = "";
         std::string _ngame = "";
+        std::vector<std::filesystem::path> _so_game;
+        std::vector<std::filesystem::path> _so_graph;
+        int _act_col = 0;
 
       public:
         Core(std::string filename);
         ~Core();
-        void setDisplays(std::string &ndisplay);
-        void setGame(std::string &ngame);
+        void setDisplays(std::string ndisplay);
+        void setGame(std::string ngame);
         void launchGame();
-        std::vector<std::string> find_so_files(const std::string &path);
+        std::vector<std::filesystem::path> find_so_files(
+            const std::string &path);
+        void display_menu();
+        void event_menu(bool &status);
     };
 } // namespace CORE
 
