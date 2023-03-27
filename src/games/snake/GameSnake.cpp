@@ -138,12 +138,14 @@ void Game::GameSnake::moveSnake()
 
 bool Game::GameSnake::checkCollision()
 {
+    int x = _dir == direction::LEFT ? -1 : _dir == direction::RIGHT ? 1 : 0;
+    int y = _dir == direction::UP ? -1 : _dir == direction::DOWN ? 1 : 0;
     for (auto &wall : _wall) {
-        if (wall.x == _snake[0].x && wall.y == _snake[0].y)
+        if (wall.x == (_snake[0].x + x) && wall.y == (_snake[0].y + y))
             return true;
     }
     for (unsigned int i = 1; i < _snake.size(); i++) {
-        if (_snake[0].x == _snake[i].x && _snake[0].y == _snake[i].y)
+        if ((_snake[0].x + x) == _snake[i].x && (_snake[0].y + y) == _snake[i].y)
             return true;
     }
     return false;

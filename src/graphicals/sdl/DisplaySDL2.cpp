@@ -67,12 +67,12 @@ void GUI::DisplaySDL2::loadSound(const std::string &label, const std::string &pa
 
 void GUI::DisplaySDL2::setWindowSize(const int &w, const int &h)
 {
-    SDL_SetWindowSize(_window, w, h);
+    SDL_SetWindowSize(_window, w * _pxpu, h * _pxpu);
 }
 
 void GUI::DisplaySDL2::openWindow(const int &w, const int &h)
 {
-    _window = SDL_CreateWindow("Arcade", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, w, h, SDL_WINDOW_SHOWN);
+    _window = SDL_CreateWindow("Arcade", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, w * _pxpu, h * _pxpu, SDL_WINDOW_SHOWN);
     _renderer = SDL_CreateRenderer(_window, -1, SDL_RENDERER_ACCELERATED);
     SDL_SetRenderDrawColor(_renderer, 0, 0, 0, 255);
 }
@@ -117,7 +117,7 @@ void GUI::DisplaySDL2::draw()
     for (auto texts : _texts) {
         SDL_Surface *surface = TTF_RenderText_Blended(_font, texts.second.str.c_str(), getColor(texts.second.color));
         SDL_Texture *texture = SDL_CreateTextureFromSurface(_renderer, surface);
-        SDL_Rect rect = {texts.second.x * _pxpu, texts.second.y * _pxpu * 3, surface->w, surface->h};
+        SDL_Rect rect = {texts.second.x * _pxpu, texts.second.y * _pxpu, surface->w, surface->h};
         SDL_RenderCopy(_renderer, texture, NULL, &rect);
         SDL_FreeSurface(surface);
         SDL_DestroyTexture(texture);

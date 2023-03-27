@@ -45,7 +45,7 @@ CORE::Core::~Core()
 {
 }
 
-void CORE::Core::setDisplays(std::string &ndisplay)
+void CORE::Core::setDisplays(std::string ndisplay)
 {
     void *handle = dlopen(ndisplay.c_str(), RTLD_LAZY);
     if (!handle) {
@@ -62,13 +62,21 @@ void CORE::Core::setDisplays(std::string &ndisplay)
         return;
     }
 
+    _displays->closeWindow();
     _displays = entry_point_func();
+    _displays->openWindow(100, 100);
+
     std::stringstream ss(ndisplay);
     while (std::getline(ss, _ndisplay, '/')) {}
+    std::cout << "  " << _ndisplay << std::endl;
     dlclose(handle);
+    mvprintw(10, 10, "hello world");
+    _displays->closeWindow();
+    // _displays->clearScr();
+    exit(0);
 }
 
-void CORE::Core::setGame(std::string &ngame)
+void CORE::Core::setGame(std::string ngame)
 {
     void *handle = dlopen(ngame.c_str(), RTLD_LAZY);
     if (!handle) {
@@ -92,66 +100,77 @@ void CORE::Core::setGame(std::string &ngame)
     // dlclose(handle);
 }
 
-std::vector<std::string> CORE::Core::find_so_files(const std::string &path)
+std::vector<std::filesystem::path> CORE::Core::find_so_files(
+    const std::string &path)
 {
-    std::vector<std::string> result;
+    std::vector<std::filesystem::path> result;
+
     for (const auto &entry : std::filesystem::directory_iterator(path)) {
-        // Check if the file has the extension ".so"
         if (entry.path().extension() == ".so") {
-            result.push_back(entry.path().filename().string());
+            result.push_back(entry.path());
         }
     }
     return result;
 }
 
-void CORE::Core::launchGame()
+void CORE::Core::display_menu()
 {
-    std::vector<GUI::IDisplayModule::event_t> event;
-    std::vector<std::string> lib_game = find_so_files("./lib/game");
-    std::vector<std::string> lib_graph = find_so_files("./lib/graph");
+    _so_game = find_so_files("./lib/game");
+    _so_graph = find_so_files("./lib/graph");
     std::cout << _ndisplay << std::endl;
     std::cout << lib_graph[0] << std::endl;
-    _ngame = "./lib/game/" + lib_game[0];
-    setGame(_ngame);
 
     std::cout << "launched" << std::endl;
-    _displays->openWindow(1000, 1000);
+    _displays->openWindow(100, 100);
     _displays->setMapSpecs({10, 10, 10, 10});
     auto status = true;
-    // std::cout << _game << std::endl;
     while (status) {
-
         _displays->clearScr();
-        // for (auto i = 0; i < lib_game.size(); ++i)
-        //     if (lib_game[i] == _ngame)
-        //         _displays->setText(lib_game[i],
-        //             {lib_game[i], 120, 25 + 2 * i, 1,
-        //                 GUI::IDisplayModule::RED});
-        //     else
-        //         _displays->setText(lib_game[i],
-        //             {lib_game[i], 120, 25 + 2 * i, 1,
-        //                 GUI::IDisplayModule::WHITE});
 
-        // for (auto i = 0; i < lib_graph.size(); ++i)
-        //     if (lib_graph[i] == _ndisplay)
-        //         _displays->setText(lib_graph[i],
-        //             {lib_graph[i], 65, 25 + 2 * i, 1,
-        //                 GUI::IDisplayModule::RED});
-        //     else
-        //         _displays->setText(lib_graph[i],
-        //             {lib_graph[i], 65, 25 + 2 * i, 1,
-        //                 GUI::IDisplayModule::WHITE});
+        for (auto i = 0; i < lib_game.size(); ++i)
+            if (lib_game[i] == _ngame)
+                _displays->setText(lib_game[i],
+                    {lib_game[i], 120, 25 + 2 * i, 1,
+                        GUI::IDisplayModule::RED});
+            else
+                _displays->setText(lib_game[i],
+                    {lib_game[i], 120, 25 + 2 * i, 1,
+                        GUI::IDisplayModule::WHITE});
 
-        event = _displays->pollEvents();
-        for (int i = 0; i < event.size(); i++) {
-            if (event[i]._name == GUI::IDisplayModule::QUIT)
-                status = false;
-        }
-        _game->processFrame(event);
-        // _displays->drawMap(_game->getMap());
-        _displays->updatePixels(_game->getPixels());
+        for (auto i = 0; i < lib_graph.size(); ++i)
+            if (lib_graph[i] == _ndisplay)
+                _displays->setText(lib_graph[i],
+                    {lib_graph[i], 65, 25 + 2 * i, 1,
+                        GUI::IDisplayModule::RED});
+            else
+                _displays->setText(lib_graph[i],
+                    {lib_graph[i], 65, 25 + 2 * i, 1,
+                        GUI::IDisplayModule::WHITE});
+
         _displays->draw();
 
+    for (int i = 0; i < (int) event.size(); i++) {
+        if (event[i]._name == GUI::IDisplayModule::QUIT)
+            status = false;
+
+        if (event[i]._name == GUI::IDisplayModule::DOWN) {
+            if (_act_col == 0 && act_d != (int) _so_graph.size() - 1) {
+                setDisplays(_so_graph[act_d + 1].string());
+                // _ndisplay = _so_graph[act_d + 1].filename().string();
+            } else if (act_g != (int) _so_game.size() - 1)
+                setGame(_so_game[act_g + 1].string());
+            // _ngame = _so_game[act_g + 1].filename().string();
+        }
+
+        if (event[i]._name == GUI::IDisplayModule::UP) {
+            if (_act_col == 0 && act_d != 0) {
+                setDisplays(_so_graph[act_d - 1].string());
+                // _ndisplay = _so_graph[act_d - 1].filename().string();
+            } else if (act_g != 0) {
+                setGame(_so_game[act_g - 1].string());
+                // _ngame = _so_game[act_g - 1].filename().string();
+            }
+        }
         std::this_thread::sleep_until(std::chrono::system_clock::now()
             + std::chrono::milliseconds(1000));
     }
