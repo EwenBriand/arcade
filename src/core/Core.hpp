@@ -20,7 +20,6 @@ typedef Game::IGameModule *(*entry_point_game)();
 
 namespace CORE
 {
-
     class Core {
       private:
         GUI::IDisplayModule *_displays;
@@ -30,6 +29,9 @@ namespace CORE
         std::vector<std::filesystem::path> _so_game;
         std::vector<std::filesystem::path> _so_graph;
         int _act_col = 0;
+        void *_handle_d = nullptr;
+        void *_handle_g = nullptr;
+        std::map<std::string, GUI::IDisplayModule::text_t> _texts;
 
       public:
         Core(std::string filename);
@@ -40,7 +42,9 @@ namespace CORE
         std::vector<std::filesystem::path> find_so_files(
             const std::string &path);
         void display_menu();
-        void event_menu(bool &status);
+        void event_menu(bool &status, bool &ok);
+        void start_game();
+        void clear_text();
     };
 } // namespace CORE
 

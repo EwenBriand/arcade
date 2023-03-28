@@ -26,6 +26,7 @@ GUI::Ncurse::Ncurse()
 
 GUI::Ncurse::~Ncurse()
 {
+    std::cout << "Destroying openWindow..." << std::endl;
 }
 
 void GUI::Ncurse::setUnits(const int &pxpu)
@@ -44,6 +45,7 @@ void GUI::Ncurse::setMapSpecs(mapSpecs_t mapspecs)
     _mapspecs.pixw = mapspecs.pixw;
     _mapspecs.posx = mapspecs.posx;
     _mapspecs.posy = mapspecs.posy;
+    setWindowSize(mapspecs.pixw, mapspecs.pixh);
 }
 
 std::vector<GUI::IDisplayModule::event_t> GUI::Ncurse::pollEvents()
@@ -58,7 +60,7 @@ std::vector<GUI::IDisplayModule::event_t> GUI::Ncurse::pollEvents()
         case KEY_DOWN: event._name = GUI::IDisplayModule::DOWN; break;
         case KEY_LEFT: event._name = GUI::IDisplayModule::LEFT; break;
         case KEY_RIGHT: event._name = GUI::IDisplayModule::RIGHT; break;
-        case KEY_ENTER: event._name = GUI::IDisplayModule::ENTER; break;
+        case 's': event._name = GUI::IDisplayModule::ENTER; break;
         case 27: event._name = GUI::IDisplayModule::QUIT; break;
         default:
             event._name = GUI::IDisplayModule::KEYCODE;
@@ -85,7 +87,7 @@ void GUI::Ncurse::setWindowSize(const int &x, const int &y)
     for (int i = 0; i < x; i++)
         for (int j = 0; j < y; j++)
             _map[i + _mapspecs.posx][j + _mapspecs.posy] = {
-                GUI::IDisplayModule::WHITE, {}, ' ', i, j};
+                GUI::IDisplayModule::WHITE, {}, ' ', i, j, "", 0};
 
     for (int i = 0; i < x; i++) {
         for (int j = 0; j < y; j++)
@@ -98,7 +100,6 @@ void GUI::Ncurse::setWindowSize(const int &x, const int &y)
 #pragma GCC diagnostic ignored "-Wunused-parameter"
 void GUI::Ncurse::openWindow(const int &w, const int &h)
 {
-    setWindowSize(w, h);
     initscr();
     curs_set(0);
     raw();
@@ -124,6 +125,9 @@ void GUI::Ncurse::closeWindow()
 
 void GUI::Ncurse::clearScr()
 {
+    for (int i = 0; i < (int) _map[0].size(); i++)
+        for (int j = 0; j < (int) _map.size(); j++)
+            _map[i][j].repr = ' ';
     clear();
 }
 
@@ -154,10 +158,10 @@ void GUI::Ncurse::updatePixels(std::vector<pixel_t> pixels)
             .deltaRGB = pixels[i].deltaRGB;
         _map[pixels[i].x + _mapspecs.posx][pixels[i].y + _mapspecs.posy].repr =
             pixels[i].repr;
-        // _map[pixels[i].x + _mapspecs.posx][pixels[i].y + _mapspecs.posy]
-        //     .spritePath = pixels[i].spritePath;
-        // _map[pixels[i].x + _mapspecs.posx][pixels[i].y + _mapspecs.posy]
-        //     .rotation = pixels[i].rotation;
+        _map[pixels[i].x + _mapspecs.posx][pixels[i].y + _mapspecs.posy]
+            .spritePath = pixels[i].spritePath;
+        _map[pixels[i].x + _mapspecs.posx][pixels[i].y + _mapspecs.posy]
+            .rotation = pixels[i].rotation;
     }
 
     for (int i = 0; i < _mapspecs.pixw; i++) {
@@ -173,7 +177,7 @@ void GUI::Ncurse::setText(std::string label, text_t text)
     _texts[label] = text;
 }
 
-// #pragma GCC diagnostic ignored "-Wunused-parameter"
-// void GUI::Ncurse::setSprite(char label, std::string path)
-// {
-// }
+#pragma GCC diagnostic ignored "-Wunused-parameter"
+void GUI::Ncurse::setSprite(char label, std::string path)
+{
+}
