@@ -60,14 +60,12 @@ std::vector<GUI::IDisplayModule::event_t> GUI::Ncurse::pollEvents()
         case KEY_DOWN: event._name = GUI::IDisplayModule::DOWN; break;
         case KEY_LEFT: event._name = GUI::IDisplayModule::LEFT; break;
         case KEY_RIGHT: event._name = GUI::IDisplayModule::RIGHT; break;
-        case 's': event._name = GUI::IDisplayModule::ENTER; break;
+        case KEY_ENTER: event._name = GUI::IDisplayModule::ENTER; break;
         case 27: event._name = GUI::IDisplayModule::QUIT; break;
-        default:
-            event._name = GUI::IDisplayModule::KEYCODE;
-            event._ivalues = std::vector<int>(1, touch);
-            break;
+        default: event._name = GUI::IDisplayModule::KEYCODE; break;
     }
 
+    event._ivalues = std::vector<int>(1, touch);
     events.push_back(event);
     return events;
 }

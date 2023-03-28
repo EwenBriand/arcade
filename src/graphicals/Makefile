@@ -28,7 +28,7 @@ CFLAGS	=	-Wall -Wextra
 
 NAME	=
 
-all:	my_ncurses
+all:	my_ncurses my_sdl
 
 my_sfml:	$(OBJ_SFML)
 	g++ -o ./lib_sfml.so $(LIBFLAG) $(OBJ_SFML) $(CPPFLAGS) $(CFLAGS) $(SFLAGS)

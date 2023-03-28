@@ -15,7 +15,6 @@ extern "C"
     };
 }
 
-
 GUI::DisplaySDL2::DisplaySDL2()
 {
     SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO | SDL_INIT_EVENTS);
@@ -60,7 +59,8 @@ void GUI::DisplaySDL2::playSound(const std::string &label, const bool &loop)
         Mix_PlayMusic(_sounds[label], 1);
 }
 
-void GUI::DisplaySDL2::loadSound(const std::string &label, const std::string &path)
+void GUI::DisplaySDL2::loadSound(
+    const std::string &label, const std::string &path)
 {
     _sounds[label] = Mix_LoadMUS(path.c_str());
 }
@@ -72,7 +72,8 @@ void GUI::DisplaySDL2::setWindowSize(const int &w, const int &h)
 
 void GUI::DisplaySDL2::openWindow(const int &w, const int &h)
 {
-    _window = SDL_CreateWindow("Arcade", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, w * _pxpu, h * _pxpu, SDL_WINDOW_SHOWN);
+    _window = SDL_CreateWindow("Arcade", SDL_WINDOWPOS_CENTERED,
+        SDL_WINDOWPOS_CENTERED, w * _pxpu, h * _pxpu, SDL_WINDOW_SHOWN);
     _renderer = SDL_CreateRenderer(_window, -1, SDL_RENDERER_ACCELERATED);
     SDL_SetRenderDrawColor(_renderer, 0, 0, 0, 255);
 }
@@ -89,42 +90,36 @@ void GUI::DisplaySDL2::clearScr()
 
 SDL_Color GUI::DisplaySDL2::getColor(const color_t &color) const
 {
-    switch (color)
-    {
-    case GUI::IDisplayModule::BLACK:
-        return {0, 0, 0, 255};
-    case GUI::IDisplayModule::WHITE:
-        return {255, 255, 255, 255};
-    case GUI::IDisplayModule::RED:
-        return {255, 0, 0, 255};
-    case GUI::IDisplayModule::GREEN:
-        return {0, 255, 0, 255};
-    case GUI::IDisplayModule::BLUE:
-        return {0, 0, 255, 255};
-    case GUI::IDisplayModule::YELLOW:
-        return {255, 255, 0, 255};
-    case GUI::IDisplayModule::MAGENTA:
-        return {255, 0, 255, 255};
-    case GUI::IDisplayModule::CYAN:
-        return {0, 255, 255, 255};
-    default:
-        return {0, 0, 0, 255};
+    switch (color) {
+        case GUI::IDisplayModule::BLACK: return {0, 0, 0, 255};
+        case GUI::IDisplayModule::WHITE: return {255, 255, 255, 255};
+        case GUI::IDisplayModule::RED: return {255, 0, 0, 255};
+        case GUI::IDisplayModule::GREEN: return {0, 255, 0, 255};
+        case GUI::IDisplayModule::BLUE: return {0, 0, 255, 255};
+        case GUI::IDisplayModule::YELLOW: return {255, 255, 0, 255};
+        case GUI::IDisplayModule::MAGENTA: return {255, 0, 255, 255};
+        case GUI::IDisplayModule::CYAN: return {0, 255, 255, 255};
+        default: return {0, 0, 0, 255};
     }
 }
 
 void GUI::DisplaySDL2::draw()
 {
     for (auto texts : _texts) {
-        SDL_Surface *surface = TTF_RenderText_Blended(_font, texts.second.str.c_str(), getColor(texts.second.color));
-        SDL_Texture *texture = SDL_CreateTextureFromSurface(_renderer, surface);
-        SDL_Rect rect = {texts.second.x * _pxpu, texts.second.y * _pxpu, surface->w, surface->h};
+        SDL_Surface *surface = TTF_RenderText_Blended(
+            _font, texts.second.str.c_str(), getColor(texts.second.color));
+        SDL_Texture *texture =
+            SDL_CreateTextureFromSurface(_renderer, surface);
+        SDL_Rect rect = {texts.second.x * _pxpu, texts.second.y * _pxpu,
+            surface->w, surface->h};
         SDL_RenderCopy(_renderer, texture, NULL, &rect);
         SDL_FreeSurface(surface);
         SDL_DestroyTexture(texture);
     }
     for (auto pixels : _pixels) {
         SDL_Rect rect = {pixels.x * _pxpu, pixels.y * _pxpu, _pxpu, _pxpu};
-        SDL_SetRenderDrawColor(_renderer, pixels.deltaRGB.r, pixels.deltaRGB.g, pixels.deltaRGB.b, 0);
+        SDL_SetRenderDrawColor(_renderer, pixels.deltaRGB.r, pixels.deltaRGB.g,
+            pixels.deltaRGB.b, 0);
         SDL_RenderFillRect(_renderer, &rect);
     }
     SDL_SetRenderDrawColor(_renderer, 0, 0, 0, 255);
@@ -143,38 +138,53 @@ std::vector<GUI::IDisplayModule::event_t> GUI::DisplaySDL2::pollEvents()
     while (SDL_PollEvent(&_event)) {
         switch (_event.type) {
             case SDL_QUIT:
-                events.push_back({GUI::IDisplayModule::QUIT, (float)difftime(_lastTime, now), {}, {}});
+                events.push_back({GUI::IDisplayModule::QUIT,
+                    (float) difftime(_lastTime, now), {}, {}});
                 std::cout << "Closing window..." << std::endl;
                 break;
             case SDL_MOUSEBUTTONDOWN:
-                events.push_back({GUI::IDisplayModule::MOUSE_CLICK, (float)difftime(_lastTime, now), {static_cast<float>(_event.button.x), static_cast<float>(_event.button.y)}, {}});
+                events.push_back({GUI::IDisplayModule::MOUSE_CLICK,
+                    (float) difftime(_lastTime, now),
+                    {static_cast<float>(_event.button.x),
+                        static_cast<float>(_event.button.y)},
+                    {}});
                 break;
             case SDL_KEYDOWN:
                 switch (_event.key.keysym.sym) {
                     case SDLK_ESCAPE:
-                        events.push_back({GUI::IDisplayModule::QUIT, (float)difftime(_lastTime, now), {}, {}});
+                        events.push_back({GUI::IDisplayModule::QUIT,
+                            (float) difftime(_lastTime, now), {}, {}});
                         break;
                     case SDLK_UP:
-                        events.push_back({GUI::IDisplayModule::UP, (float)difftime(_lastTime, now), {}, {}});
+                        events.push_back({GUI::IDisplayModule::UP,
+                            (float) difftime(_lastTime, now), {}, {}});
                         break;
                     case SDLK_DOWN:
-                        events.push_back({GUI::IDisplayModule::DOWN, (float)difftime(_lastTime, now), {}, {}});
+                        events.push_back({GUI::IDisplayModule::DOWN,
+                            (float) difftime(_lastTime, now), {}, {}});
                         break;
                     case SDLK_LEFT:
-                        events.push_back({GUI::IDisplayModule::LEFT, (float)difftime(_lastTime, now), {}, {}});
+                        events.push_back({GUI::IDisplayModule::LEFT,
+                            (float) difftime(_lastTime, now), {}, {}});
                         break;
                     case SDLK_RIGHT:
-                        events.push_back({GUI::IDisplayModule::RIGHT, (float)difftime(_lastTime, now), {}, {}});
+                        events.push_back({GUI::IDisplayModule::RIGHT,
+                            (float) difftime(_lastTime, now), {}, {}});
                         break;
                     case SDLK_BACKSPACE:
-                        events.push_back({GUI::IDisplayModule::BACKSPACE, (float)difftime(_lastTime, now), {}, {}});
+                        events.push_back({GUI::IDisplayModule::BACKSPACE,
+                            (float) difftime(_lastTime, now), {}, {}});
+                        break;
+                    case SDLK_RETURN:
+                        events.push_back({GUI::IDisplayModule::ENTER,
+                            (float) difftime(_lastTime, now), {}, {}});
                         break;
                     default:
-                        events.push_back({GUI::IDisplayModule::KEYCODE, (float)difftime(_lastTime, now), {}, {}});
+                        events.push_back({GUI::IDisplayModule::KEYCODE,
+                            (float) difftime(_lastTime, now), {}, {}});
                 }
                 break;
-            default:
-                break;
+            default: break;
         }
     }
     return events;
@@ -183,4 +193,9 @@ std::vector<GUI::IDisplayModule::event_t> GUI::DisplaySDL2::pollEvents()
 void GUI::DisplaySDL2::setText(std::string label, text_t text)
 {
     _texts[label] = text;
+}
+
+#pragma GCC diagnostic ignored "-Wunused-parameter"
+void GUI::DisplaySDL2::setSprite(char label, std::string path)
+{
 }

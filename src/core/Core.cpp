@@ -73,7 +73,7 @@ void CORE::Core::setDisplays(std::string ndisplay)
     }
 
     _displays = entry_point_func();
-    _displays->openWindow(100, 100);
+    _displays->openWindow(1000, 1000);
 
     std::stringstream ss(ndisplay);
     while (std::getline(ss, _ndisplay, '/')) {}
@@ -157,6 +157,9 @@ void CORE::Core::display_menu()
 
 void CORE::Core::clear_text()
 {
+    auto last = _texts.begin();
+    last->second.str = "";
+    _displays->setText(last->first, last->second);
     for (auto i : _texts) {
         i.second.str = "";
         _displays->setText(i.first, i.second);
@@ -167,9 +170,6 @@ void CORE::Core::start_game()
 {
     auto event = _displays->pollEvents();
     auto text = _game->getTexts();
-    // _displays->setText(
-    //     "hello", {"hello", 120, 10, 1, GUI::IDisplayModule::RED});
-    _texts[_ndisplay].str = "";
 
     clear_text();
     _displays->clearScr();
@@ -181,7 +181,7 @@ void CORE::Core::start_game()
         _displays->updatePixels(_game->getPixels());
         text = _game->getTexts();
         for (auto i = 0; i < (int) text.size(); ++i) {
-            _displays->setText(text[i].str, text[i]);
+            _displays->setText("label" + ('0' + i), text[i]);
             _texts[text[i].str] = text[i];
         }
 
@@ -192,11 +192,6 @@ void CORE::Core::start_game()
     }
     _displays->clearScr();
     clear_text();
-    _displays->setText(
-        "hello", {"hello IT'S FINISH", 120, 10, 1, GUI::IDisplayModule::RED});
-    _texts["hello"] = {
-        "hello IT'S FINISH", 120, 10, 1, GUI::IDisplayModule::RED};
-    _displays->draw();
 }
 
 void CORE::Core::event_menu(bool &status, bool &ok)
@@ -217,10 +212,10 @@ void CORE::Core::event_menu(bool &status, bool &ok)
         if (event[i]._name == GUI::IDisplayModule::QUIT)
             status = false;
 
-        if (event[i]._name == GUI::IDisplayModule::ENTER) {
+        if (event[i]._ivalues[0] == 's') {
             start_game();
-            ok = true;
-            exit(0);
+            setGame(_ngame);
+            event = _displays->pollEvents();
         }
 
         if (event[i]._name == GUI::IDisplayModule::DOWN) {
@@ -261,7 +256,7 @@ void CORE::Core::launchGame()
     std::cout << _ndisplay << std::endl;
 
     std::cout << "launched" << std::endl;
-    _displays->openWindow(100, 100);
+    _displays->openWindow(1000, 1000);
     _displays->setMapSpecs({10, 10, 10, 10});
     auto status = true;
     auto ok = false;
