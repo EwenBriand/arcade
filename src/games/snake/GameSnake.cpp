@@ -62,6 +62,8 @@ std::vector<GUI::IDisplayModule::pixel_t> Game::GameSnake::getPixels()
 
 std::vector<GUI::IDisplayModule::text_t> Game::GameSnake::getTexts()
 {
+    _texts.clear();
+    _texts.push_back({"Score: " + std::to_string(_score), 71, 0, 18, GUI::IDisplayModule::color_t::WHITE});
     return _texts;
 }
 
@@ -92,21 +94,25 @@ void Game::GameSnake::changeDirection(GUI::IDisplayModule::event_t &event)
     if (event._name == GUI::IDisplayModule::bindingType_t::UP) {
         if (_dir == direction::DOWN || _dir == direction::UP)
             return;
+        _texts.push_back({"UP", 71, 5, 18, GUI::IDisplayModule::color_t::WHITE});
         _dir = direction::UP;
     }
     if (event._name == GUI::IDisplayModule::bindingType_t::DOWN) {
         if (_dir == direction::UP || _dir == direction::DOWN)
             return;
+        _texts.push_back({"DOWN", 71, 5, 18, GUI::IDisplayModule::color_t::WHITE});
         _dir = direction::DOWN;
     }
     if (event._name == GUI::IDisplayModule::bindingType_t::LEFT) {
         if (_dir == direction::RIGHT || _dir == direction::LEFT)
             return;
+        _texts.push_back({"LEFT", 71, 5, 18, GUI::IDisplayModule::color_t::WHITE});
         _dir = direction::LEFT;
     }
     if (event._name == GUI::IDisplayModule::bindingType_t::RIGHT) {
         if (_dir == direction::LEFT || _dir == direction::RIGHT)
             return;
+        _texts.push_back({"RIGHT", 71, 5, 18, GUI::IDisplayModule::color_t::WHITE});
         _dir = direction::RIGHT;
     }
 }
