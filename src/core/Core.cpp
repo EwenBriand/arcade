@@ -190,13 +190,13 @@ void CORE::Core::start_game()
         text = _game->getTexts();
         for (auto i = 0; i < (int) text.size(); ++i) {
             _displays->setText("label" + ('0' + i), text[i]);
-            _texts.push_back("label" + ('0' + i));
+            addIfNotPresent("label" + ('0' + i));
         }
 
         _displays->draw();
         event = _displays->pollEvents();
         std::this_thread::sleep_until(
-            std::chrono::system_clock::now() + std::chrono::milliseconds(500));
+            std::chrono::system_clock::now() + std::chrono::milliseconds(400));
     }
     _displays->clearScr();
     clear_text();
@@ -222,7 +222,6 @@ void CORE::Core::event_menu(bool &status)
 
         if (event[i]._name == GUI::IDisplayModule::ENTER) {
             start_game();
-            // resetGame();
             setGame("lib/game/" + _ngame);
             event = _displays->pollEvents();
             break;
