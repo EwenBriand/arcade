@@ -87,6 +87,7 @@ void GUI::DisplaySDL2::closeWindow()
 void GUI::DisplaySDL2::clearScr()
 {
     SDL_RenderClear(_renderer);
+    _pixels.clear();
 }
 
 SDL_Color GUI::DisplaySDL2::getColor(const color_t &color) const

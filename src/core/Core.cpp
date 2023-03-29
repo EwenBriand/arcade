@@ -233,6 +233,7 @@ void CORE::Core::event_menu(bool &status)
             // resetGame();
             setGame("lib/game/" + _ngame);
             event = _displays->pollEvents();
+            break;
         }
 
         if (event[i]._name == GUI::IDisplayModule::DOWN) {
