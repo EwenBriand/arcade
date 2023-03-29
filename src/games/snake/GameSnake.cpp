@@ -55,12 +55,12 @@ void Game::GameSnake::initWall()
 void Game::GameSnake::initApple()
 {
     GUI::IDisplayModule::deltaRGB_t red = {255, 0, 0};
-    int randomx = rand() % 47 + 6;
-    int randomy = rand() % 47 + 6;
+    int randomx = 6 + (rand() % 43);
+    int randomy = 6 + (rand() % 43);
     for (auto &i : _snake) {
         if (i.x == randomx && i.y == randomy) {
-            randomx = rand() % 47 + 6;
-            randomy = rand() % 47 + 6;
+            randomx = 6 + (rand() % 43);
+            randomy = 6 + (rand() % 43);
             i = _snake[0];
         }
     }
