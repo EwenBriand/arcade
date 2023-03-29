@@ -37,6 +37,8 @@ CORE::Core::Core(std::string filename)
 
     while (std::getline(ss, _ndisplay, '/')) {}
     std::cout << "  " << _ndisplay << std::endl;
+    _displays->openWindow(400, 400);
+    _displays->setMapSpecs({10, 10, 10, 10});
 }
 
 CORE::Core::~Core()
