@@ -14,6 +14,7 @@
 #include <SFML/Audio.hpp>
 
 #include <ctime>
+#include <map>
 
 #define MOUSE_LEFT 0
 #define MOUSE_RIGHT 1
@@ -48,14 +49,17 @@ namespace GUI
             void draw();
             void updatePixels(std::vector<pixel_t> pixels) override;
             void setText(std::string label, text_t text) override;
+            void setSprite(char label, std::string path) override;
 
         private:
             int _pxpu;
             sf::RenderWindow _windows;
             sf::Event _event;
             mapSpecs_t _mapspecs;
-            std::vector<std::pair<std::string, sf::Sound>> _sounds;
-            std::vector<std::pair<std::string, sf::Text>> _texts;
+            std::map<std::string, sf::Sound> _sounds;
+            std::map<std::string, text_t> _texts;
+            sf::Font _font;
             std::time_t _start_time;
+            std::vector<pixel_t> _pixels;
     };
 }
