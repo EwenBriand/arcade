@@ -170,16 +170,16 @@ std::vector<GUI::IDisplayModule::event_t> GUI::DisplaySDL2::pollEvents()
                         break;
                     case SDLK_RIGHT:
                         events.push_back({GUI::IDisplayModule::RIGHT,
-                            (float) difftime(_lastTime, now),  {0}, {0}});
+                            (float) difftime(_lastTime, now), {0}, {0}});
                         break;
                     case SDLK_BACKSPACE:
                         events.push_back({GUI::IDisplayModule::BACKSPACE,
                             (float) difftime(_lastTime, now), {0}, {0}});
                         break;
-                    // case :
-                    //     events.push_back({GUI::IDisplayModule::ENTER,
-                    //         (float) difftime(_lastTime, now), {}, {}});
-                    //     break;
+                    case 13:
+                        events.push_back({GUI::IDisplayModule::ENTER,
+                            (float) difftime(_lastTime, now), {}, {}});
+                        break;
                     default:
                         events.push_back({GUI::IDisplayModule::KEYCODE,
                             (float) difftime(_lastTime, now), {0}, {0}});

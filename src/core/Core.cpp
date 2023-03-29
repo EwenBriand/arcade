@@ -160,9 +160,8 @@ void CORE::Core::display_menu()
 
 void CORE::Core::clear_text()
 {
-    auto last = _texts.begin();
-    last->second.str = "";
-    _displays->setText(last->first, last->second);
+    _texts[_ndisplay].str = "";
+    _displays->setText(_ndisplay, _texts[_ndisplay]);
     for (auto i : _texts) {
         _texts[i.first].str = "";
         _displays->setText(i.first, i.second);
@@ -215,7 +214,7 @@ void CORE::Core::event_menu(bool &status)
         if (event[i]._name == GUI::IDisplayModule::QUIT)
             status = false;
 
-        if (event[i]._ivalues[0] == 's') {
+        if (event[i]._name == GUI::IDisplayModule::ENTER) {
             start_game();
             setGame(_ngame);
             event = _displays->pollEvents();
@@ -260,7 +259,7 @@ void CORE::Core::launchGame()
     std::cout << _ndisplay << std::endl;
 
     std::cout << "launched" << std::endl;
-    _displays->openWindow(1000, 1000);
+    _displays->openWindow(500, 1000);
     _displays->setMapSpecs({10, 10, 10, 10});
     auto status = true;
     while (status) {
