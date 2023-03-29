@@ -183,3 +183,18 @@ GUI::IDisplayModule::mapSpecs_t Game::Nibbler::getMapSpecs()
 {
     return _mapspecs;
 }
+
+std::vector<GUI::IDisplayModule::pixel_t> Game::Nibbler::getPixels()
+{
+    std::vector<GUI::IDisplayModule::pixel_t> pixels;
+    pixels.insert(pixels.end(), _snake.begin(), _snake.end());
+    pixels.insert(pixels.end(), _wall.begin(), _wall.end());
+    pixels.insert(pixels.end(), _apple.begin(), _apple.end());
+    return pixels;
+}
+
+std::vector<std::string> Game::Nibbler::getSounds()
+{
+    std::vector<std::string> sounds;
+    return sounds;
+}
