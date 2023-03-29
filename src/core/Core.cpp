@@ -74,11 +74,12 @@ void CORE::Core::setDisplays(std::string ndisplay)
     }
 
     _displays = entry_point_func();
-    _displays->openWindow(1000, 1000);
+    _displays->openWindow(400, 400);
 
     std::stringstream ss(ndisplay);
     while (std::getline(ss, _ndisplay, '/')) {}
     std::cout << "  " << _ndisplay << std::endl;
+    _displays->setUnits(10);
 }
 
 void CORE::Core::setGame(std::string ngame)
@@ -275,7 +276,7 @@ void CORE::Core::launchGame()
     std::cout << _ndisplay << std::endl;
 
     std::cout << "launched" << std::endl;
-    _displays->openWindow(500, 1000);
+    _displays->openWindow(400, 400);
     _displays->setMapSpecs({10, 10, 10, 10});
     auto status = true;
     while (status) {
