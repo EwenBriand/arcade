@@ -53,15 +53,16 @@ CORE::Core::~Core()
 
 void CORE::Core::setDisplays(std::string ndisplay)
 {
-    _displays->closeWindow();
-    delete _displays;
-    dlclose(_handle_d);
-
-    _handle_d = dlopen(ndisplay.c_str(), RTLD_LAZY);
-    if (!_handle_d) {
+    void *handle = dlopen(ndisplay.c_str(), RTLD_LAZY);
+    if (!handle) {
         std::cerr << dlerror() << std::endl;
         return;
     }
+
+    _displays->closeWindow();
+    delete _displays;
+    dlclose(_handle_d);
+    _handle_d = handle;
 
     entry_point_display entry_point_func =
         (entry_point_display) dlsym(_handle_d, "entry_point");
@@ -82,15 +83,17 @@ void CORE::Core::setDisplays(std::string ndisplay)
 
 void CORE::Core::setGame(std::string ngame)
 {
+    void *handle = dlopen(ngame.c_str(), RTLD_LAZY);
+    if (!handle) {
+        std::cerr << dlerror() << std::endl;
+        return;
+    }
+
     if (_handle_g != nullptr) {
         delete _game;
         dlclose(_handle_g);
     }
-    _handle_g = dlopen(ngame.c_str(), RTLD_LAZY);
-    if (!_handle_g) {
-        std::cerr << dlerror() << std::endl;
-        return;
-    }
+    _handle_g = handle;
 
     entry_point_game entry_point_func =
         (entry_point_game) dlsym(_handle_g, "entry_point");
@@ -161,7 +164,7 @@ void CORE::Core::clear_text()
     last->second.str = "";
     _displays->setText(last->first, last->second);
     for (auto i : _texts) {
-        i.second.str = "";
+        _texts[i.first].str = "";
         _displays->setText(i.first, i.second);
     }
 }
@@ -182,7 +185,7 @@ void CORE::Core::start_game()
         text = _game->getTexts();
         for (auto i = 0; i < (int) text.size(); ++i) {
             _displays->setText("label" + ('0' + i), text[i]);
-            _texts[text[i].str] = text[i];
+            _texts["label" + ('0' + i)] = text[i];
         }
 
         _displays->draw();
@@ -194,7 +197,7 @@ void CORE::Core::start_game()
     clear_text();
 }
 
-void CORE::Core::event_menu(bool &status, bool &ok)
+void CORE::Core::event_menu(bool &status)
 {
     auto event = _displays->pollEvents();
     int act_g = 0;
@@ -259,18 +262,17 @@ void CORE::Core::launchGame()
     _displays->openWindow(1000, 1000);
     _displays->setMapSpecs({10, 10, 10, 10});
     auto status = true;
-    auto ok = false;
     while (status) {
-        if (ok == true) {
-            display_menu();
-        } else {
-            display_menu();
-            event_menu(status, ok);
-            std::this_thread::sleep_until(std::chrono::system_clock::now()
-                + std::chrono::milliseconds(500));
-        }
+        display_menu();
+        event_menu(status);
+        std::this_thread::sleep_until(
+            std::chrono::system_clock::now() + std::chrono::milliseconds(500));
     }
     std::cout << "running" << std::endl;
 
     _displays->closeWindow();
 }
+
+// sdl input PT
+// finir + relancer le jeux PT
+// tout les texts ne sont pas refresh

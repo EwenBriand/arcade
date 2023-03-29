@@ -42,7 +42,7 @@ namespace CORE
         std::vector<std::filesystem::path> find_so_files(
             const std::string &path);
         void display_menu();
-        void event_menu(bool &status, bool &ok);
+        void event_menu(bool &status);
         void start_game();
         void clear_text();
     };
