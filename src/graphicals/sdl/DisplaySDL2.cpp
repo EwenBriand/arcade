@@ -20,19 +20,20 @@ GUI::DisplaySDL2::DisplaySDL2()
     SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO | SDL_INIT_EVENTS);
     TTF_Init();
     _font = TTF_OpenFont("assets/fonts/Montserrat-Regular.ttf", 20);
-    Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048);
+    // Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048);
     _mapspecs = {0, 0, 0, 0};
     _pxpu = 5;
 }
 
 GUI::DisplaySDL2::~DisplaySDL2()
 {
+    std::cout << "Destroying openWindow..." << std::endl;
     SDL_DestroyRenderer(_renderer);
     SDL_DestroyWindow(_window);
     TTF_CloseFont(_font);
     closeWindow();
     TTF_Quit();
-    Mix_CloseAudio();
+    // Mix_CloseAudio();
     SDL_Quit();
 }
 
@@ -53,16 +54,16 @@ void GUI::DisplaySDL2::setMapSpecs(mapSpecs_t mapspecs)
 
 void GUI::DisplaySDL2::playSound(const std::string &label, const bool &loop)
 {
-    if (loop)
-        Mix_PlayMusic(_sounds[label], -1);
-    else
-        Mix_PlayMusic(_sounds[label], 1);
+    // if (loop)
+    //     Mix_PlayMusic(_sounds[label], -1);
+    // else
+    //     Mix_PlayMusic(_sounds[label], 1);
 }
 
 void GUI::DisplaySDL2::loadSound(
     const std::string &label, const std::string &path)
 {
-    _sounds[label] = Mix_LoadMUS(path.c_str());
+    // _sounds[label] = Mix_LoadMUS(path.c_str());
 }
 
 void GUI::DisplaySDL2::setWindowSize(const int &w, const int &h)
@@ -153,40 +154,41 @@ std::vector<GUI::IDisplayModule::event_t> GUI::DisplaySDL2::pollEvents()
                 switch (_event.key.keysym.sym) {
                     case SDLK_ESCAPE:
                         events.push_back({GUI::IDisplayModule::QUIT,
-                            (float) difftime(_lastTime, now), {}, {}});
+                            (float) difftime(_lastTime, now), {0}, {0}});
                         break;
                     case SDLK_UP:
                         events.push_back({GUI::IDisplayModule::UP,
-                            (float) difftime(_lastTime, now), {}, {}});
+                            (float) difftime(_lastTime, now), {0}, {0}});
                         break;
                     case SDLK_DOWN:
                         events.push_back({GUI::IDisplayModule::DOWN,
-                            (float) difftime(_lastTime, now), {}, {}});
+                            (float) difftime(_lastTime, now), {0}, {0}});
                         break;
                     case SDLK_LEFT:
                         events.push_back({GUI::IDisplayModule::LEFT,
-                            (float) difftime(_lastTime, now), {}, {}});
+                            (float) difftime(_lastTime, now), {0}, {0}});
                         break;
                     case SDLK_RIGHT:
                         events.push_back({GUI::IDisplayModule::RIGHT,
-                            (float) difftime(_lastTime, now), {}, {}});
+                            (float) difftime(_lastTime, now),  {0}, {0}});
                         break;
                     case SDLK_BACKSPACE:
                         events.push_back({GUI::IDisplayModule::BACKSPACE,
-                            (float) difftime(_lastTime, now), {}, {}});
+                            (float) difftime(_lastTime, now), {0}, {0}});
                         break;
-                    case SDLK_RETURN:
-                        events.push_back({GUI::IDisplayModule::ENTER,
-                            (float) difftime(_lastTime, now), {}, {}});
-                        break;
+                    // case :
+                    //     events.push_back({GUI::IDisplayModule::ENTER,
+                    //         (float) difftime(_lastTime, now), {}, {}});
+                    //     break;
                     default:
                         events.push_back({GUI::IDisplayModule::KEYCODE,
-                            (float) difftime(_lastTime, now), {}, {}});
+                            (float) difftime(_lastTime, now), {0}, {0}});
                 }
                 break;
             default: break;
         }
     }
+
     return events;
 }
 

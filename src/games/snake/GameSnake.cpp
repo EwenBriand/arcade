@@ -20,13 +20,13 @@ Game::GameSnake::GameSnake()
     GUI::IDisplayModule::deltaRGB_t green = {0, 255, 0};
     _dir = direction::LEFT;
     _snake.push_back(
-        {GUI::IDisplayModule::color_t::GREEN, green, 's', 25, 25});
+        {GUI::IDisplayModule::color_t::GREEN, green, 's', 25, 25, "", 0});
     _snake.push_back(
-        {GUI::IDisplayModule::color_t::GREEN, green, 'c', 26, 25});
+        {GUI::IDisplayModule::color_t::GREEN, green, 'c', 26, 25, "", 0});
     _snake.push_back(
-        {GUI::IDisplayModule::color_t::GREEN, green, 'c', 27, 25});
+        {GUI::IDisplayModule::color_t::GREEN, green, 'c', 27, 25, "", 0});
     _snake.push_back(
-        {GUI::IDisplayModule::color_t::GREEN, green, 'c', 28, 25});
+        {GUI::IDisplayModule::color_t::GREEN, green, 'c', 28, 25, "", 0});
     initWall();
     initApple();
 }
@@ -36,13 +36,13 @@ void Game::GameSnake::initWall()
     GUI::IDisplayModule::deltaRGB_t white = {255, 255, 255};
     for (int i = 5; i < 51; i++) {
         _wall.push_back(
-            {GUI::IDisplayModule::color_t::WHITE, white, 'M', i, 5});
+            {GUI::IDisplayModule::color_t::WHITE, white, 'M', i, 5, "", 0});
         _wall.push_back(
-            {GUI::IDisplayModule::color_t::WHITE, white, 'M', i, 50});
+            {GUI::IDisplayModule::color_t::WHITE, white, 'M', i, 50, "", 0});
         _wall.push_back(
-            {GUI::IDisplayModule::color_t::WHITE, white, 'M', 5, i});
+            {GUI::IDisplayModule::color_t::WHITE, white, 'M', 5, i, "", 0});
         _wall.push_back(
-            {GUI::IDisplayModule::color_t::WHITE, white, 'M', 50, i});
+            {GUI::IDisplayModule::color_t::WHITE, white, 'M', 50, i, "", 0});
     }
 }
 
@@ -57,7 +57,7 @@ void Game::GameSnake::initApple()
         }
     }
     _apple.push_back(
-        {GUI::IDisplayModule::color_t::RED, red, 'a', random, random});
+        {GUI::IDisplayModule::color_t::RED, red, 'a', random, random, "", 0});
 }
 
 std::vector<GUI::IDisplayModule::pixel_t> Game::GameSnake::getPixels()
@@ -105,29 +105,21 @@ void Game::GameSnake::changeDirection(GUI::IDisplayModule::event_t &event)
     if (event._name == GUI::IDisplayModule::bindingType_t::UP) {
         if (_dir == direction::DOWN || _dir == direction::UP)
             return;
-        _texts.push_back(
-            {"UP", 71, 5, 18, GUI::IDisplayModule::color_t::WHITE});
         _dir = direction::UP;
     }
     if (event._name == GUI::IDisplayModule::bindingType_t::DOWN) {
         if (_dir == direction::UP || _dir == direction::DOWN)
             return;
-        _texts.push_back(
-            {"DOWN", 71, 5, 18, GUI::IDisplayModule::color_t::WHITE});
         _dir = direction::DOWN;
     }
     if (event._name == GUI::IDisplayModule::bindingType_t::LEFT) {
         if (_dir == direction::RIGHT || _dir == direction::LEFT)
             return;
-        _texts.push_back(
-            {"LEFT", 71, 5, 18, GUI::IDisplayModule::color_t::WHITE});
         _dir = direction::LEFT;
     }
     if (event._name == GUI::IDisplayModule::bindingType_t::RIGHT) {
         if (_dir == direction::LEFT || _dir == direction::RIGHT)
             return;
-        _texts.push_back(
-            {"RIGHT", 71, 5, 18, GUI::IDisplayModule::color_t::WHITE});
         _dir = direction::RIGHT;
     }
 }
@@ -150,19 +142,19 @@ void Game::GameSnake::moveSnake()
     if (_dir == direction::UP)
         _snake.insert(_snake.begin(),
             {GUI::IDisplayModule::color_t::GREEN, green, 's', _snake[0].x,
-                _snake[0].y - 1});
+                _snake[0].y - 1, "", 0});
     if (_dir == direction::DOWN)
         _snake.insert(_snake.begin(),
             {GUI::IDisplayModule::color_t::GREEN, green, 's', _snake[0].x,
-                _snake[0].y + 1});
+                _snake[0].y + 1, "", 0});
     if (_dir == direction::LEFT)
         _snake.insert(_snake.begin(),
             {GUI::IDisplayModule::color_t::GREEN, green, 's', _snake[0].x - 1,
-                _snake[0].y});
+                _snake[0].y, "", 0});
     if (_dir == direction::RIGHT)
         _snake.insert(_snake.begin(),
             {GUI::IDisplayModule::color_t::GREEN, green, 's', _snake[0].x + 1,
-                _snake[0].y});
+                _snake[0].y, "", 0});
     _snake.pop_back();
 }
 
@@ -187,7 +179,7 @@ void Game::GameSnake::eatApple()
     GUI::IDisplayModule::deltaRGB_t green = {0, 255, 0};
     if (_snake[0].x == _apple[0].x && _snake[0].y == _apple[0].y) {
         _snake.push_back({GUI::IDisplayModule::color_t::GREEN, green, 'c',
-            _snake[_snake.size() - 1].x, _snake[_snake.size() - 1].y});
+            _snake[_snake.size() - 1].x, _snake[_snake.size() - 1].y, "", 0});
         _apple.clear();
         initApple();
         _score += 100;
