@@ -27,7 +27,8 @@ namespace Game
             void generateApple();
             void moveSnake();
             bool checkCollision();
-            bool checkEvent(GUI::IDisplayModule::event_t &event);
+            void eatApple();
+            bool checkEvent(std::vector<GUI::IDisplayModule::event_t> events);
             void changeDirection(GUI::IDisplayModule::event_t &event);
             void updateScore();
             bool processFrame(std::vector<GUI::IDisplayModule::event_t>) override;
@@ -39,9 +40,9 @@ namespace Game
             std::vector<GUI::IDisplayModule::pixel_t> _snake;
             std::vector<GUI::IDisplayModule::pixel_t> _wall;
             std::vector<GUI::IDisplayModule::pixel_t> _apple;
-            GUI::IDisplayModule::mapSpecs_t _mapSpecs;
             std::vector<GUI::IDisplayModule::text_t> _texts;
-            std::vector<std::string> _sounds;
+            GUI::IDisplayModule::mapSpecs_t _mapspecs;
             direction _dir;
+            int _score;
     };
 }
