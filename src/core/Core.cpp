@@ -148,7 +148,7 @@ void CORE::Core::display_menu()
             text = {_so_graph[i].filename(), 65, 25 + 2 * i, 1,
                 GUI::IDisplayModule::RED};
             _displays->setText(_so_graph[i].filename().string(), text);
-            _texts[_so_game[i].filename().string()] = text;
+            // _texts[_so_game[i].filename().string()] = text;
         } else {
             text = {_so_graph[i].filename().string(), 65, 25 + 2 * i, 1,
                 GUI::IDisplayModule::WHITE};
@@ -160,12 +160,13 @@ void CORE::Core::display_menu()
 
 void CORE::Core::clear_text()
 {
-    _texts[_ndisplay].str = "";
-    _displays->setText(_ndisplay, _texts[_ndisplay]);
-    for (auto i : _texts) {
-        _texts[i.first].str = "";
-        _displays->setText(i.first, i.second);
-    }
+    // auto last = _texts.begin();
+    // last->second.str = "";
+    // _displays->setText(last->first, last->second);
+    // for (auto i : _texts) {
+    //     _texts[i.first].str = "";
+    //     _displays->setText(i.first, i.second);
+    // }
 }
 
 void CORE::Core::start_game()
@@ -253,7 +254,7 @@ void CORE::Core::launchGame()
         return;
     }
     _ngame = _so_game[0].filename().string();
-    setGame(_ngame);
+    setGame(_so_game[0].string());
     std::cout << _ndisplay << std::endl;
     std::cout << _so_graph[0].string() << std::endl;
     std::cout << _ndisplay << std::endl;
