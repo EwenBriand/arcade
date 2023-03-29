@@ -17,7 +17,7 @@ extern "C"
 
 Game::GameSnake::GameSnake()
 {
-    srand (time(NULL));
+    srand(time(NULL));
     std::cout << "Creating GameSnake..." << std::endl;
     GUI::IDisplayModule::deltaRGB_t green = {0, 255, 0};
     _dir = direction::LEFT;
@@ -64,8 +64,8 @@ void Game::GameSnake::initApple()
             i = _snake[0];
         }
     }
-    _apple.push_back(
-        {GUI::IDisplayModule::color_t::RED, red, 'a', randomx, randomy, "", 0});
+    _apple.push_back({GUI::IDisplayModule::color_t::RED, red, 'a', randomx,
+        randomy, "", 0});
 }
 
 std::vector<GUI::IDisplayModule::pixel_t> Game::GameSnake::getPixels()
@@ -93,7 +93,7 @@ std::vector<std::string> Game::GameSnake::getSounds()
 
 GUI::IDisplayModule::mapSpecs_t Game::GameSnake::getMapSpecs()
 {
-    return _mapspecs;
+    return {0, 20, 10, 10};
 }
 
 bool Game::GameSnake::processFrame(

@@ -135,8 +135,8 @@ void GUI::Ncurse::draw()
         for (auto inner_it = outer_it->second.begin();
              inner_it != outer_it->second.end(); ++inner_it) {
             attron(COLOR_PAIR(inner_it->second.color));
-            mvprintw(
-                outer_it->first, inner_it->first, "%c", inner_it->second.repr);
+            mvprintw(outer_it->first + _mapspecs.posx,
+                inner_it->first + _mapspecs.posy, "%c", inner_it->second.repr);
         }
     }
     for (auto i = _texts.begin(); i != _texts.end(); ++i) {
@@ -150,24 +150,12 @@ void GUI::Ncurse::draw()
 void GUI::Ncurse::updatePixels(std::vector<pixel_t> pixels)
 {
     for (int i = 0; i < (int) pixels.size(); i++) {
-        _map[pixels[i].x + _mapspecs.posx][pixels[i].y + _mapspecs.posy]
-            .color = pixels[i].color;
-        _map[pixels[i].x + _mapspecs.posx][pixels[i].y + _mapspecs.posy]
-            .deltaRGB = pixels[i].deltaRGB;
-        _map[pixels[i].x + _mapspecs.posx][pixels[i].y + _mapspecs.posy].repr =
-            pixels[i].repr;
-        _map[pixels[i].x + _mapspecs.posx][pixels[i].y + _mapspecs.posy]
-            .spritePath = pixels[i].spritePath;
-        _map[pixels[i].x + _mapspecs.posx][pixels[i].y + _mapspecs.posy]
-            .rotation = pixels[i].rotation;
+        _map[pixels[i].x][pixels[i].y].color = pixels[i].color;
+        _map[pixels[i].x][pixels[i].y].deltaRGB = pixels[i].deltaRGB;
+        _map[pixels[i].x][pixels[i].y].repr = pixels[i].repr;
+        _map[pixels[i].x][pixels[i].y].spritePath = pixels[i].spritePath;
+        _map[pixels[i].x][pixels[i].y].rotation = pixels[i].rotation;
     }
-
-    for (int i = 0; i < _mapspecs.pixw; i++) {
-        for (int j = 0; j < _mapspecs.pixh; j++)
-            std::cout << _map[i][j].repr;
-        std::cout << std::endl;
-    }
-    std::cout << _map[0].size() << std::endl;
 }
 
 void GUI::Ncurse::setText(std::string label, text_t text)
