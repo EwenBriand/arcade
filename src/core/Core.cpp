@@ -39,6 +39,7 @@ CORE::Core::Core(std::string filename)
     std::cout << "  " << _ndisplay << std::endl;
     _displays->openWindow(400, 400);
     _displays->setMapSpecs({10, 10, 10, 10});
+    _displays->setUnits(10);
 }
 
 CORE::Core::~Core()
@@ -108,7 +109,6 @@ void CORE::Core::setGame(std::string ngame)
     }
 
     _game = entry_point_func();
-    _game->processFrame({});
     std::stringstream ss(ngame);
     while (std::getline(ss, _ngame, '/')) {}
 }
@@ -167,15 +167,6 @@ void CORE::Core::display_menu()
         _displays->setText(_so_graph[i].filename().string(), text);
     }
     _displays->draw();
-}
-void CORE::Core::resetGame()
-{
-    if (_handle_g != nullptr) {
-        delete _game;
-        dlclose(_handle_g);
-    }
-    _handle_g = nullptr;
-    setGame(_ngame);
 }
 
 void CORE::Core::clear_text()
