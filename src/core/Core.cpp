@@ -123,6 +123,19 @@ std::vector<std::filesystem::path> CORE::Core::find_so_files(
     return result;
 }
 
+void CORE::Core::addIfNotPresent(std::string str)
+{
+    bool isPresent = false;
+    for (std::string s : _texts)
+        if (s == str) {
+            isPresent = true;
+            break;
+        }
+
+    if (!isPresent)
+        _texts.push_back(str);
+}
+
 void CORE::Core::display_menu()
 {
     _so_game = find_so_files("./lib/game");
@@ -130,43 +143,43 @@ void CORE::Core::display_menu()
     _displays->clearScr();
     GUI::IDisplayModule::text_t text;
 
-    for (auto i = 0; i < (int) _so_game.size(); ++i)
-        if (_so_game[i].filename().string() == _ngame) {
+    for (auto i = 0; i < (int) _so_game.size(); ++i) {
+        addIfNotPresent(_so_game[i].filename().string());
+        if (_so_game[i].filename().string() == _ngame)
             text = {_so_game[i].filename(), 120, 25 + 2 * i, 1,
                 GUI::IDisplayModule::RED};
-            _displays->setText(_so_game[i].filename().string(), text);
-            _texts[_so_game[i].filename().string()] = text;
-        } else {
+        else
             text = {_so_game[i].filename().string(), 120, 25 + 2 * i, 1,
                 GUI::IDisplayModule::WHITE};
-            _displays->setText(_so_game[i].filename().string(), text);
-            _texts[_so_game[i].filename().string()] = text;
-        }
-
-    for (auto i = 0; i < (int) _so_graph.size(); ++i)
-        if (_so_graph[i].filename().string() == _ndisplay) {
+        _displays->setText(_so_game[i].filename().string(), text);
+    }
+    for (auto i = 0; i < (int) _so_graph.size(); ++i) {
+        addIfNotPresent(_so_graph[i].filename().string());
+        if (_so_graph[i].filename().string() == _ndisplay)
             text = {_so_graph[i].filename(), 65, 25 + 2 * i, 1,
                 GUI::IDisplayModule::RED};
-            _displays->setText(_so_graph[i].filename().string(), text);
-            // _texts[_so_game[i].filename().string()] = text;
-        } else {
+        else
             text = {_so_graph[i].filename().string(), 65, 25 + 2 * i, 1,
                 GUI::IDisplayModule::WHITE};
-            _displays->setText(_so_graph[i].filename().string(), text);
-            _texts[_so_graph[i].filename().string()] = text;
-        }
+        _displays->setText(_so_graph[i].filename().string(), text);
+    }
     _displays->draw();
+}
+void CORE::Core::resetGame()
+{
+    if (_handle_g != nullptr) {
+        delete _game;
+        dlclose(_handle_g);
+    }
+    _handle_g = nullptr;
+    setGame(_ngame);
 }
 
 void CORE::Core::clear_text()
 {
-    // auto last = _texts.begin();
-    // last->second.str = "";
-    // _displays->setText(last->first, last->second);
-    // for (auto i : _texts) {
-    //     _texts[i.first].str = "";
-    //     _displays->setText(i.first, i.second);
-    // }
+    for (auto i : _texts) {
+        _displays->setText(i, {"", 0, 0, 1, GUI::IDisplayModule::WHITE});
+    }
 }
 
 void CORE::Core::start_game()
@@ -185,7 +198,7 @@ void CORE::Core::start_game()
         text = _game->getTexts();
         for (auto i = 0; i < (int) text.size(); ++i) {
             _displays->setText("label" + ('0' + i), text[i]);
-            _texts["label" + ('0' + i)] = text[i];
+            _texts.push_back("label" + ('0' + i));
         }
 
         _displays->draw();
@@ -217,7 +230,8 @@ void CORE::Core::event_menu(bool &status)
 
         if (event[i]._name == GUI::IDisplayModule::ENTER) {
             start_game();
-            setGame(_ngame);
+            // resetGame();
+            setGame("lib/game/" + _ngame);
             event = _displays->pollEvents();
         }
 
@@ -267,7 +281,7 @@ void CORE::Core::launchGame()
         display_menu();
         event_menu(status);
         std::this_thread::sleep_until(
-            std::chrono::system_clock::now() + std::chrono::milliseconds(500));
+            std::chrono::system_clock::now() + std::chrono::milliseconds(200));
     }
     std::cout << "running" << std::endl;
 

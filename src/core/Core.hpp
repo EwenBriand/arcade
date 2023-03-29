@@ -31,7 +31,7 @@ namespace CORE
         int _act_col = 0;
         void *_handle_d = nullptr;
         void *_handle_g = nullptr;
-        std::map<std::string, GUI::IDisplayModule::text_t> _texts;
+        std::vector<std::string> _texts;
 
       public:
         Core(std::string filename);
@@ -45,6 +45,8 @@ namespace CORE
         void event_menu(bool &status);
         void start_game();
         void clear_text();
+        void addIfNotPresent(std::string str);
+        void resetGame();
     };
 } // namespace CORE
 
