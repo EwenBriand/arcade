@@ -254,6 +254,7 @@ void CORE::Core::launchGame()
         return;
     }
     _ngame = _so_game[0].filename().string();
+    setGame(_ngame);
     std::cout << _ndisplay << std::endl;
     std::cout << _so_graph[0].string() << std::endl;
     std::cout << _ndisplay << std::endl;
