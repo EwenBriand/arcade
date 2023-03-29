@@ -1,3 +1,6 @@
 [submodule "include"]
 	path = include
 	url = git@github.com:EliotJanvier/ArcadeInterface.git
+[submodule "ArcadeInterface"]
+	path = ArcadeInterface
+	url = git@github.com:EliotJanvier/ArcadeInterface.git
