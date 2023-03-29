@@ -12,7 +12,7 @@ extern "C" {
     Game::IGameModule *entry_point()
     {
         return new Game::Nibbler();
-    }
+    };
 }
 
 Game::Nibbler::Nibbler()
@@ -23,86 +23,86 @@ Game::Nibbler::Nibbler()
     generateApple();
 }
 
-GUI::IDisplayModule::pixel_t setPixel(GUI::IDisplayModule::color_t color, GUI::IDisplayModule::deltaRGB_t deltaRGB, unsigned char repr, int x, int y)
-{
-    GUI::IDisplayModule::pixel_t pixel;
-
-    pixel.color = color;
-    pixel.deltaRGB = deltaRGB;
-    pixel.repr = repr;
-    pixel.x = x;
-    pixel.y = y;
-    return pixel;
-}
-
 void Game::Nibbler::buildMap()
 {
     GUI::IDisplayModule::deltaRGB_t white = {255, 255, 255};
 
-    for (unsigned int i = 5; i < 51; i++) {
-        _wall.push_back(setPixel(GUI::IDisplayModule::color_t::WHITE, white, 'M', i, 5));
-        _wall.push_back(setPixel(GUI::IDisplayModule::color_t::WHITE, white, 'M', i, 50));
-        _wall.push_back(setPixel(GUI::IDisplayModule::color_t::WHITE, white, 'M', 5, i));
-        _wall.push_back(setPixel(GUI::IDisplayModule::color_t::WHITE, white, 'M', 50, i));
+    for (int i = 5; i < 51; i++) {
+        _wall.push_back(
+            {GUI::IDisplayModule::color_t::WHITE, white, 'M', i, 5, "", 0});
+        _wall.push_back(
+            {GUI::IDisplayModule::color_t::WHITE, white, 'M', i, 50, "", 0});
+        _wall.push_back(
+            {GUI::IDisplayModule::color_t::WHITE, white, 'M', 5, i, "", 0});
+        _wall.push_back(
+            {GUI::IDisplayModule::color_t::WHITE, white, 'M', 50, i, "", 0});
     }
 }
 
 void Game::Nibbler::buildSnake()
 {
     GUI::IDisplayModule::deltaRGB_t green = {0, 255, 0};
-
-    _snake.push_back(setPixel(GUI::IDisplayModule::color_t::GREEN, green, 'C', 49, 49));
-    _snake.push_back(setPixel(GUI::IDisplayModule::color_t::GREEN, green, 'C', 48, 49));
-    _snake.push_back(setPixel(GUI::IDisplayModule::color_t::GREEN, green, 'C', 47, 49));
-    _snake.push_back(setPixel(GUI::IDisplayModule::color_t::GREEN, green, 'S', 46, 49));
+    _dir = direction::LEFT;
+    _snake.push_back(
+        {GUI::IDisplayModule::color_t::GREEN, green, 'S', 25, 25, "", 0});
+    _snake.push_back(
+        {GUI::IDisplayModule::color_t::GREEN, green, 'C', 26, 25, "", 0});
+    _snake.push_back(
+        {GUI::IDisplayModule::color_t::GREEN, green, 'C', 27, 25, "", 0});
+    _snake.push_back(
+        {GUI::IDisplayModule::color_t::GREEN, green, 'C', 28, 25, "", 0});
 }
 
 void Game::Nibbler::generateApple()
 {
     GUI::IDisplayModule::deltaRGB_t red = {255, 0, 0};
-    int random = rand() % 49 + 1;
+    int random = rand() % (50 - 5) + 1 + 5;
+    int random2 = rand() % (50 - 5) + 1 + 5;
 
     for (auto &i : _snake) {
-        if (i.x == random && i.y == random) {
-            random = rand() % 49 + 1;
+        if (i.x == random && i.y == random2) {
+            random = rand() % (50 - 5) + 1 + 5;
+            random2 = rand() % (50 - 5) + 1 + 5;
             i = _snake[0];
         }
     }
-    _apple.push_back(setPixel(GUI::IDisplayModule::color_t::RED, red, 'A', random, random));
+    _apple.push_back(
+        {GUI::IDisplayModule::color_t::RED, red, 'A', random, random2, "", 0});
 }
 
 void Game::Nibbler::moveSnake()
 {
     GUI::IDisplayModule::deltaRGB_t green = {0, 255, 0};
 
-    _snake[0].repr = 'c';
+    _snake[0].repr = 'C';
     if (_dir == direction::UP)
         _snake.insert(_snake.begin(),
-            {GUI::IDisplayModule::color_t::GREEN, green, 's', _snake[0].x,
-                _snake[0].y - 1});
+            {GUI::IDisplayModule::color_t::GREEN, green, 'S', _snake[0].x,
+                _snake[0].y - 1, "", 0});
     if (_dir == direction::DOWN)
         _snake.insert(_snake.begin(),
-            {GUI::IDisplayModule::color_t::GREEN, green, 's', _snake[0].x,
-                _snake[0].y + 1});
+            {GUI::IDisplayModule::color_t::GREEN, green, 'S', _snake[0].x,
+                _snake[0].y + 1, "", 0});
     if (_dir == direction::LEFT)
         _snake.insert(_snake.begin(),
-            {GUI::IDisplayModule::color_t::GREEN, green, 's', _snake[0].x - 1,
-                _snake[0].y});
+            {GUI::IDisplayModule::color_t::GREEN, green, 'S', _snake[0].x - 1,
+                _snake[0].y, "", 0});
     if (_dir == direction::RIGHT)
         _snake.insert(_snake.begin(),
-            {GUI::IDisplayModule::color_t::GREEN, green, 's', _snake[0].x + 1,
-                _snake[0].y});
+            {GUI::IDisplayModule::color_t::GREEN, green, 'S', _snake[0].x + 1,
+                _snake[0].y, "", 0});
     _snake.pop_back();
 }
 
 bool Game::Nibbler::checkCollision()
 {
-    int x = _dir == direction::LEFT ? -1 : _dir == direction::RIGHT ? 1 : 0;
-    int y = _dir == direction::UP ? -1 : _dir == direction::DOWN ? 1 : 0;
+    int x = (_dir == direction::LEFT) ? -1 : _dir == direction::RIGHT ? 1 : 0;
+    int y = (_dir == direction::UP) ? -1 : _dir == direction::DOWN ? 1 : 0;
 
     for (auto &wall : _wall) {
-        if (wall.x == (_snake[0].x + x) && wall.y == (_snake[0].y + y))
+        if ((_snake[0].x + x) == wall.x && (_snake[0].y + y) == wall.y) {
             return true;
+        }
     }
     for (unsigned int i = 1; i < _snake.size(); i++) {
         if ((_snake[0].x + x) == _snake[i].x
@@ -142,7 +142,7 @@ void Game::Nibbler::eatApple()
 
     if (_snake[0].x == _apple[0].x && _snake[0].y == _apple[0].y) {
         _snake.push_back({GUI::IDisplayModule::color_t::GREEN, green, 'c',
-            _snake[_snake.size() - 1].x, _snake[_snake.size() - 1].y});
+            _snake[_snake.size() - 1].x, _snake[_snake.size() - 1].y, "", 0});
         _apple.clear();
         generateApple();
         _score += 100;
