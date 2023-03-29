@@ -32,6 +32,7 @@ Game::GameSnake::GameSnake()
     initWall();
     initApple();
     _score = 0;
+    _mapspecs = {60, 60, 10, 10};
     _texts.push_back({"Score: " + std::to_string(_score), 71, 0, 18,
         GUI::IDisplayModule::color_t::WHITE});
 }
@@ -54,15 +55,17 @@ void Game::GameSnake::initWall()
 void Game::GameSnake::initApple()
 {
     GUI::IDisplayModule::deltaRGB_t red = {255, 0, 0};
-    int random = rand() % 49 + 1;
+    int randomx = rand() % 47 + 5;
+    int randomy = rand() % 47 + 5;
     for (auto &i : _snake) {
-        if (i.x == random && i.y == random) {
-            random = rand() % 49 + 1;
+        if (i.x == randomx && i.y == randomy) {
+            randomx = rand() % 47 + 5;
+            randomy = rand() % 47 + 5;
             i = _snake[0];
         }
     }
     _apple.push_back(
-        {GUI::IDisplayModule::color_t::RED, red, 'a', random, random, "", 0});
+        {GUI::IDisplayModule::color_t::RED, red, 'a', randomx, randomy, "", 0});
 }
 
 std::vector<GUI::IDisplayModule::pixel_t> Game::GameSnake::getPixels()
