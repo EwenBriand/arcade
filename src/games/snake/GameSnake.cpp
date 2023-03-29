@@ -17,6 +17,8 @@ extern "C"
 
 Game::GameSnake::GameSnake()
 {
+    srand (time(NULL));
+    std::cout << "Creating GameSnake..." << std::endl;
     GUI::IDisplayModule::deltaRGB_t green = {0, 255, 0};
     _dir = direction::LEFT;
     _snake.push_back(
@@ -29,6 +31,9 @@ Game::GameSnake::GameSnake()
         {GUI::IDisplayModule::color_t::GREEN, green, 'c', 28, 25, "", 0});
     initWall();
     initApple();
+    _score = 0;
+    _texts.push_back({"Score: " + std::to_string(_score), 71, 0, 18,
+        GUI::IDisplayModule::color_t::WHITE});
 }
 
 void Game::GameSnake::initWall()
@@ -71,6 +76,7 @@ std::vector<GUI::IDisplayModule::pixel_t> Game::GameSnake::getPixels()
 
 std::vector<GUI::IDisplayModule::text_t> Game::GameSnake::getTexts()
 {
+    std::cout << "Score: " << _score << std::endl;
     _texts.push_back({"Score: " + std::to_string(_score), 71, 0, 18,
         GUI::IDisplayModule::color_t::WHITE});
     return _texts;
