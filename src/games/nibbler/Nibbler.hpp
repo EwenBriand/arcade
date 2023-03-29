@@ -21,7 +21,6 @@ namespace Game
             };
             Nibbler();
             ~Nibbler() override = default;
-            GUI::IDisplayModule::pixel_t setPixel(GUI::IDisplayModule::color_t color, GUI::IDisplayModule::deltaRGB_t deltaRGB, unsigned char repr, int x, int y);
             void buildMap();
             void buildSnake();
             void generateApple();
