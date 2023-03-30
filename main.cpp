@@ -17,11 +17,16 @@ int main(int argc, char **argv)
         std::cerr << "Usage: ./arcade [library]" << std::endl;
         return 84;
     }
-    std::cout << "Loading library..." << std::endl;
 
-    auto core = new CORE::Core(argv[1]);
-    core->launchGame();
-    delete (core);
+    std::cout << "Loading library..." << std::endl;
+    try {
+        auto core = new CORE::Core(argv[1]);
+        core->launchGame();
+        delete (core);
+    } catch (std::exception &e) {
+        std::cerr << e.what() << std::endl;
+        return 84;
+    }
 
     return 0;
 }

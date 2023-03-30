@@ -20,6 +20,7 @@ CORE::Core::Core(std::string filename)
     _handle_d = dlopen(filename.c_str(), RTLD_LAZY);
     if (!_handle_d) {
         std::cerr << dlerror() << std::endl;
+        throw Error("Error while opening the library");
         return;
     }
 
@@ -29,6 +30,7 @@ CORE::Core::Core(std::string filename)
     if (dlsym_error) {
         std::cerr << dlsym_error << std::endl;
         dlclose(_handle_d);
+        throw Error("Error while opening the library");
         return;
     }
 
@@ -57,6 +59,7 @@ void CORE::Core::setDisplays(std::string ndisplay)
     void *handle = dlopen(ndisplay.c_str(), RTLD_LAZY);
     if (!handle) {
         std::cerr << dlerror() << std::endl;
+        throw Error("Error while opening the library");
         return;
     }
 
@@ -71,6 +74,7 @@ void CORE::Core::setDisplays(std::string ndisplay)
     if (dlsym_error) {
         std::cerr << dlsym_error << std::endl;
         dlclose(_handle_d);
+        throw Error("Error while opening the library");
         return;
     }
 
@@ -88,12 +92,14 @@ void CORE::Core::setGame(std::string ngame)
     void *handle = dlopen(ngame.c_str(), RTLD_LAZY);
     if (!handle) {
         std::cerr << dlerror() << std::endl;
+        throw Error("Error while opening the library");
         return;
     }
 
     if (_handle_g != nullptr) {
         delete _game;
         dlclose(_handle_g);
+        throw Error("Error while closing the library");
     }
     _handle_g = handle;
 
@@ -103,6 +109,7 @@ void CORE::Core::setGame(std::string ngame)
     if (dlsym_error) {
         std::cerr << dlsym_error << std::endl;
         dlclose(_handle_g);
+        throw Error("Error while opening the library");
         return;
     }
 
@@ -257,6 +264,7 @@ void CORE::Core::launchGame()
     _so_graph = find_so_files("./lib/graph");
     if (_so_game.size() == 0 || _so_graph.size() == 0) {
         std::cerr << "No lib found" << std::endl;
+        throw Error("No lib found");
         return;
     }
     _ngame = _so_game[0].filename().string();
