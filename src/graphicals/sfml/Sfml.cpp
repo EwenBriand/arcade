@@ -79,9 +79,9 @@ sf::Text GUI::Sfml::textTosfText(const text_t &text)
 
     sfText.setFont(_font);
     sfText.setString(text.str);
-    sfText.setCharacterSize(text.scale);
+    sfText.setCharacterSize(text.scale + 20);
     sfText.setFillColor(getColor(text.color));
-    sfText.setPosition(text.x, text.y);
+    sfText.setPosition((float) text.x * 10, (float) text.y * 10);
     return sfText;
 }
 
