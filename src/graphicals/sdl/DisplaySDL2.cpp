@@ -185,7 +185,7 @@ std::vector<GUI::IDisplayModule::event_t> GUI::DisplaySDL2::pollEvents()
                         break;
                     default:
                         events.push_back({GUI::IDisplayModule::KEYCODE,
-                            (float) difftime(_lastTime, now), {0}, {0}});
+                            (float) difftime(_lastTime, now), {0}, {_event.key.keysym.sym}});
                 }
                 break;
             default: break;
