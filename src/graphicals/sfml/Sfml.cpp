@@ -78,7 +78,7 @@ sf::Text GUI::Sfml::textTosfText(const text_t &text)
 
     sfText.setFont(_font);
     sfText.setString(text.str);
-    sfText.setCharacterSize(text.scale * 10);
+    sfText.setCharacterSize(text.scale);
     sfText.setFillColor(getColor(text.color));
     sfText.setPosition(text.x, text.y);
     return sfText;
@@ -90,6 +90,7 @@ sf::RectangleShape GUI::Sfml::pixelTosfRect(const pixel_t &pixel)
 
     sfRect.setFillColor(sf::Color(pixel.deltaRGB.r, pixel.deltaRGB.g, pixel.deltaRGB.b, 255));
     sfRect.setPosition(pixel.x, pixel.y);
+    sfRect.setScale(_pxpu, _pxpu);
     return sfRect;
 }
 
@@ -169,7 +170,6 @@ std::vector<GUI::Sfml::event_t> GUI::Sfml::pollEvents()
                 event._name = QUIT;
                 event.timeStamp = float(std::time(nullptr) - _start_time);
                 events.push_back(event);
-                closeWindow();
             }
             checkKeyEvent(sf::Keyboard::Left, LEFT, events, event);
             checkKeyEvent(sf::Keyboard::Right, RIGHT, events, event);
