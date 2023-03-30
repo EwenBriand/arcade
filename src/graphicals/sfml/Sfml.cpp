@@ -55,6 +55,7 @@ void GUI::Sfml::closeWindow()
 void GUI::Sfml::clearScr()
 {
     _windows.clear();
+    _pixels.clear();
 }
 
 sf::Color GUI::Sfml::getColor(const color_t &color) const
@@ -86,11 +87,10 @@ sf::Text GUI::Sfml::textTosfText(const text_t &text)
 
 sf::RectangleShape GUI::Sfml::pixelTosfRect(const pixel_t &pixel)
 {
-    sf::RectangleShape sfRect(sf::Vector2f(1, 1));
+    sf::RectangleShape sfRect(sf::Vector2f(_pxpu, _pxpu));
 
     sfRect.setFillColor(sf::Color(pixel.deltaRGB.r, pixel.deltaRGB.g, pixel.deltaRGB.b, 255));
-    sfRect.setPosition(pixel.x, pixel.y);
-    sfRect.setScale(_pxpu, _pxpu);
+    sfRect.setPosition(pixel.x * _pxpu, pixel.y * _pxpu);
     return sfRect;
 }
 
@@ -99,13 +99,10 @@ void GUI::Sfml::draw()
     for (auto &text : _texts) {
         if (text.second.str.empty())
             continue;
-        sf::Text sfText = textTosfText(text.second);
-        _windows.draw(sfText);
+        _windows.draw(textTosfText(text.second));
     }
-    for (auto &pixel : _pixels) {
-        sf::RectangleShape sfRect = pixelTosfRect(pixel);
-        _windows.draw(sfRect);
-    }
+    for (auto &pixel : _pixels)
+        _windows.draw(pixelTosfRect(pixel));
     _windows.display();
 }
 
@@ -166,11 +163,7 @@ std::vector<GUI::Sfml::event_t> GUI::Sfml::pollEvents()
             closeWindow();
         }
         if (_event.type == sf::Event::KeyPressed) {
-            if (_event.key.code == sf::Keyboard::Escape) {
-                event._name = QUIT;
-                event.timeStamp = float(std::time(nullptr) - _start_time);
-                events.push_back(event);
-            }
+            checkKeyEvent(sf::Keyboard::Escape, QUIT, events, event);
             checkKeyEvent(sf::Keyboard::Left, LEFT, events, event);
             checkKeyEvent(sf::Keyboard::Right, RIGHT, events, event);
             checkKeyEvent(sf::Keyboard::Up, UP, events, event);
