@@ -46,7 +46,12 @@ namespace GUI
             void closeWindow() override;
             void clearScr() override;
 
-            void draw();
+            sf::Color getColor(const color_t &color) const;
+
+            sf::Text textTosfText(const text_t &text);
+            sf::RectangleShape pixelTosfRect(const pixel_t &pixel);
+
+            void draw() override;
             void updatePixels(std::vector<pixel_t> pixels) override;
             void setText(std::string label, text_t text) override;
             void setSprite(char label, std::string path) override;

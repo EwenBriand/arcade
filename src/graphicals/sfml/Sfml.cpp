@@ -40,9 +40,10 @@ int GUI::Sfml::getUnits() const
     return _pxpu;
 }
 
+#pragma GCC diagnostic ignored "-Wunused-parameter"
 void GUI::Sfml::openWindow(const int &w, const int &h)
 {
-    _windows.create(sf::VideoMode(w, h), "Arcade");
+    _windows.create(sf::VideoMode(1920, 1080), "Arcade");
     _windows.setFramerateLimit(60);
 }
 
@@ -56,13 +57,55 @@ void GUI::Sfml::clearScr()
     _windows.clear();
 }
 
+sf::Color GUI::Sfml::getColor(const color_t &color) const
+{
+    switch (color) {
+        case GUI::IDisplayModule::BLACK: return sf::Color::Black;
+        case GUI::IDisplayModule::WHITE: return sf::Color::White;
+        case GUI::IDisplayModule::RED: return sf::Color::Red;
+        case GUI::IDisplayModule::GREEN: return sf::Color::Green;
+        case GUI::IDisplayModule::BLUE: return sf::Color::Blue;
+        case GUI::IDisplayModule::YELLOW: return sf::Color::Yellow;
+        case GUI::IDisplayModule::MAGENTA: return sf::Color::Magenta;
+        case GUI::IDisplayModule::CYAN: return sf::Color::Cyan;
+        default: return sf::Color::Black;
+    }
+}
+
+sf::Text GUI::Sfml::textTosfText(const text_t &text)
+{
+    sf::Text sfText;
+
+    sfText.setFont(_font);
+    sfText.setString(text.str);
+    sfText.setCharacterSize(text.scale * 10);
+    sfText.setFillColor(getColor(text.color));
+    sfText.setPosition(text.x, text.y);
+    return sfText;
+}
+
+sf::RectangleShape GUI::Sfml::pixelTosfRect(const pixel_t &pixel)
+{
+    sf::RectangleShape sfRect(sf::Vector2f(1, 1));
+
+    sfRect.setFillColor(sf::Color(pixel.deltaRGB.r, pixel.deltaRGB.g, pixel.deltaRGB.b, 255));
+    sfRect.setPosition(pixel.x, pixel.y);
+    return sfRect;
+}
+
 void GUI::Sfml::draw()
 {
-    for (auto text : _texts) {
+    for (auto &text : _texts) {
         if (text.second.str.empty())
             continue;
-        
+        sf::Text sfText = textTosfText(text.second);
+        _windows.draw(sfText);
     }
+    for (auto &pixel : _pixels) {
+        sf::RectangleShape sfRect = pixelTosfRect(pixel);
+        _windows.draw(sfRect);
+    }
+    _windows.display();
 }
 
 void GUI::Sfml::setWindowSize(const int &w, const int &h)
@@ -170,7 +213,7 @@ void GUI::Sfml::loadSound(const std::string &label, const std::string &path)
 }
 
 #pragma GCC diagnostic ignored "-Wunused-parameter"
-void GUI::Sfml::playSound(const std::string &label, const bool &loop = false)
+void GUI::Sfml::playSound(const std::string &label, const bool &loop)
 {
     // for (auto &sound : _sounds) {
     //     if (sound.first == label) {
