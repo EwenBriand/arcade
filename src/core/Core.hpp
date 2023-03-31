@@ -39,8 +39,13 @@ namespace CORE
             std::string _msg;
 
           public:
-            Error(std::string msg) : _msg(msg) {}
-            const char *what() const noexcept override { return _msg.c_str(); }
+            Error(std::string msg) : _msg(msg)
+            {
+            }
+            const char *what() const noexcept override
+            {
+                return _msg.c_str();
+            }
         };
 
         Core(std::string filename);
@@ -52,10 +57,9 @@ namespace CORE
             const std::string &path);
         void display_menu();
         void event_menu(bool &status);
-        void start_game();
+        int start_game();
         void clear_text();
         void addIfNotPresent(std::string str);
-        void resetGame();
     };
 } // namespace CORE
 

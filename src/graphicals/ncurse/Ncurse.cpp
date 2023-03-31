@@ -150,11 +150,11 @@ void GUI::Ncurse::draw()
 void GUI::Ncurse::updatePixels(std::vector<pixel_t> pixels)
 {
     for (int i = 0; i < (int) pixels.size(); i++) {
-        _map[pixels[i].x][pixels[i].y].color = pixels[i].color;
-        _map[pixels[i].x][pixels[i].y].deltaRGB = pixels[i].deltaRGB;
-        _map[pixels[i].x][pixels[i].y].repr = pixels[i].repr;
-        _map[pixels[i].x][pixels[i].y].spritePath = pixels[i].spritePath;
-        _map[pixels[i].x][pixels[i].y].rotation = pixels[i].rotation;
+        _map[pixels[i].y][pixels[i].x].color = pixels[i].color;
+        _map[pixels[i].y][pixels[i].x].deltaRGB = pixels[i].deltaRGB;
+        _map[pixels[i].y][pixels[i].x].repr = pixels[i].repr;
+        _map[pixels[i].y][pixels[i].x].spritePath = pixels[i].spritePath;
+        _map[pixels[i].y][pixels[i].x].rotation = pixels[i].rotation;
     }
 }
 

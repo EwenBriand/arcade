@@ -99,7 +99,6 @@ void CORE::Core::setGame(std::string ngame)
     if (_handle_g != nullptr) {
         delete _game;
         dlclose(_handle_g);
-        throw Error("Error while closing the library");
     }
     _handle_g = handle;
 
@@ -181,7 +180,7 @@ void CORE::Core::clear_text()
     }
 }
 
-void CORE::Core::start_game()
+int CORE::Core::start_game()
 {
     auto event = _displays->pollEvents();
     auto text = _game->getTexts();
@@ -202,11 +201,18 @@ void CORE::Core::start_game()
 
         _displays->draw();
         event = _displays->pollEvents();
+        for (int i = 0; i < (int) event.size(); i++)
+            if (event[i]._ivalues[0] == 'p') {
+                _displays->clearScr();
+                clear_text();
+                return 1;
+            }
         std::this_thread::sleep_until(
             std::chrono::system_clock::now() + std::chrono::milliseconds(400));
     }
     _displays->clearScr();
     clear_text();
+    return 0;
 }
 
 void CORE::Core::event_menu(bool &status)
@@ -228,8 +234,8 @@ void CORE::Core::event_menu(bool &status)
             status = false;
 
         if (event[i]._name == GUI::IDisplayModule::ENTER) {
-            start_game();
-            setGame("lib/game/" + _ngame);
+            if (start_game() == 0)
+                setGame("lib/game/" + _ngame);
             event = _displays->pollEvents();
             break;
         }
