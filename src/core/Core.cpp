@@ -202,7 +202,7 @@ int CORE::Core::start_game()
         _displays->draw();
         event = _displays->pollEvents();
         for (int i = 0; i < (int) event.size(); i++)
-            if (event[i]._ivalues[0] == 'p') {
+            if (event[i]._ivalues.size() >  0 && event[i]._ivalues[0] == 'p') {
                 _displays->clearScr();
                 clear_text();
                 return 1;

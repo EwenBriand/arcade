@@ -108,6 +108,9 @@ SDL_Color GUI::DisplaySDL2::getColor(const color_t &color) const
 void GUI::DisplaySDL2::draw()
 {
     for (auto texts : _texts) {
+        std::cout << "Drawing text: " << texts.second.str << std::endl;
+        std::cout << "text pos is " << texts.second.x << " " << texts.second.y << std::endl;
+        std::cout << "text color is " << (int)getColor(texts.second.color).r << " " << (int)getColor(texts.second.color).g << " " << (int)getColor(texts.second.color).b << std::endl;
         if (texts.second.str.empty())
             continue;
         SDL_Surface *surface = TTF_RenderText_Blended(
