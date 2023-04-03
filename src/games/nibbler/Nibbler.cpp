@@ -103,33 +103,36 @@ bool Game::Nibbler::checkCollision()
     int x = (_dir == direction::LEFT) ? -1 : _dir == direction::RIGHT ? 1 : 0;
     int y = (_dir == direction::UP) ? -1 : _dir == direction::DOWN ? 1 : 0;
 
-    // The snake can turn right or left automatically when colliding with a wall, or stop at T-junction
     for (auto &i : _pixels) {
-        if (i.x == _snake[0].x + x && i.y == _snake[0].y + y) {
-            if (i.repr == 'M') {
-                if (_dir == direction::UP || _dir == direction::DOWN) {
-                    // if (i.x == _snake[0].x + 1) {
-                    //     std::cout << "RIGHT" << std::endl;
-                    //     _dir = direction::RIGHT;
-                    // }
-                    // else if (i.x == _snake[0].x - 1) {
-                    //     std::cout << "LEFT" << std::endl;
-                    //     _dir = direction::LEFT;
-                    // }
-                    // else
-                        _shouldMove = false;
-                } else if (_dir == direction::LEFT || _dir == direction::RIGHT) {
-                    // if (i.y == _snake[0].y + 1) {
-                    //     std::cout << "DOWN" << std::endl;
-                    //     _dir = direction::DOWN;
-                    // }
-                    // else if (i.y == _snake[0].y - 1) {
-                    //     std::cout << "UP" << std::endl;
-                    //     _dir = direction::UP;
-                    // }
-                    // else
-                        _shouldMove = false;
+        if (i.x == _snake[0].x + x && i.y == _snake[0].y + y && i.repr == 'M') {
+            if (_dir == direction::UP || _dir == direction::DOWN) {
+                for (auto &j : _pixels) {
+                    if (j.x == _snake[0].x - 1 && j.y == _snake[0].y && j.repr == 'M') {
+                        _dir = direction::RIGHT;
+                        _shouldMove = true;
+                        return false;
+                    }
+                    else if (j.x == _snake[0].x + 1 && j.y == _snake[0].y && j.repr == 'M') {
+                        _dir = direction::LEFT;
+                        _shouldMove = true;
+                        return false;
+                    }
                 }
+                _shouldMove = false;
+            } else if (_dir == direction::LEFT || _dir == direction::RIGHT) {
+                for (auto &j : _pixels) {
+                    if (j.x == _snake[0].x && j.y == _snake[0].y - 1 && j.repr == 'M') {
+                        _dir = direction::DOWN;
+                        _shouldMove = true;
+                        return false;
+                    }
+                    else if (j.x == _snake[0].x && j.y == _snake[0].y + 1 && j.repr == 'M') {
+                        _dir = direction::UP;
+                        _shouldMove = true;
+                        return false;
+                    }
+                }
+                _shouldMove = false;
             }
         }
         if (i.x == _snake[0].x && i.y == _snake[0].y && i.repr == 'C')
