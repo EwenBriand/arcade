@@ -17,8 +17,7 @@ namespace Game
                 UP,
                 DOWN,
                 LEFT,
-                RIGHT,
-                NONE
+                RIGHT
             };
             Nibbler();
             ~Nibbler() override = default;
@@ -37,6 +36,7 @@ namespace Game
             std::vector<GUI::IDisplayModule::text_t> getTexts() override;
             std::vector<std::string> getSounds() override;
         private:
+            std::vector<GUI::IDisplayModule::pixel_t> _pixels;
             std::vector<GUI::IDisplayModule::pixel_t> _snake;
             std::vector<GUI::IDisplayModule::pixel_t> _wall;
             std::vector<GUI::IDisplayModule::pixel_t> _apple;
