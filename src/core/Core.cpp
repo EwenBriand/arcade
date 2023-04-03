@@ -213,14 +213,14 @@ int CORE::Core::start_game(bool &status)
                 return 1;
             }
             if (event[i]._ivalues.size() > 0 && event[i]._ivalues[0] == 'z') {
-                if (_act_d + 1 == _so_graph.size())
+                if (_act_d + 1 == (int) _so_graph.size())
                     _act_d = 0;
                 else
                     _act_d++;
                 setDisplays(_so_graph[_act_d].string());
             }
             if (event[i]._ivalues.size() > 0 && event[i]._ivalues[0] == 't') {
-                if (_act_g + 1 == _so_graph.size())
+                if (_act_g + 1 == (int) _so_game.size())
                     _act_g = 0;
                 else
                     _act_g++;
