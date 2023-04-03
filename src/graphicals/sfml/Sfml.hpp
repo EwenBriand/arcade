@@ -34,7 +34,7 @@ namespace GUI
 
             void setMapSpecs(mapSpecs_t mapspecs) override;
 
-            void checkKeyEvent(sf::Keyboard::Key key, GUI::Sfml::bindingType_t bindingKey, std::vector<event_t> &events, event_t event);
+            void checkKeyEvent(sf::Keyboard::Key key, GUI::Sfml::bindingType_t bindingKey, std::vector<event_t> &events, event_t event, int charCode = -1);
             void checkMouseEvent(sf::Mouse::Button mouse, bool isPressed, std::vector<event_t> &events, event_t event);
             std::vector<event_t> pollEvents() override;
 
