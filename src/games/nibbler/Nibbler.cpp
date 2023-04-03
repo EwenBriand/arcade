@@ -7,6 +7,7 @@
 
 #include "Nibbler.hpp"
 #include <random>
+#include <iostream>
 
 extern "C" {
     Game::IGameModule *entry_point()
@@ -21,6 +22,7 @@ Game::Nibbler::Nibbler()
     buildSnake();
     buildMap();
     generateApple();
+    _shouldMove = true;
 }
 
 void Game::Nibbler::buildMap()
@@ -44,69 +46,90 @@ void Game::Nibbler::buildSnake()
     GUI::IDisplayModule::deltaRGB_t green = {0, 255, 0};
     _dir = direction::LEFT;
     _snake.push_back(
-        {GUI::IDisplayModule::color_t::GREEN, green, 'S', 25, 25, "", 0});
+        {GUI::IDisplayModule::color_t::GREEN, green, 'S', 25, 48, "", 0});
     _snake.push_back(
-        {GUI::IDisplayModule::color_t::GREEN, green, 'C', 26, 25, "", 0});
+        {GUI::IDisplayModule::color_t::GREEN, green, 'C', 26, 48, "", 0});
     _snake.push_back(
-        {GUI::IDisplayModule::color_t::GREEN, green, 'C', 27, 25, "", 0});
+        {GUI::IDisplayModule::color_t::GREEN, green, 'C', 27, 48, "", 0});
     _snake.push_back(
-        {GUI::IDisplayModule::color_t::GREEN, green, 'C', 28, 25, "", 0});
+        {GUI::IDisplayModule::color_t::GREEN, green, 'C', 28, 48, "", 0});
 }
 
 void Game::Nibbler::generateApple()
 {
     GUI::IDisplayModule::deltaRGB_t red = {255, 0, 0};
-    int random = rand() % (50 - 5) + 1 + 5;
-    int random2 = rand() % (50 - 5) + 1 + 5;
+    int randomx = 6 + (rand() % 43);
+    int randomy = 6 + (rand() % 43);
 
     for (auto &i : _snake) {
-        if (i.x == random && i.y == random2) {
-            random = rand() % (50 - 5) + 1 + 5;
-            random2 = rand() % (50 - 5) + 1 + 5;
+        if (i.x == randomx && i.y == randomy) {
+            randomx = 6 + (rand() % 43);
+            randomy = 6 + (rand() % 43);
             i = _snake[0];
         }
     }
-    _apple.push_back(
-        {GUI::IDisplayModule::color_t::RED, red, 'A', random, random2, "", 0});
+    _apple.push_back({GUI::IDisplayModule::color_t::RED, red, 'A', randomx,
+        randomy, "", 0});
 }
 
 void Game::Nibbler::moveSnake()
 {
     GUI::IDisplayModule::deltaRGB_t green = {0, 255, 0};
 
-    _snake[0].repr = 'C';
-    if (_dir == direction::UP)
+    if (_shouldMove == false)
         _snake.insert(_snake.begin(),
             {GUI::IDisplayModule::color_t::GREEN, green, 'S', _snake[0].x,
-                _snake[0].y - 1, "", 0});
-    if (_dir == direction::DOWN)
-        _snake.insert(_snake.begin(),
-            {GUI::IDisplayModule::color_t::GREEN, green, 'S', _snake[0].x,
-                _snake[0].y + 1, "", 0});
-    if (_dir == direction::LEFT)
-        _snake.insert(_snake.begin(),
-            {GUI::IDisplayModule::color_t::GREEN, green, 'S', _snake[0].x - 1,
                 _snake[0].y, "", 0});
-    if (_dir == direction::RIGHT)
-        _snake.insert(_snake.begin(),
-            {GUI::IDisplayModule::color_t::GREEN, green, 'S', _snake[0].x + 1,
-                _snake[0].y, "", 0});
-    _snake.pop_back();
+    else {
+        _snake[0].repr = 'C';
+        if (_dir == direction::UP)
+            _snake.insert(_snake.begin(),
+                {GUI::IDisplayModule::color_t::GREEN, green, 'S', _snake[0].x,
+                    _snake[0].y - 1, "", 0});
+        if (_dir == direction::DOWN)
+            _snake.insert(_snake.begin(),
+                {GUI::IDisplayModule::color_t::GREEN, green, 'S', _snake[0].x,
+                    _snake[0].y + 1, "", 0});
+        if (_dir == direction::LEFT)
+            _snake.insert(_snake.begin(),
+                {GUI::IDisplayModule::color_t::GREEN, green, 'S', _snake[0].x - 1,
+                    _snake[0].y, "", 0});
+        if (_dir == direction::RIGHT)
+            _snake.insert(_snake.begin(),
+                {GUI::IDisplayModule::color_t::GREEN, green, 'S', _snake[0].x + 1,
+                    _snake[0].y, "", 0});
+        _snake.pop_back();
+    }
 }
 
 bool Game::Nibbler::checkCollision()
 {
+    std::vector<GUI::IDisplayModule::pixel_t> pixels = getPixels();
     int x = (_dir == direction::LEFT) ? -1 : _dir == direction::RIGHT ? 1 : 0;
     int y = (_dir == direction::UP) ? -1 : _dir == direction::DOWN ? 1 : 0;
 
-    for (auto &wall : _wall) {
-        if ((_snake[0].x + x) == wall.x && (_snake[0].y + y) == wall.y) {
-            return true;
+    // The snake can turn right or left automatically when colliding with a wall, or stop at T-junction
+    for (auto &i : pixels) {
+        if (i.x == _snake[0].x + x && i.y == _snake[0].y + y) {
+            if (i.repr == 'M') {
+                if (_dir == direction::UP || _dir == direction::DOWN) {
+                    if (i.x == _snake[0].x + 1)
+                        _dir = direction::RIGHT;
+                    else if (i.x == _snake[0].x - 1)
+                        _dir = direction::LEFT;
+                    else
+                        _shouldMove = false;
+                } else if (_dir == direction::LEFT || _dir == direction::RIGHT) {
+                    if (i.y == _snake[0].y + 1)
+                        _dir = direction::DOWN;
+                    else if (i.y == _snake[0].y - 1)
+                        _dir = direction::UP;
+                    else
+                        _shouldMove = false;
+                }
+            }
         }
-    }
-    for (unsigned int i = 1; i < _snake.size(); i++) {
-        if ((_snake[0].x + x) == _snake[i].x
-            && (_snake[0].y + y) == _snake[i].y)
+        if (i.x == _snake[0].x && i.y == _snake[0].y && i.repr == 'C')
             return true;
     }
     return false;
@@ -118,21 +141,25 @@ void Game::Nibbler::changeDirection(GUI::IDisplayModule::event_t &event)
         if (_dir == direction::DOWN || _dir == direction::UP)
             return;
         _dir = direction::UP;
+        _shouldMove = true;
     }
     if (event._name == GUI::IDisplayModule::bindingType_t::DOWN) {
         if (_dir == direction::UP || _dir == direction::DOWN)
             return;
         _dir = direction::DOWN;
+        _shouldMove = true;
     }
     if (event._name == GUI::IDisplayModule::bindingType_t::LEFT) {
         if (_dir == direction::RIGHT || _dir == direction::LEFT)
             return;
         _dir = direction::LEFT;
+        _shouldMove = true;
     }
     if (event._name == GUI::IDisplayModule::bindingType_t::RIGHT) {
         if (_dir == direction::LEFT || _dir == direction::RIGHT)
             return;
         _dir = direction::RIGHT;
+        _shouldMove = true;
     }
 }
 
@@ -163,10 +190,12 @@ bool Game::Nibbler::checkEvent(
 bool Game::Nibbler::processFrame(std::vector<GUI::IDisplayModule::event_t> events)
 {
     _texts.clear();
-    if (!checkEvent(events))
+    if (!checkEvent(events)) {
         return false;
-    if (checkCollision())
+    }
+    if (checkCollision()) {
         return false;
+    }
     moveSnake();
     eatApple();
     return true;

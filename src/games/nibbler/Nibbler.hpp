@@ -17,7 +17,8 @@ namespace Game
                 UP,
                 DOWN,
                 LEFT,
-                RIGHT
+                RIGHT,
+                NONE
             };
             Nibbler();
             ~Nibbler() override = default;
@@ -43,5 +44,6 @@ namespace Game
             GUI::IDisplayModule::mapSpecs_t _mapspecs;
             direction _dir;
             int _score;
+            bool _shouldMove;
     };
 }
