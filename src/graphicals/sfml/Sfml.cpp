@@ -118,11 +118,12 @@ void GUI::Sfml::setMapSpecs(mapSpecs_t mapspecs)
 
 void GUI::Sfml::checkKeyEvent(sf::Keyboard::Key key,
     GUI::Sfml::bindingType_t bindingKey, std::vector<event_t> &events,
-    event_t event)
+    event_t event, int charCode)
 {
     if (_event.key.code == key) {
         event._name = bindingKey;
         event.timeStamp = float(std::time(nullptr) - _start_time);
+        event._ivalues.push_back(charCode);
         events.push_back(event);
     }
 }
@@ -133,6 +134,7 @@ void GUI::Sfml::checkMouseEvent(sf::Mouse::Button mouse, bool isPressed,
     if (_event.mouseButton.button == mouse) {
         event._name = MOUSE_CLICK;
         event.timeStamp = float(std::time(nullptr) - _start_time);
+        event._ivalues.push_back(-1);
         event._ivalues.push_back(_event.mouseButton.x);
         event._ivalues.push_back(_event.mouseButton.y);
         switch (mouse) {
@@ -170,6 +172,10 @@ std::vector<GUI::Sfml::event_t> GUI::Sfml::pollEvents()
             checkKeyEvent(sf::Keyboard::Down, DOWN, events, event);
             checkKeyEvent(sf::Keyboard::Backspace, BACKSPACE, events, event);
             checkKeyEvent(sf::Keyboard::Enter, ENTER, events, event);
+            checkKeyEvent(sf::Keyboard::Space, KEYCODE, events, event, ' ');
+            for (sf::Keyboard::Key i; i < 26; i = sf::Keyboard::Key(i + 1)) {
+                checkKeyEvent(i, KEYCODE, events, event, 'a' + i);
+            }
         }
         if (_event.type == sf::Event::MouseButtonPressed) {
             checkMouseEvent(sf::Mouse::Left, true, events, event);
