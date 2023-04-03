@@ -32,6 +32,8 @@ namespace CORE
         void *_handle_d = nullptr;
         void *_handle_g = nullptr;
         std::vector<std::string> _texts;
+        int _act_g = 0;
+        int _act_d = 0;
 
       public:
         class Error : public std::exception {
@@ -57,7 +59,7 @@ namespace CORE
             const std::string &path);
         void display_menu();
         void event_menu(bool &status);
-        int start_game();
+        int start_game(bool &status);
         void clear_text();
         void addIfNotPresent(std::string str);
     };

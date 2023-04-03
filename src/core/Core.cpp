@@ -17,6 +17,9 @@
 
 CORE::Core::Core(std::string filename)
 {
+    _so_game = find_so_files("./lib/game");
+    _so_graph = find_so_files("./lib/graph");
+
     _handle_d = dlopen(filename.c_str(), RTLD_LAZY);
     if (!_handle_d) {
         std::cerr << dlerror() << std::endl;
@@ -40,6 +43,10 @@ CORE::Core::Core(std::string filename)
     while (std::getline(ss, _ndisplay, '/')) {}
     std::cout << "  " << _ndisplay << std::endl;
     _displays->setUnits(10);
+
+    for (auto i = 0; i < (int) _so_graph.size(); ++i)
+        if (_so_graph[i].filename().string() == _ndisplay)
+            _act_d = i;
 }
 
 CORE::Core::~Core()
@@ -145,8 +152,6 @@ void CORE::Core::addIfNotPresent(std::string str)
 
 void CORE::Core::display_menu()
 {
-    _so_game = find_so_files("./lib/game");
-    _so_graph = find_so_files("./lib/graph");
     _displays->clearScr();
     GUI::IDisplayModule::text_t text;
 
@@ -180,7 +185,7 @@ void CORE::Core::clear_text()
     }
 }
 
-int CORE::Core::start_game()
+int CORE::Core::start_game(bool &status)
 {
     auto event = _displays->pollEvents();
     auto text = _game->getTexts();
@@ -201,14 +206,36 @@ int CORE::Core::start_game()
 
         _displays->draw();
         event = _displays->pollEvents();
-        for (int i = 0; i < (int) event.size(); i++)
-            if (event[i]._ivalues.size() >  0 && event[i]._ivalues[0] == 'p') {
+        for (int i = 0; i < (int) event.size(); i++) {
+            if (event[i]._ivalues.size() > 0 && event[i]._ivalues[0] == 'm') {
                 _displays->clearScr();
                 clear_text();
                 return 1;
             }
+            if (event[i]._ivalues.size() > 0 && event[i]._ivalues[0] == 'z') {
+                if (_act_d + 1 == _so_graph.size())
+                    _act_d = 0;
+                else
+                    _act_d++;
+                setDisplays(_so_graph[_act_d].string());
+            }
+            if (event[i]._ivalues.size() > 0 && event[i]._ivalues[0] == 't') {
+                if (_act_g + 1 == _so_graph.size())
+                    _act_g = 0;
+                else
+                    _act_g++;
+                return 2;
+            }
+            if (event[i]._ivalues.size() > 0 && event[i]._ivalues[0] == 'r') {
+                return 2;
+            }
+            if (event[i]._ivalues.size() > 0 && event[i]._ivalues[0] == 'q') {
+                status = false;
+                return 0;
+            }
+        }
         std::this_thread::sleep_until(
-            std::chrono::system_clock::now() + std::chrono::milliseconds(400));
+            std::chrono::system_clock::now() + std::chrono::milliseconds(200));
     }
     _displays->clearScr();
     clear_text();
@@ -217,50 +244,43 @@ int CORE::Core::start_game()
 
 void CORE::Core::event_menu(bool &status)
 {
+    auto res = 0;
     auto event = _displays->pollEvents();
-    int act_g = 0;
-    int act_d = 0;
-
-    for (auto i = 0; i < (int) _so_game.size(); ++i)
-        if (_so_game[i].filename().string() == _ngame)
-            act_g = i;
-
-    for (auto i = 0; i < (int) _so_graph.size(); ++i)
-        if (_so_graph[i].filename().string() == _ndisplay)
-            act_d = i;
 
     for (int i = 0; i < (int) event.size(); i++) {
         if (event[i]._name == GUI::IDisplayModule::QUIT)
             status = false;
 
         if (event[i]._name == GUI::IDisplayModule::ENTER) {
-            if (start_game() == 0)
+            while ((res = start_game(status)) == 2) {
+                setGame(_so_game[_act_g].string());
+            }
+            if ((res = start_game(status)) == 0)
                 setGame("lib/game/" + _ngame);
             event = _displays->pollEvents();
             break;
         }
 
         if (event[i]._name == GUI::IDisplayModule::DOWN) {
-            if (_act_col == 0 && act_d != (int) _so_graph.size() - 1) {
-                setDisplays(_so_graph[act_d + 1].string());
-            } else if (act_g != (int) _so_game.size() - 1)
-                setGame(_so_game[act_g + 1].string());
+            if (_act_col == 0 && _act_d != (int) _so_graph.size() - 1)
+                setDisplays(_so_graph[(_act_d++) + 1].string());
+            else if (_act_g != (int) _so_game.size() - 1)
+                setGame(_so_game[(_act_g++) + 1].string());
         }
 
         if (event[i]._name == GUI::IDisplayModule::UP) {
-            if (_act_col == 0 && act_d != 0) {
-                setDisplays(_so_graph[act_d - 1].string());
-            } else if (act_g != 0) {
-                setGame(_so_game[act_g - 1].string());
+            if (_act_col == 0 && _act_d != 0) {
+                setDisplays(_so_graph[(_act_d--) - 1].string());
+
+            } else if (_act_g != 0) {
+                setGame(_so_game[(_act_g--) - 1].string());
             }
         }
-        if (event[i]._name == GUI::IDisplayModule::LEFT && _act_col == 1) {
+        if (event[i]._name == GUI::IDisplayModule::LEFT && _act_col == 1)
             _act_col = 0;
-        }
 
-        if (event[i]._name == GUI::IDisplayModule::RIGHT && _act_col == 0) {
+        if (event[i]._name == GUI::IDisplayModule::RIGHT && _act_col == 0)
             _act_col = 1;
-        }
     }
 }
 
