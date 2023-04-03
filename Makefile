@@ -29,13 +29,14 @@ SFLAGS	=	-lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio
 all:	$(NAME)
 
 $(NAME):	games graphicals core
+	cp $(LIBALL) ./lib
 
 clean:
 	$(MAKE) clean -C ./src/games/
 	$(MAKE) clean -C ./src/graphicals/
 
 fclean:	clean
-	rm -f $(NAME) $(LIBALL)
+	rm -f $(NAME) $(LIBALL) ./lib/*.so
 	$(MAKE) fclean -C ./src/games/
 	$(MAKE) fclean -C ./src/graphicals/
 
