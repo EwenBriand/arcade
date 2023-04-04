@@ -27,6 +27,8 @@ GUI::Sfml::Sfml()
 
 GUI::Sfml::~Sfml()
 {
+    _font.~Font();
+    _windows.~RenderWindow();
     std::cout << "Destroying openWindow..." << std::endl;
 }
 

@@ -131,26 +131,24 @@ void Game::Nibbler::moveSnake()
 {
     GUI::IDisplayModule::deltaRGB_t green = {0, 255, 0};
 
-    if (_shouldMove) {
-        _snake[0].repr = 'C';
-        if (_dir == direction::UP)
-            _snake.insert(_snake.begin(),
-                {GUI::IDisplayModule::color_t::GREEN, green, 'S', _snake[0].x,
-                    _snake[0].y - 1, "", 0});
-        if (_dir == direction::DOWN)
-            _snake.insert(_snake.begin(),
-                {GUI::IDisplayModule::color_t::GREEN, green, 'S', _snake[0].x,
-                    _snake[0].y + 1, "", 0});
-        if (_dir == direction::LEFT)
-            _snake.insert(_snake.begin(),
-                {GUI::IDisplayModule::color_t::GREEN, green, 'S', _snake[0].x - 1,
-                    _snake[0].y, "", 0});
-        if (_dir == direction::RIGHT)
-            _snake.insert(_snake.begin(),
-                {GUI::IDisplayModule::color_t::GREEN, green, 'S', _snake[0].x + 1,
-                    _snake[0].y, "", 0});
-        _snake.pop_back();
-    }
+    _snake[0].repr = 'C';
+    if (_dir == direction::UP)
+        _snake.insert(_snake.begin(),
+            {GUI::IDisplayModule::color_t::GREEN, green, 'S', _snake[0].x,
+                _snake[0].y - 1, "", 0});
+    if (_dir == direction::DOWN)
+        _snake.insert(_snake.begin(),
+            {GUI::IDisplayModule::color_t::GREEN, green, 'S', _snake[0].x,
+                _snake[0].y + 1, "", 0});
+    if (_dir == direction::LEFT)
+        _snake.insert(_snake.begin(),
+            {GUI::IDisplayModule::color_t::GREEN, green, 'S', _snake[0].x - 1,
+                _snake[0].y, "", 0});
+    if (_dir == direction::RIGHT)
+        _snake.insert(_snake.begin(),
+            {GUI::IDisplayModule::color_t::GREEN, green, 'S', _snake[0].x + 1,
+                _snake[0].y, "", 0});
+    _snake.pop_back();
 }
 
 bool Game::Nibbler::checkCollision()
@@ -258,17 +256,14 @@ bool Game::Nibbler::processFrame(std::vector<GUI::IDisplayModule::event_t> event
 {
     _texts.clear();
     _pixels = getPixels();
-    if (!checkEvent(events)) {
+    if (!checkEvent(events))
         return false;
-    }
-    if (checkCollision()) {
+    if (checkCollision())
         return false;
-    }
-    if (_apple.empty()) {
-        std::cout << "Apple" << std::endl;
+    if (_apple.empty())
         return false;
-    }
-    moveSnake();
+    if (_shouldMove)
+        moveSnake();
     eatApple();
     return true;
 }
