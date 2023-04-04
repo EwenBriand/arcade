@@ -35,6 +35,7 @@ namespace Game
             std::vector<GUI::IDisplayModule::pixel_t> getPixels() override;
             std::vector<GUI::IDisplayModule::text_t> getTexts() override;
             std::vector<std::string> getSounds() override;
+            int **getMapWallPosFromFile(std::string path);
         private:
             std::vector<GUI::IDisplayModule::pixel_t> _pixels;
             std::vector<GUI::IDisplayModule::pixel_t> _snake;

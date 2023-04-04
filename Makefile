@@ -51,4 +51,8 @@ games: $(OBJ_GAME)
 graphicals: $(OBJ_GRAPH)
 	$(MAKE) -C ./src/graphicals/
 
+debug: core
+	$(MAKE) debug -C ./src/games/
+	$(MAKE) debug -C ./src/graphicals/
+
 .PHONY:	all clean fclean re core games graphicals

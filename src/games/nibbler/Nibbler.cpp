@@ -8,6 +8,7 @@
 #include "Nibbler.hpp"
 #include <random>
 #include <iostream>
+#include <fstream>
 
 extern "C" {
     Game::IGameModule *entry_point()
@@ -31,20 +32,69 @@ Game::Nibbler::Nibbler()
         GUI::IDisplayModule::color_t::WHITE});
 }
 
+int **Game::Nibbler::getMapWallPosFromFile(std::string path)
+{
+    std::string map_str;
+    std::ifstream map_file(path);
+    int rows = 0, cols = 0, wall_count = 0;
+    int **pos = {0};
+
+    if (map_file.is_open()) {
+        map_str = std::string((std::istreambuf_iterator<char>(map_file)), std::istreambuf_iterator<char>());
+        map_file.close();
+    } else {
+        std::cout << "Error: could not open map file." << std::endl;
+        return pos;
+    }
+    for (int i = 0; i < map_str.length(); i++) {
+        if (map_str[i] == '\n') {
+            rows++;
+            cols = 0;
+        } else {
+            cols++;
+            if (map_str[i] == '#') {
+                wall_count++;
+            }
+        }
+    }
+    pos = new int *[wall_count + 1];
+    for (int i = 0; i < wall_count; i++) {
+        pos[i] = new int[2];
+    }
+
+    int wall_index = 0;
+    for (int i = 0; i < map_str.length(); i++) {
+        if (map_str[i] == '#') {
+            pos[wall_index][0] = i % (cols + 1);
+            pos[wall_index][1] = i / (cols + 1);
+            wall_index++;
+        }
+    }
+    pos[wall_count] = NULL;
+    return pos;
+}
+
+
 void Game::Nibbler::buildMap()
 {
     GUI::IDisplayModule::deltaRGB_t white = {255, 255, 255};
+    int **pos = getMapWallPosFromFile("assets/map/nibbler_basic.txt");
 
-    for (int i = 5; i < 51; i++) {
+    for (int i = 5; i < 25; i++) {
         _wall.push_back(
             {GUI::IDisplayModule::color_t::WHITE, white, 'M', i, 5, "", 0});
         _wall.push_back(
-            {GUI::IDisplayModule::color_t::WHITE, white, 'M', i, 50, "", 0});
+            {GUI::IDisplayModule::color_t::WHITE, white, 'M', i, 24, "", 0});
         _wall.push_back(
             {GUI::IDisplayModule::color_t::WHITE, white, 'M', 5, i, "", 0});
         _wall.push_back(
-            {GUI::IDisplayModule::color_t::WHITE, white, 'M', 50, i, "", 0});
+            {GUI::IDisplayModule::color_t::WHITE, white, 'M', 24, i, "", 0});
     }
+    for (int i = 0; pos[i] != NULL; i++) {
+        _wall.push_back(
+            {GUI::IDisplayModule::color_t::WHITE, white, 'M', pos[i][0], pos[i][1], "", 0});
+    }
+
 }
 
 void Game::Nibbler::buildSnake()
@@ -52,25 +102,25 @@ void Game::Nibbler::buildSnake()
     GUI::IDisplayModule::deltaRGB_t green = {0, 255, 0};
     _dir = direction::LEFT;
     _snake.push_back(
-        {GUI::IDisplayModule::color_t::GREEN, green, 'S', 25, 48, "", 0});
+        {GUI::IDisplayModule::color_t::GREEN, green, 'S', 8, 20, "", 0});
     _snake.push_back(
-        {GUI::IDisplayModule::color_t::GREEN, green, 'C', 26, 48, "", 0});
+        {GUI::IDisplayModule::color_t::GREEN, green, 'C', 9, 20, "", 0});
     _snake.push_back(
-        {GUI::IDisplayModule::color_t::GREEN, green, 'C', 27, 48, "", 0});
+        {GUI::IDisplayModule::color_t::GREEN, green, 'C', 10, 20, "", 0});
     _snake.push_back(
-        {GUI::IDisplayModule::color_t::GREEN, green, 'C', 28, 48, "", 0});
+        {GUI::IDisplayModule::color_t::GREEN, green, 'C', 11, 20, "", 0});
 }
 
 void Game::Nibbler::generateApple()
 {
     GUI::IDisplayModule::deltaRGB_t red = {255, 0, 0};
-    int randomx = 6 + (rand() % 43);
-    int randomy = 6 + (rand() % 43);
+    int randomx = 6 + (rand() % 15);
+    int randomy = 6 + (rand() % 15);
 
     for (auto &i : _snake) {
         if (i.x == randomx && i.y == randomy) {
-            randomx = 6 + (rand() % 43);
-            randomy = 6 + (rand() % 43);
+            randomx = 6 + (rand() % 15);
+            randomy = 6 + (rand() % 15);
             i = _snake[0];
         }
     }
@@ -211,7 +261,6 @@ bool Game::Nibbler::processFrame(std::vector<GUI::IDisplayModule::event_t> event
     }
     moveSnake();
     eatApple();
-    std::cout << "test" << std::endl;
     return true;
 }
 
