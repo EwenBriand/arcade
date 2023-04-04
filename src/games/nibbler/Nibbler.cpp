@@ -18,11 +18,17 @@ extern "C" {
 
 Game::Nibbler::Nibbler()
 {
+    srand(time(NULL));
+    std::cout << "Creating Nibbler..." << std::endl;
     _dir = direction::LEFT;
     buildSnake();
     buildMap();
     generateApple();
     _shouldMove = true;
+    _score = 0;
+    _mapspecs = {60, 60, 10, 10};
+    _texts.push_back({"Score: " + std::to_string(_score), 71, 0, 18,
+        GUI::IDisplayModule::color_t::WHITE});
 }
 
 void Game::Nibbler::buildMap()
@@ -103,6 +109,7 @@ bool Game::Nibbler::checkCollision()
     int x = (_dir == direction::LEFT) ? -1 : _dir == direction::RIGHT ? 1 : 0;
     int y = (_dir == direction::UP) ? -1 : _dir == direction::DOWN ? 1 : 0;
 
+    _pixels = getPixels();
     for (auto &i : _pixels) {
         if (i.x == _snake[0].x + x && i.y == _snake[0].y + y && i.repr == 'M') {
             if (_dir == direction::UP || _dir == direction::DOWN) {
@@ -196,7 +203,6 @@ bool Game::Nibbler::checkEvent(
 bool Game::Nibbler::processFrame(std::vector<GUI::IDisplayModule::event_t> events)
 {
     _texts.clear();
-    _pixels = getPixels();
     if (!checkEvent(events)) {
         return false;
     }
@@ -205,6 +211,7 @@ bool Game::Nibbler::processFrame(std::vector<GUI::IDisplayModule::event_t> event
     }
     moveSnake();
     eatApple();
+    std::cout << "test" << std::endl;
     return true;
 }
 
@@ -217,7 +224,7 @@ std::vector<GUI::IDisplayModule::text_t> Game::Nibbler::getTexts()
 
 GUI::IDisplayModule::mapSpecs_t Game::Nibbler::getMapSpecs()
 {
-    return _mapspecs;
+    return {0, 20, 10, 10};
 }
 
 std::vector<GUI::IDisplayModule::pixel_t> Game::Nibbler::getPixels()
