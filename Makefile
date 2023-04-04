@@ -14,7 +14,7 @@ LIBALL	=	./lib/game/* ./lib/graph/*
 
 SRC_CORE 	=	src/core/Core.cpp
 
-MAIN	=	main.cpp
+MAIN	=	src/main.cpp
 
 CPPFLAGS	=	-I ../../include
 
