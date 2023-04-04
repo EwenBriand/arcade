@@ -36,8 +36,9 @@ int **Game::Nibbler::getMapWallPosFromFile(std::string path)
 {
     std::string map_str;
     std::ifstream map_file(path);
-    int rows = 0, cols = 0, wall_count = 0;
-    int **pos = {0};
+    int rows = 0, cols = 0, num_walls = 0;
+    int wall_index = 0;
+    int **pos = nullptr;
 
     if (map_file.is_open()) {
         map_str = std::string((std::istreambuf_iterator<char>(map_file)), std::istreambuf_iterator<char>());
@@ -46,6 +47,7 @@ int **Game::Nibbler::getMapWallPosFromFile(std::string path)
         std::cout << "Error: could not open map file." << std::endl;
         return pos;
     }
+
     for (int i = 0; i < map_str.length(); i++) {
         if (map_str[i] == '\n') {
             rows++;
@@ -53,48 +55,55 @@ int **Game::Nibbler::getMapWallPosFromFile(std::string path)
         } else {
             cols++;
             if (map_str[i] == '#') {
-                wall_count++;
+                num_walls++;
             }
         }
     }
-    pos = new int *[wall_count + 1];
-    for (int i = 0; i < wall_count; i++) {
+
+    pos = new int*[num_walls + 1];
+    for (int i = 0; i < num_walls + 1; i++) {
         pos[i] = new int[2];
     }
 
-    int wall_index = 0;
     for (int i = 0; i < map_str.length(); i++) {
         if (map_str[i] == '#') {
-            pos[wall_index][0] = i % (cols + 1);
-            pos[wall_index][1] = i / (cols + 1);
+            pos[wall_index][0] = rows - 1;
+            pos[wall_index][1] = cols - 1;
             wall_index++;
         }
+        if (map_str[i] == '\n') {
+            rows--;
+            cols = 0;
+        } else {
+            cols++;
+        }
     }
-    pos[wall_count] = NULL;
+    pos[wall_index] = nullptr;
     return pos;
 }
-
 
 void Game::Nibbler::buildMap()
 {
     GUI::IDisplayModule::deltaRGB_t white = {255, 255, 255};
     int **pos = getMapWallPosFromFile("assets/map/nibbler_basic.txt");
 
-    for (int i = 5; i < 25; i++) {
+    for (int i = 5; i < 24; i++) {
         _wall.push_back(
             {GUI::IDisplayModule::color_t::WHITE, white, 'M', i, 5, "", 0});
         _wall.push_back(
-            {GUI::IDisplayModule::color_t::WHITE, white, 'M', i, 24, "", 0});
+            {GUI::IDisplayModule::color_t::WHITE, white, 'M', i, 23, "", 0});
         _wall.push_back(
             {GUI::IDisplayModule::color_t::WHITE, white, 'M', 5, i, "", 0});
         _wall.push_back(
-            {GUI::IDisplayModule::color_t::WHITE, white, 'M', 24, i, "", 0});
+            {GUI::IDisplayModule::color_t::WHITE, white, 'M', 23, i, "", 0});
     }
-    for (int i = 0; pos[i] != NULL; i++) {
+    if (pos == nullptr) {
+        return;
+    }
+    for (int i = 0; pos[i] != nullptr; i++) {
         _wall.push_back(
-            {GUI::IDisplayModule::color_t::WHITE, white, 'M', pos[i][0], pos[i][1], "", 0});
+            {GUI::IDisplayModule::color_t::WHITE, white, 'M', pos[i][0] + 7, pos[i][1] + 7, "", 0});
     }
-
 }
 
 void Game::Nibbler::buildSnake()
