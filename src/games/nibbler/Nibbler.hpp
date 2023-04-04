@@ -23,7 +23,6 @@ namespace Game
             ~Nibbler() override = default;
             void buildMap();
             void buildSnake();
-            void generateApple();
             void moveSnake();
             bool checkCollision();
             void eatApple();
@@ -35,7 +34,7 @@ namespace Game
             std::vector<GUI::IDisplayModule::pixel_t> getPixels() override;
             std::vector<GUI::IDisplayModule::text_t> getTexts() override;
             std::vector<std::string> getSounds() override;
-            int **getMapWallPosFromFile(std::string path);
+            int **getMapElemPosFromFile(std::string path, char elem);
         private:
             std::vector<GUI::IDisplayModule::pixel_t> _pixels;
             std::vector<GUI::IDisplayModule::pixel_t> _snake;
@@ -44,6 +43,8 @@ namespace Game
             std::vector<GUI::IDisplayModule::text_t> _texts;
             GUI::IDisplayModule::mapSpecs_t _mapspecs;
             direction _dir;
+            int **_wallpos;
+            int **_applepos;
             int _score;
             bool _shouldMove;
     };
