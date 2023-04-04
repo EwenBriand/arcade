@@ -21,12 +21,12 @@ NAME	=
 all:	my_snake my_nibbler
 
 my_nibbler:	$(OBJ_NIB)
-	g++ -o ./lib_nibbler.so $(LIBFLAG) $(OBJ_NIB) $(CPPFLAGS) $(CFLAGS) $(SFLAGS)
-	mv ./lib_nibbler.so $(PLACE)
+	g++ -o ./arcade_nibbler.so $(LIBFLAG) $(OBJ_NIB) $(CPPFLAGS) $(CFLAGS) $(SFLAGS)
+	mv ./arcade_nibbler.so $(PLACE)
 
 my_snake:	$(OBJ_SNK)
-	g++ -o ./lib_snake.so $(LIBFLAG) $(OBJ_SNK) $(CPPFLAGS) $(CFLAGS) $(SFLAGS)
-	mv ./lib_snake.so $(PLACE)
+	g++ -o ./arcade_snake.so $(LIBFLAG) $(OBJ_SNK) $(CPPFLAGS) $(CFLAGS) $(SFLAGS)
+	mv ./arcade_snake.so $(PLACE)
 
 clean:
 	rm -rf *~

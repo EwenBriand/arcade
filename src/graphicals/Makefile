@@ -31,16 +31,16 @@ NAME	=
 all:	my_ncurses my_sdl my_sfml
 
 my_sfml:	$(OBJ_SFML)
-	g++ -o ./lib_sfml.so $(LIBFLAG) $(OBJ_SFML) $(CPPFLAGS) $(CFLAGS) $(SFLAGS)
-	mv ./lib_sfml.so $(PLACE)
+	g++ -o ./arcade_sfml.so $(LIBFLAG) $(OBJ_SFML) $(CPPFLAGS) $(CFLAGS) $(SFLAGS)
+	mv ./arcade_sfml.so $(PLACE)
 
 my_ncurses:	$(OBJ_NCR)
-	g++ -o ./lib_ncurse.so $(LIBFLAG) $(OBJ_NCR) $(CPPFLAGS) $(CFLAGS) $(NFLAGS)
-	mv ./lib_ncurse.so $(PLACE)
+	g++ -o ./arcade_ncurses.so $(LIBFLAG) $(OBJ_NCR) $(CPPFLAGS) $(CFLAGS) $(NFLAGS)
+	mv ./arcade_ncurses.so $(PLACE)
 
 my_sdl:	$(OBJ_SDL)
-	g++ -o ./lib_sdl.so $(LIBFLAG) $(OBJ_SDL) $(CPPFLAGS) $(CFLAGS) $(SDLFLAGS)
-	mv ./lib_sdl.so $(PLACE)
+	g++ -o ./arcade_sdl2.so $(LIBFLAG) $(OBJ_SDL) $(CPPFLAGS) $(CFLAGS) $(SDLFLAGS)
+	mv ./arcade_sdl2.so $(PLACE)
 
 clean:
 	rm -rf *~
