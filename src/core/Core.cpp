@@ -299,7 +299,6 @@ void CORE::Core::launchGame()
     std::cout << _so_graph[0].string() << std::endl;
     std::cout << _ndisplay << std::endl;
 
-    std::cout << "launched" << std::endl;
     _displays->openWindow(400, 400);
     _displays->setMapSpecs({10, 10, 10, 10});
     auto status = true;
@@ -309,11 +308,6 @@ void CORE::Core::launchGame()
         std::this_thread::sleep_until(
             std::chrono::system_clock::now() + std::chrono::milliseconds(200));
     }
-    std::cout << "running" << std::endl;
 
     _displays->closeWindow();
 }
-
-// sdl input PT
-// finir + relancer le jeux PT
-// tout les texts ne sont pas refresh

@@ -54,5 +54,6 @@ graphicals: $(OBJ_GRAPH)
 debug: core
 	$(MAKE) debug -C ./src/games/
 	$(MAKE) debug -C ./src/graphicals/
+	cp $(LIBALL) ./lib
 
 .PHONY:	all clean fclean re core games graphicals

@@ -175,7 +175,7 @@ std::vector<GUI::Sfml::event_t> GUI::Sfml::pollEvents()
             checkKeyEvent(sf::Keyboard::Backspace, BACKSPACE, events, event);
             checkKeyEvent(sf::Keyboard::Enter, ENTER, events, event);
             checkKeyEvent(sf::Keyboard::Space, KEYCODE, events, event, ' ');
-            for (sf::Keyboard::Key i; i < 26; i = sf::Keyboard::Key(i + 1)) {
+            for (sf::Keyboard::Key i; i < sf::Keyboard::Key(26); i = sf::Keyboard::Key(i + 1)) {
                 checkKeyEvent(i, KEYCODE, events, event, 'a' + i);
             }
         }
