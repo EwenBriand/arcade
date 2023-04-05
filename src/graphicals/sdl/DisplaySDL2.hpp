@@ -36,7 +36,15 @@ namespace GUI
         DisplaySDL2();
         ~DisplaySDL2();
         void setUnits(const int &pxpu) override;
+        /**
+         * @brief Get the Units object
+         * @return int
+        */
         int getUnits() const override;
+        /**
+         * @brief Set the Map Specs object
+         * @param mapspecs specs of the map
+        */
         void setMapSpecs(mapSpecs_t mapspecs) override;
         std::vector<event_t> pollEvents() override;
         void loadSound(

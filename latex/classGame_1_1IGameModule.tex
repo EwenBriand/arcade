@@ -1,0 +1,55 @@
+\hypertarget{classGame_1_1IGameModule}{}\doxysection{Game\+::IGame\+Module Class Reference}
+\label{classGame_1_1IGameModule}\index{Game::IGameModule@{Game::IGameModule}}
+Inheritance diagram for Game\+::IGame\+Module\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classGame_1_1IGameModule}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+virtual bool \mbox{\hyperlink{classGame_1_1IGameModule_af9cdca60e3acecceefae08931a0b6fce}{process\+Frame}} (std\+::vector$<$ \mbox{\hyperlink{classGUI_1_1IDisplayModule_a2d007027d28d78652889f99c023e074c}{GUI\+::\+IDisplay\+Module\+::event\+\_\+t}} $>$)=0
+\begin{DoxyCompactList}\small\item\em Process one frame of the game based on the events received. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classGame_1_1IGameModule_a37c8025afa9c9948e8c86a1ae714c600}\label{classGame_1_1IGameModule_a37c8025afa9c9948e8c86a1ae714c600}} 
+virtual \mbox{\hyperlink{classGUI_1_1IDisplayModule_a36782f4ed758333ccd2fc7af44d6697a}{GUI\+::\+IDisplay\+Module\+::map\+Specs\+\_\+t}} \mbox{\hyperlink{classGame_1_1IGameModule_a37c8025afa9c9948e8c86a1ae714c600}{get\+Map\+Specs}} ()=0
+\begin{DoxyCompactList}\small\item\em Get the specs of the map. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classGame_1_1IGameModule_aadcdfe94aa0d7e9e572beec89c6e244b}\label{classGame_1_1IGameModule_aadcdfe94aa0d7e9e572beec89c6e244b}} 
+virtual std\+::vector$<$ \mbox{\hyperlink{classGUI_1_1IDisplayModule_a286bc527b932f1cab962aa66e669a6e5}{GUI\+::\+IDisplay\+Module\+::pixel\+\_\+t}} $>$ \mbox{\hyperlink{classGame_1_1IGameModule_aadcdfe94aa0d7e9e572beec89c6e244b}{get\+Pixels}} ()=0
+\begin{DoxyCompactList}\small\item\em Get the pixels to display on the screen. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classGame_1_1IGameModule_a69680507368ce63549da1526c0beaa1c}\label{classGame_1_1IGameModule_a69680507368ce63549da1526c0beaa1c}} 
+virtual std\+::vector$<$ \mbox{\hyperlink{classGUI_1_1IDisplayModule_ad7efb3def9c1b1fcf9588d5d71e49ee4}{GUI\+::\+IDisplay\+Module\+::text\+\_\+t}} $>$ \mbox{\hyperlink{classGame_1_1IGameModule_a69680507368ce63549da1526c0beaa1c}{get\+Texts}} ()=0
+\begin{DoxyCompactList}\small\item\em Get the texts to display on the screen. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classGame_1_1IGameModule_a7153510999500ce94aaacba99576bf3d}\label{classGame_1_1IGameModule_a7153510999500ce94aaacba99576bf3d}} 
+virtual std\+::vector$<$ std\+::string $>$ \mbox{\hyperlink{classGame_1_1IGameModule_a7153510999500ce94aaacba99576bf3d}{get\+Sounds}} ()=0
+\begin{DoxyCompactList}\small\item\em Get the sounds to play. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classGame_1_1IGameModule_af9cdca60e3acecceefae08931a0b6fce}\label{classGame_1_1IGameModule_af9cdca60e3acecceefae08931a0b6fce}} 
+\index{Game::IGameModule@{Game::IGameModule}!processFrame@{processFrame}}
+\index{processFrame@{processFrame}!Game::IGameModule@{Game::IGameModule}}
+\doxysubsubsection{\texorpdfstring{processFrame()}{processFrame()}}
+{\footnotesize\ttfamily virtual bool Game\+::\+IGame\+Module\+::process\+Frame (\begin{DoxyParamCaption}\item[{std\+::vector$<$ \mbox{\hyperlink{classGUI_1_1IDisplayModule_a2d007027d28d78652889f99c023e074c}{GUI\+::\+IDisplay\+Module\+::event\+\_\+t}} $>$}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Process one frame of the game based on the events received. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em events} & The events received from the graphical lib. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True if the game is still running, False if the game is over. 
+\end{DoxyReturn}
+
+
+Implemented in \mbox{\hyperlink{classGame_1_1Nibbler_a7a8bb93d3269b8360afcdc36d233dd85}{Game\+::\+Nibbler}}, and \mbox{\hyperlink{classGame_1_1GameSnake_a6a4b204566f453c8b2164942ad82c333}{Game\+::\+Game\+Snake}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+include/IGame\+Module.\+hpp\end{DoxyCompactItemize}

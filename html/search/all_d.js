@@ -1,0 +1,12 @@
+var searchData=
+[
+  ['setdisplays_51',['setDisplays',['../classCORE_1_1Core.html#a3ff92b218d46d3e8fe4cd66dbc270f20',1,'CORE::Core']]],
+  ['setgame_52',['setGame',['../classCORE_1_1Core.html#a92fa0e295bdc8ec91af76f8ce4284435',1,'CORE::Core']]],
+  ['setmapspecs_53',['setMapSpecs',['../classGUI_1_1Ncurse.html#a53024d9e611035599704e1f9f8c70f76',1,'GUI::Ncurse::setMapSpecs()'],['../classGUI_1_1Sfml.html#a4efa648bce983b86933824ee9f8c57ee',1,'GUI::Sfml::setMapSpecs()'],['../classGUI_1_1DisplaySDL2.html#a22c7e9087315e1ff9a82e259ee2398a7',1,'GUI::DisplaySDL2::setMapSpecs()']]],
+  ['setsprite_54',['setSprite',['../classGUI_1_1IDisplayModule.html#a0cce0c0f48794dd0f0fcdcbe24a3acbd',1,'GUI::IDisplayModule::setSprite()'],['../classGUI_1_1Ncurse.html#ae33c77ebf15a4c3686b78934664692bb',1,'GUI::Ncurse::setSprite()'],['../classGUI_1_1Sfml.html#a60c569e0bd5ecba76819ca9e0b913605',1,'GUI::Sfml::setSprite()'],['../classGUI_1_1DisplaySDL2.html#aeb3cdc6cbeaf999fe2ccf013ca72bf0e',1,'GUI::DisplaySDL2::setSprite()']]],
+  ['settext_55',['setText',['../classGUI_1_1Ncurse.html#ab153afa5e694f0d6d9858ef5cd14d06a',1,'GUI::Ncurse::setText()'],['../classGUI_1_1DisplaySDL2.html#a1e288f64010acdeb736ea21016866cab',1,'GUI::DisplaySDL2::setText()'],['../classGUI_1_1Sfml.html#a1c4f7e683d197f8de879733643b1c7bb',1,'GUI::Sfml::setText()'],['../classGUI_1_1IDisplayModule.html#a5cb15a00f2c5227f3f5c15f4e45bf81b',1,'GUI::IDisplayModule::setText(std::string label, text_t text)=0']]],
+  ['setunits_56',['setUnits',['../classGUI_1_1IDisplayModule.html#ab3ba2804e2913b650cdaef5cc115a986',1,'GUI::IDisplayModule::setUnits()'],['../classGUI_1_1Ncurse.html#a38f836cce38b4a1a0b3d2e582af49430',1,'GUI::Ncurse::setUnits()'],['../classGUI_1_1Sfml.html#ab5f663ce2a8f1d1e2b112e9df6032871',1,'GUI::Sfml::setUnits()'],['../classGUI_1_1DisplaySDL2.html#ac600df499cc5200ec78c1e5c76c3a408',1,'GUI::DisplaySDL2::setUnits()']]],
+  ['setwindowsize_57',['setWindowSize',['../classGUI_1_1IDisplayModule.html#ae84c78b11d90f19728e3dcba1dd7476e',1,'GUI::IDisplayModule::setWindowSize()'],['../classGUI_1_1Ncurse.html#aa72b51695dec3e551eaf29172bc8c50c',1,'GUI::Ncurse::setWindowSize()'],['../classGUI_1_1Sfml.html#a7048096e956e7612d58e9f314253bc48',1,'GUI::Sfml::setWindowSize()'],['../classGUI_1_1DisplaySDL2.html#a1fc4c1fe50ad4ee2140a8eff8b9f0460',1,'GUI::DisplaySDL2::setWindowSize()']]],
+  ['sfml_58',['Sfml',['../classGUI_1_1Sfml.html',1,'GUI']]],
+  ['start_5fgame_59',['start_game',['../classCORE_1_1Core.html#a055a6b392e4f945f787e0abb43ad4355',1,'CORE::Core']]]
+];

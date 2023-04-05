@@ -17,7 +17,17 @@ namespace GUI
         Ncurse();
         ~Ncurse();
         virtual void setUnits(const int &pxpu) override;
+        /**
+         * @brief Get the Units object
+         *
+         * @return int
+         */
         virtual int getUnits() const override;
+        /**
+         * @brief Set the Map Specs object
+         *
+         * @param mapspecs specs of the map
+         */
         virtual void setMapSpecs(mapSpecs_t mapspecs) override;
         virtual std::vector<event_t> pollEvents() override;
         virtual void loadSound(

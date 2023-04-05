@@ -1,0 +1,34 @@
+\hypertarget{structGUI_1_1IDisplayModule_1_1event__s}{}\doxysection{GUI\+::IDisplay\+Module\+::event\+\_\+s Struct Reference}
+\label{structGUI_1_1IDisplayModule_1_1event__s}\index{GUI::IDisplayModule::event\_s@{GUI::IDisplayModule::event\_s}}
+
+
+Struct that represents an Event. Name is the type of the event, choosed from the enum binding\+Type\+\_\+t. The Event class has a std\+::vector of values that can be used if the event has some values associated with it. (for exemple the coordinates of the mouse when a mouse click event is triggered) The Event class also has a timestamp that can be used to know when the event happened and sort them by order in time if needed.  
+
+
+
+
+{\ttfamily \#include $<$IDisplay\+Module.\+hpp$>$}
+
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{structGUI_1_1IDisplayModule_1_1event__s_ab8e36e5e20038c761c3cbe1d3e2fb77c}\label{structGUI_1_1IDisplayModule_1_1event__s_ab8e36e5e20038c761c3cbe1d3e2fb77c}} 
+binding\+Type\+\_\+t {\bfseries \+\_\+name} = KEYCODE
+\item 
+\mbox{\Hypertarget{structGUI_1_1IDisplayModule_1_1event__s_a52b8a458800a186d7b8f69157f391a2c}\label{structGUI_1_1IDisplayModule_1_1event__s_a52b8a458800a186d7b8f69157f391a2c}} 
+float {\bfseries time\+Stamp}
+\item 
+\mbox{\Hypertarget{structGUI_1_1IDisplayModule_1_1event__s_a4d43c67520058fad9dd4940c4e2bac89}\label{structGUI_1_1IDisplayModule_1_1event__s_a4d43c67520058fad9dd4940c4e2bac89}} 
+std\+::vector$<$ double $>$ {\bfseries \+\_\+dvalues}
+\item 
+\mbox{\Hypertarget{structGUI_1_1IDisplayModule_1_1event__s_a261ee769b1f8128275e91758de26733e}\label{structGUI_1_1IDisplayModule_1_1event__s_a261ee769b1f8128275e91758de26733e}} 
+std\+::vector$<$ int $>$ {\bfseries \+\_\+ivalues}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Struct that represents an Event. Name is the type of the event, choosed from the enum binding\+Type\+\_\+t. The Event class has a std\+::vector of values that can be used if the event has some values associated with it. (for exemple the coordinates of the mouse when a mouse click event is triggered) The Event class also has a timestamp that can be used to know when the event happened and sort them by order in time if needed. 
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+include/IDisplay\+Module.\+hpp\end{DoxyCompactItemize}

@@ -1,0 +1,156 @@
+\hypertarget{classCORE_1_1Core}{}\doxysection{CORE\+::Core Class Reference}
+\label{classCORE_1_1Core}\index{CORE::Core@{CORE::Core}}
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classCORE_1_1Core_1_1Error}{Error}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classCORE_1_1Core_a4cb68622dd53755393aaa2a388296dcb}{Core}} (std\+::string filename)
+\begin{DoxyCompactList}\small\item\em Construct a new \mbox{\hyperlink{classCORE_1_1Core}{Core}} object. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classCORE_1_1Core_a3ff92b218d46d3e8fe4cd66dbc270f20}{set\+Displays}} (std\+::string ndisplay)
+\begin{DoxyCompactList}\small\item\em Set the graphical library to use. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classCORE_1_1Core_a92fa0e295bdc8ec91af76f8ce4284435}{set\+Game}} (std\+::string ngame)
+\begin{DoxyCompactList}\small\item\em Set the game to use. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classCORE_1_1Core_a16d743d737afa25b232a2afec3b92e3c}\label{classCORE_1_1Core_a16d743d737afa25b232a2afec3b92e3c}} 
+void \mbox{\hyperlink{classCORE_1_1Core_a16d743d737afa25b232a2afec3b92e3c}{launch\+Game}} ()
+\begin{DoxyCompactList}\small\item\em Launch the game. \end{DoxyCompactList}\item 
+std\+::vector$<$ std\+::filesystem\+::path $>$ \mbox{\hyperlink{classCORE_1_1Core_a1303a8fb9a11b4c6016bcc9b8ab929f2}{find\+\_\+so\+\_\+files}} (const std\+::string \&path)
+\begin{DoxyCompactList}\small\item\em Get the graphical library. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classCORE_1_1Core_a65981cc50822286fcdfbca76cdf11ef6}\label{classCORE_1_1Core_a65981cc50822286fcdfbca76cdf11ef6}} 
+void \mbox{\hyperlink{classCORE_1_1Core_a65981cc50822286fcdfbca76cdf11ef6}{display\+\_\+menu}} ()
+\begin{DoxyCompactList}\small\item\em display the menu \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classCORE_1_1Core_aebedeb0a5d75d301b781e35d506e198a}{event\+\_\+menu}} (bool \&status)
+\begin{DoxyCompactList}\small\item\em get all the events of the menu \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{classCORE_1_1Core_a055a6b392e4f945f787e0abb43ad4355}{start\+\_\+game}} (bool \&status)
+\begin{DoxyCompactList}\small\item\em launch the game \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classCORE_1_1Core_a224e2e045c4c8b40e7448f6133cd4578}\label{classCORE_1_1Core_a224e2e045c4c8b40e7448f6133cd4578}} 
+void \mbox{\hyperlink{classCORE_1_1Core_a224e2e045c4c8b40e7448f6133cd4578}{clear\+\_\+text}} ()
+\begin{DoxyCompactList}\small\item\em clear the text \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classCORE_1_1Core_ab52bffd390a64fb6a0bba355448b2e26}{add\+If\+Not\+Present}} (std\+::string str)
+\begin{DoxyCompactList}\small\item\em add a lib to the list of the lib \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classCORE_1_1Core_a4cb68622dd53755393aaa2a388296dcb}\label{classCORE_1_1Core_a4cb68622dd53755393aaa2a388296dcb}} 
+\index{CORE::Core@{CORE::Core}!Core@{Core}}
+\index{Core@{Core}!CORE::Core@{CORE::Core}}
+\doxysubsubsection{\texorpdfstring{Core()}{Core()}}
+{\footnotesize\ttfamily CORE\+::\+Core\+::\+Core (\begin{DoxyParamCaption}\item[{std\+::string}]{filename }\end{DoxyParamCaption})}
+
+
+
+Construct a new \mbox{\hyperlink{classCORE_1_1Core}{Core}} object. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em filename} & name of the library graphical \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classCORE_1_1Core_ab52bffd390a64fb6a0bba355448b2e26}\label{classCORE_1_1Core_ab52bffd390a64fb6a0bba355448b2e26}} 
+\index{CORE::Core@{CORE::Core}!addIfNotPresent@{addIfNotPresent}}
+\index{addIfNotPresent@{addIfNotPresent}!CORE::Core@{CORE::Core}}
+\doxysubsubsection{\texorpdfstring{addIfNotPresent()}{addIfNotPresent()}}
+{\footnotesize\ttfamily void CORE\+::\+Core\+::add\+If\+Not\+Present (\begin{DoxyParamCaption}\item[{std\+::string}]{str }\end{DoxyParamCaption})}
+
+
+
+add a lib to the list of the lib 
+
+
+\begin{DoxyParams}{Parameters}
+{\em str} & name of the lib \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classCORE_1_1Core_aebedeb0a5d75d301b781e35d506e198a}\label{classCORE_1_1Core_aebedeb0a5d75d301b781e35d506e198a}} 
+\index{CORE::Core@{CORE::Core}!event\_menu@{event\_menu}}
+\index{event\_menu@{event\_menu}!CORE::Core@{CORE::Core}}
+\doxysubsubsection{\texorpdfstring{event\_menu()}{event\_menu()}}
+{\footnotesize\ttfamily void CORE\+::\+Core\+::event\+\_\+menu (\begin{DoxyParamCaption}\item[{bool \&}]{status }\end{DoxyParamCaption})}
+
+
+
+get all the events of the menu 
+
+
+\begin{DoxyParams}{Parameters}
+{\em status} & change to false if the user want to quit \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classCORE_1_1Core_a1303a8fb9a11b4c6016bcc9b8ab929f2}\label{classCORE_1_1Core_a1303a8fb9a11b4c6016bcc9b8ab929f2}} 
+\index{CORE::Core@{CORE::Core}!find\_so\_files@{find\_so\_files}}
+\index{find\_so\_files@{find\_so\_files}!CORE::Core@{CORE::Core}}
+\doxysubsubsection{\texorpdfstring{find\_so\_files()}{find\_so\_files()}}
+{\footnotesize\ttfamily std\+::vector$<$ std\+::filesystem\+::path $>$ CORE\+::\+Core\+::find\+\_\+so\+\_\+files (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{path }\end{DoxyParamCaption})}
+
+
+
+Get the graphical library. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em path} & path to the library \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+std\+::vector$<$std\+::filesystem\+::path$>$ list of the graphical and game libraries 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classCORE_1_1Core_a3ff92b218d46d3e8fe4cd66dbc270f20}\label{classCORE_1_1Core_a3ff92b218d46d3e8fe4cd66dbc270f20}} 
+\index{CORE::Core@{CORE::Core}!setDisplays@{setDisplays}}
+\index{setDisplays@{setDisplays}!CORE::Core@{CORE::Core}}
+\doxysubsubsection{\texorpdfstring{setDisplays()}{setDisplays()}}
+{\footnotesize\ttfamily void CORE\+::\+Core\+::set\+Displays (\begin{DoxyParamCaption}\item[{std\+::string}]{ndisplay }\end{DoxyParamCaption})}
+
+
+
+Set the graphical library to use. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em ndisplay} & name of the library \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classCORE_1_1Core_a92fa0e295bdc8ec91af76f8ce4284435}\label{classCORE_1_1Core_a92fa0e295bdc8ec91af76f8ce4284435}} 
+\index{CORE::Core@{CORE::Core}!setGame@{setGame}}
+\index{setGame@{setGame}!CORE::Core@{CORE::Core}}
+\doxysubsubsection{\texorpdfstring{setGame()}{setGame()}}
+{\footnotesize\ttfamily void CORE\+::\+Core\+::set\+Game (\begin{DoxyParamCaption}\item[{std\+::string}]{ngame }\end{DoxyParamCaption})}
+
+
+
+Set the game to use. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em ngame} & name of the game \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classCORE_1_1Core_a055a6b392e4f945f787e0abb43ad4355}\label{classCORE_1_1Core_a055a6b392e4f945f787e0abb43ad4355}} 
+\index{CORE::Core@{CORE::Core}!start\_game@{start\_game}}
+\index{start\_game@{start\_game}!CORE::Core@{CORE::Core}}
+\doxysubsubsection{\texorpdfstring{start\_game()}{start\_game()}}
+{\footnotesize\ttfamily int CORE\+::\+Core\+::start\+\_\+game (\begin{DoxyParamCaption}\item[{bool \&}]{status }\end{DoxyParamCaption})}
+
+
+
+launch the game 
+
+
+\begin{DoxyParams}{Parameters}
+{\em status} & change to false if the user want to quit \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+int 1 if the user want to quit, 0 if all is ok, 2 if the user want to change the game 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/core/Core.\+hpp\item 
+src/core/Core.\+cpp\end{DoxyCompactItemize}

@@ -1,0 +1,130 @@
+\hypertarget{classGame_1_1GameSnake}{}\doxysection{Game\+::Game\+Snake Class Reference}
+\label{classGame_1_1GameSnake}\index{Game::GameSnake@{Game::GameSnake}}
+Inheritance diagram for Game\+::Game\+Snake\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classGame_1_1GameSnake}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classGame_1_1GameSnake_a4da99c7b75eb8a64e41abbfd37751b6e}\label{classGame_1_1GameSnake_a4da99c7b75eb8a64e41abbfd37751b6e}} 
+enum \mbox{\hyperlink{classGame_1_1GameSnake_a4da99c7b75eb8a64e41abbfd37751b6e}{direction}} \{ {\bfseries UP}
+, {\bfseries DOWN}
+, {\bfseries LEFT}
+, {\bfseries RIGHT}
+ \}
+\begin{DoxyCompactList}\small\item\em Enum for the direction of the snake. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classGame_1_1GameSnake_a220b7d0b0a1cee08df5427c11d36e581}\label{classGame_1_1GameSnake_a220b7d0b0a1cee08df5427c11d36e581}} 
+void \mbox{\hyperlink{classGame_1_1GameSnake_a220b7d0b0a1cee08df5427c11d36e581}{init\+Wall}} ()
+\begin{DoxyCompactList}\small\item\em Init the wall of the game. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classGame_1_1GameSnake_a6a4b204566f453c8b2164942ad82c333}{process\+Frame}} (std\+::vector$<$ \mbox{\hyperlink{classGUI_1_1IDisplayModule_a2d007027d28d78652889f99c023e074c}{GUI\+::\+IDisplay\+Module\+::event\+\_\+t}} $>$ events) override
+\begin{DoxyCompactList}\small\item\em Process one frame of the game based on the events received. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classGame_1_1GameSnake_a9d78f6436263350a7f6d082e086aff74}\label{classGame_1_1GameSnake_a9d78f6436263350a7f6d082e086aff74}} 
+\mbox{\hyperlink{classGUI_1_1IDisplayModule_a36782f4ed758333ccd2fc7af44d6697a}{GUI\+::\+IDisplay\+Module\+::map\+Specs\+\_\+t}} \mbox{\hyperlink{classGame_1_1GameSnake_a9d78f6436263350a7f6d082e086aff74}{get\+Map\+Specs}} () override
+\begin{DoxyCompactList}\small\item\em Get the specs of the map. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classGame_1_1GameSnake_aa3b983e5c0aa940de0921d571948a694}\label{classGame_1_1GameSnake_aa3b983e5c0aa940de0921d571948a694}} 
+std\+::vector$<$ \mbox{\hyperlink{classGUI_1_1IDisplayModule_a286bc527b932f1cab962aa66e669a6e5}{GUI\+::\+IDisplay\+Module\+::pixel\+\_\+t}} $>$ \mbox{\hyperlink{classGame_1_1GameSnake_aa3b983e5c0aa940de0921d571948a694}{get\+Pixels}} () override
+\begin{DoxyCompactList}\small\item\em Get the pixels to display on the screen. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classGame_1_1GameSnake_a4324e1e23ca04671a5d380b2e69c9bb0}\label{classGame_1_1GameSnake_a4324e1e23ca04671a5d380b2e69c9bb0}} 
+std\+::vector$<$ \mbox{\hyperlink{classGUI_1_1IDisplayModule_ad7efb3def9c1b1fcf9588d5d71e49ee4}{GUI\+::\+IDisplay\+Module\+::text\+\_\+t}} $>$ \mbox{\hyperlink{classGame_1_1GameSnake_a4324e1e23ca04671a5d380b2e69c9bb0}{get\+Texts}} () override
+\begin{DoxyCompactList}\small\item\em Get the texts to display on the screen. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classGame_1_1GameSnake_a2649b78881b91737d4331f82ae3e04e7}\label{classGame_1_1GameSnake_a2649b78881b91737d4331f82ae3e04e7}} 
+std\+::vector$<$ std\+::string $>$ \mbox{\hyperlink{classGame_1_1GameSnake_a2649b78881b91737d4331f82ae3e04e7}{get\+Sounds}} () override
+\begin{DoxyCompactList}\small\item\em Get the sounds to play. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classGame_1_1GameSnake_aa0d7897d733dd5655ab256ad83acf1cd}{check\+Event}} (std\+::vector$<$ \mbox{\hyperlink{classGUI_1_1IDisplayModule_a2d007027d28d78652889f99c023e074c}{GUI\+::\+IDisplay\+Module\+::event\+\_\+t}} $>$ events)
+\begin{DoxyCompactList}\small\item\em Check in what direction the snake is going. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classGame_1_1GameSnake_ae6cddedfbf28fa1bcb9bfbd35f9abecb}{check\+Collision}} ()
+\begin{DoxyCompactList}\small\item\em Check if the snake is colliding with itself or the wall. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classGame_1_1GameSnake_a608c621850783c16c2180a813036a84c}{change\+Direction}} (\mbox{\hyperlink{classGUI_1_1IDisplayModule_a2d007027d28d78652889f99c023e074c}{GUI\+::\+IDisplay\+Module\+::event\+\_\+t}} \&event)
+\begin{DoxyCompactList}\small\item\em Change the direction of the snake. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classGame_1_1GameSnake_a636f036e770b4e3426f2e9bdf00f4a1e}\label{classGame_1_1GameSnake_a636f036e770b4e3426f2e9bdf00f4a1e}} 
+void \mbox{\hyperlink{classGame_1_1GameSnake_a636f036e770b4e3426f2e9bdf00f4a1e}{move\+Snake}} ()
+\begin{DoxyCompactList}\small\item\em Move the snake. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classGame_1_1GameSnake_a9e77402fdeee19d05ce83bf32e59a19a}\label{classGame_1_1GameSnake_a9e77402fdeee19d05ce83bf32e59a19a}} 
+void \mbox{\hyperlink{classGame_1_1GameSnake_a9e77402fdeee19d05ce83bf32e59a19a}{eat\+Apple}} ()
+\begin{DoxyCompactList}\small\item\em Check if the snake is eating an apple. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classGame_1_1GameSnake_a3431f51f78379309b1f5703e7e0b9601}\label{classGame_1_1GameSnake_a3431f51f78379309b1f5703e7e0b9601}} 
+void \mbox{\hyperlink{classGame_1_1GameSnake_a3431f51f78379309b1f5703e7e0b9601}{init\+Apple}} ()
+\begin{DoxyCompactList}\small\item\em Init the apple. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classGame_1_1GameSnake_a608c621850783c16c2180a813036a84c}\label{classGame_1_1GameSnake_a608c621850783c16c2180a813036a84c}} 
+\index{Game::GameSnake@{Game::GameSnake}!changeDirection@{changeDirection}}
+\index{changeDirection@{changeDirection}!Game::GameSnake@{Game::GameSnake}}
+\doxysubsubsection{\texorpdfstring{changeDirection()}{changeDirection()}}
+{\footnotesize\ttfamily void Game\+::\+Game\+Snake\+::change\+Direction (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classGUI_1_1IDisplayModule_a2d007027d28d78652889f99c023e074c}{GUI\+::\+IDisplay\+Module\+::event\+\_\+t}} \&}]{event }\end{DoxyParamCaption})}
+
+
+
+Change the direction of the snake. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em event} & event from the display module \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classGame_1_1GameSnake_ae6cddedfbf28fa1bcb9bfbd35f9abecb}\label{classGame_1_1GameSnake_ae6cddedfbf28fa1bcb9bfbd35f9abecb}} 
+\index{Game::GameSnake@{Game::GameSnake}!checkCollision@{checkCollision}}
+\index{checkCollision@{checkCollision}!Game::GameSnake@{Game::GameSnake}}
+\doxysubsubsection{\texorpdfstring{checkCollision()}{checkCollision()}}
+{\footnotesize\ttfamily bool Game\+::\+Game\+Snake\+::check\+Collision (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Check if the snake is colliding with itself or the wall. 
+
+\begin{DoxyReturn}{Returns}
+true if the snake is colliding, false otherwise 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classGame_1_1GameSnake_aa0d7897d733dd5655ab256ad83acf1cd}\label{classGame_1_1GameSnake_aa0d7897d733dd5655ab256ad83acf1cd}} 
+\index{Game::GameSnake@{Game::GameSnake}!checkEvent@{checkEvent}}
+\index{checkEvent@{checkEvent}!Game::GameSnake@{Game::GameSnake}}
+\doxysubsubsection{\texorpdfstring{checkEvent()}{checkEvent()}}
+{\footnotesize\ttfamily bool Game\+::\+Game\+Snake\+::check\+Event (\begin{DoxyParamCaption}\item[{std\+::vector$<$ \mbox{\hyperlink{classGUI_1_1IDisplayModule_a2d007027d28d78652889f99c023e074c}{GUI\+::\+IDisplay\+Module\+::event\+\_\+t}} $>$}]{events }\end{DoxyParamCaption})}
+
+
+
+Check in what direction the snake is going. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em events} & events from the display module \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+false if the user wants to quit the game, true otherwise 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classGame_1_1GameSnake_a6a4b204566f453c8b2164942ad82c333}\label{classGame_1_1GameSnake_a6a4b204566f453c8b2164942ad82c333}} 
+\index{Game::GameSnake@{Game::GameSnake}!processFrame@{processFrame}}
+\index{processFrame@{processFrame}!Game::GameSnake@{Game::GameSnake}}
+\doxysubsubsection{\texorpdfstring{processFrame()}{processFrame()}}
+{\footnotesize\ttfamily bool Game\+::\+Game\+Snake\+::process\+Frame (\begin{DoxyParamCaption}\item[{std\+::vector$<$ \mbox{\hyperlink{classGUI_1_1IDisplayModule_a2d007027d28d78652889f99c023e074c}{GUI\+::\+IDisplay\+Module\+::event\+\_\+t}} $>$}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Process one frame of the game based on the events received. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em events} & The events received from the graphical lib. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True if the game is still running, False if the game is over. 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{classGame_1_1IGameModule_af9cdca60e3acecceefae08931a0b6fce}{Game\+::\+IGame\+Module}}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/games/snake/Game\+Snake.\+hpp\item 
+src/games/snake/Game\+Snake.\+cpp\end{DoxyCompactItemize}
