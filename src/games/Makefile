@@ -44,4 +44,4 @@ unitest:
 debug: CFLAGS += -g3
 debug: all
 
-.PHONY: all makelib clean fclean re unitest debug
+.PHONY: all makelib clean fclean re unitest debug my_nibbler my_snake

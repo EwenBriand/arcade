@@ -56,4 +56,4 @@ debug: core
 	$(MAKE) debug -C ./src/graphicals/
 	cp $(LIBALL) ./lib
 
-.PHONY:	all clean fclean re core games graphicals
+.PHONY:	all clean fclean re core games graphicals debug
