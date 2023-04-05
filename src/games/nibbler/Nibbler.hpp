@@ -35,7 +35,15 @@ namespace Game
              *
              */
             void buildSnake();
+            /**
+             * @brief Init the apple of the game
+             *
+             */
             void generateApple();
+            /**
+             * @brief Move the snake
+             *
+             */
             void moveSnake();
             /**
              * @brief Check if the snake is colliding with itself or the wall
@@ -71,7 +79,14 @@ namespace Game
             std::vector<GUI::IDisplayModule::pixel_t> getPixels() override;
             std::vector<GUI::IDisplayModule::text_t> getTexts() override;
             std::vector<std::string> getSounds() override;
-            int **getMapWallPosFromFile(std::string path);
+            /**
+             * @brief Get the Map Elem Pos From File object
+             *
+             * @param path path to the file
+             * @param elem element to get the position
+             * @return int** array of positions
+             */
+            int **getMapElemPosFromFile(std::string path, char elem);
         private:
             std::vector<GUI::IDisplayModule::pixel_t> _pixels;
             std::vector<GUI::IDisplayModule::pixel_t> _snake;
