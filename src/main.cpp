@@ -9,7 +9,7 @@
 #include <iostream>
 #include "IDisplayModule.hpp"
 #include "IGameModule.hpp"
-#include "src/core/Core.hpp"
+#include "core/Core.hpp"
 
 int main(int argc, char **argv)
 {
