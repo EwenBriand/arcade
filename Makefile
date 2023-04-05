@@ -11,7 +11,6 @@ CCPP    =	g++
 
 LIBALL	=	./lib/game/* ./lib/graph/*
 
-
 SRC_CORE 	=	src/core/Core.cpp
 
 MAIN	=	src/main.cpp
@@ -32,11 +31,12 @@ $(NAME):	games graphicals core
 	cp $(LIBALL) ./lib
 
 clean:
+	$(RM) $(OBJ_CORE)
 	$(MAKE) clean -C ./src/games/
 	$(MAKE) clean -C ./src/graphicals/
 
 fclean:	clean
-	rm -f $(NAME) $(LIBALL) ./lib/*.so
+	$(RM) $(NAME) $(LIBALL) ./lib/*.so
 	$(MAKE) fclean -C ./src/games/
 	$(MAKE) fclean -C ./src/graphicals/
 
