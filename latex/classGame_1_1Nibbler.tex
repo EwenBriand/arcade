@@ -1,0 +1,156 @@
+\hypertarget{classGame_1_1Nibbler}{}\doxysection{Game\+::Nibbler Class Reference}
+\label{classGame_1_1Nibbler}\index{Game::Nibbler@{Game::Nibbler}}
+Inheritance diagram for Game\+::Nibbler\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classGame_1_1Nibbler}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classGame_1_1Nibbler_a57c9676874f39ae08c996f52221fc51c}\label{classGame_1_1Nibbler_a57c9676874f39ae08c996f52221fc51c}} 
+enum \mbox{\hyperlink{classGame_1_1Nibbler_a57c9676874f39ae08c996f52221fc51c}{direction}} \{ {\bfseries UP}
+, {\bfseries DOWN}
+, {\bfseries LEFT}
+, {\bfseries RIGHT}
+ \}
+\begin{DoxyCompactList}\small\item\em Enum for the direction of the snake. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classGame_1_1Nibbler_adcc1b117fddf89d28de33798d031589f}\label{classGame_1_1Nibbler_adcc1b117fddf89d28de33798d031589f}} 
+void \mbox{\hyperlink{classGame_1_1Nibbler_adcc1b117fddf89d28de33798d031589f}{build\+Map}} ()
+\begin{DoxyCompactList}\small\item\em Init the map of the game. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classGame_1_1Nibbler_aa4a484626ff0264ed1cef60be72e6220}\label{classGame_1_1Nibbler_aa4a484626ff0264ed1cef60be72e6220}} 
+void \mbox{\hyperlink{classGame_1_1Nibbler_aa4a484626ff0264ed1cef60be72e6220}{build\+Snake}} ()
+\begin{DoxyCompactList}\small\item\em Init the snake of the game. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classGame_1_1Nibbler_a459fce7a7160597508ef7509ef741e15}\label{classGame_1_1Nibbler_a459fce7a7160597508ef7509ef741e15}} 
+void \mbox{\hyperlink{classGame_1_1Nibbler_a459fce7a7160597508ef7509ef741e15}{generate\+Apple}} ()
+\begin{DoxyCompactList}\small\item\em Init the apple of the game. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classGame_1_1Nibbler_ab3f4272c845400492458dc6de3a1142b}\label{classGame_1_1Nibbler_ab3f4272c845400492458dc6de3a1142b}} 
+void \mbox{\hyperlink{classGame_1_1Nibbler_ab3f4272c845400492458dc6de3a1142b}{move\+Snake}} ()
+\begin{DoxyCompactList}\small\item\em Move the snake. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classGame_1_1Nibbler_ae4d4a4f3c545eaf4fef231c159e0c10f}{check\+Collision}} ()
+\begin{DoxyCompactList}\small\item\em Check if the snake is colliding with itself or the wall. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classGame_1_1Nibbler_ab5c0580897445fef62f371fe4589de2c}\label{classGame_1_1Nibbler_ab5c0580897445fef62f371fe4589de2c}} 
+void \mbox{\hyperlink{classGame_1_1Nibbler_ab5c0580897445fef62f371fe4589de2c}{eat\+Apple}} ()
+\begin{DoxyCompactList}\small\item\em Check if the snake is eating an apple. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classGame_1_1Nibbler_a9f9c6f84f72db3a3922987da3994dc77}{check\+Event}} (std\+::vector$<$ \mbox{\hyperlink{classGUI_1_1IDisplayModule_a2d007027d28d78652889f99c023e074c}{GUI\+::\+IDisplay\+Module\+::event\+\_\+t}} $>$ events)
+\begin{DoxyCompactList}\small\item\em Check in what direction the snake is going. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classGame_1_1Nibbler_a583981f7c90d7fbcd095a30876fbdb19}{change\+Direction}} (\mbox{\hyperlink{classGUI_1_1IDisplayModule_a2d007027d28d78652889f99c023e074c}{GUI\+::\+IDisplay\+Module\+::event\+\_\+t}} \&event)
+\begin{DoxyCompactList}\small\item\em Change the direction of the snake. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classGame_1_1Nibbler_a3de975e3f3296f2e22b4bb871afd4bc9}\label{classGame_1_1Nibbler_a3de975e3f3296f2e22b4bb871afd4bc9}} 
+void \mbox{\hyperlink{classGame_1_1Nibbler_a3de975e3f3296f2e22b4bb871afd4bc9}{update\+Score}} ()
+\begin{DoxyCompactList}\small\item\em Update the score. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classGame_1_1Nibbler_a7a8bb93d3269b8360afcdc36d233dd85}{process\+Frame}} (std\+::vector$<$ \mbox{\hyperlink{classGUI_1_1IDisplayModule_a2d007027d28d78652889f99c023e074c}{GUI\+::\+IDisplay\+Module\+::event\+\_\+t}} $>$) override
+\begin{DoxyCompactList}\small\item\em Process one frame of the game based on the events received. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classGame_1_1Nibbler_a2c4fc8a67c939c15825e9dc2c67b556b}\label{classGame_1_1Nibbler_a2c4fc8a67c939c15825e9dc2c67b556b}} 
+\mbox{\hyperlink{classGUI_1_1IDisplayModule_a36782f4ed758333ccd2fc7af44d6697a}{GUI\+::\+IDisplay\+Module\+::map\+Specs\+\_\+t}} \mbox{\hyperlink{classGame_1_1Nibbler_a2c4fc8a67c939c15825e9dc2c67b556b}{get\+Map\+Specs}} () override
+\begin{DoxyCompactList}\small\item\em Get the specs of the map. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classGame_1_1Nibbler_a870f2a29cc69993128d29b1d1d48c4b4}\label{classGame_1_1Nibbler_a870f2a29cc69993128d29b1d1d48c4b4}} 
+std\+::vector$<$ \mbox{\hyperlink{classGUI_1_1IDisplayModule_a286bc527b932f1cab962aa66e669a6e5}{GUI\+::\+IDisplay\+Module\+::pixel\+\_\+t}} $>$ \mbox{\hyperlink{classGame_1_1Nibbler_a870f2a29cc69993128d29b1d1d48c4b4}{get\+Pixels}} () override
+\begin{DoxyCompactList}\small\item\em Get the pixels to display on the screen. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classGame_1_1Nibbler_a0f2d5be8edc994da0bf0e81d389e687e}\label{classGame_1_1Nibbler_a0f2d5be8edc994da0bf0e81d389e687e}} 
+std\+::vector$<$ \mbox{\hyperlink{classGUI_1_1IDisplayModule_ad7efb3def9c1b1fcf9588d5d71e49ee4}{GUI\+::\+IDisplay\+Module\+::text\+\_\+t}} $>$ \mbox{\hyperlink{classGame_1_1Nibbler_a0f2d5be8edc994da0bf0e81d389e687e}{get\+Texts}} () override
+\begin{DoxyCompactList}\small\item\em Get the texts to display on the screen. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classGame_1_1Nibbler_a79f206fb2a86ca83346284f1fdad5c9d}\label{classGame_1_1Nibbler_a79f206fb2a86ca83346284f1fdad5c9d}} 
+std\+::vector$<$ std\+::string $>$ \mbox{\hyperlink{classGame_1_1Nibbler_a79f206fb2a86ca83346284f1fdad5c9d}{get\+Sounds}} () override
+\begin{DoxyCompactList}\small\item\em Get the sounds to play. \end{DoxyCompactList}\item 
+int $\ast$$\ast$ \mbox{\hyperlink{classGame_1_1Nibbler_af9285db0e26ea8214201f6ae557b5bf6}{get\+Map\+Wall\+Pos\+From\+File}} (std\+::string path)
+\begin{DoxyCompactList}\small\item\em Get the Map Wall Pos From File object. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classGame_1_1Nibbler_a583981f7c90d7fbcd095a30876fbdb19}\label{classGame_1_1Nibbler_a583981f7c90d7fbcd095a30876fbdb19}} 
+\index{Game::Nibbler@{Game::Nibbler}!changeDirection@{changeDirection}}
+\index{changeDirection@{changeDirection}!Game::Nibbler@{Game::Nibbler}}
+\doxysubsubsection{\texorpdfstring{changeDirection()}{changeDirection()}}
+{\footnotesize\ttfamily void Game\+::\+Nibbler\+::change\+Direction (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classGUI_1_1IDisplayModule_a2d007027d28d78652889f99c023e074c}{GUI\+::\+IDisplay\+Module\+::event\+\_\+t}} \&}]{event }\end{DoxyParamCaption})}
+
+
+
+Change the direction of the snake. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em event} & event from the display module \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classGame_1_1Nibbler_ae4d4a4f3c545eaf4fef231c159e0c10f}\label{classGame_1_1Nibbler_ae4d4a4f3c545eaf4fef231c159e0c10f}} 
+\index{Game::Nibbler@{Game::Nibbler}!checkCollision@{checkCollision}}
+\index{checkCollision@{checkCollision}!Game::Nibbler@{Game::Nibbler}}
+\doxysubsubsection{\texorpdfstring{checkCollision()}{checkCollision()}}
+{\footnotesize\ttfamily bool Game\+::\+Nibbler\+::check\+Collision (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Check if the snake is colliding with itself or the wall. 
+
+\begin{DoxyReturn}{Returns}
+true if the snake is colliding, false otherwise 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classGame_1_1Nibbler_a9f9c6f84f72db3a3922987da3994dc77}\label{classGame_1_1Nibbler_a9f9c6f84f72db3a3922987da3994dc77}} 
+\index{Game::Nibbler@{Game::Nibbler}!checkEvent@{checkEvent}}
+\index{checkEvent@{checkEvent}!Game::Nibbler@{Game::Nibbler}}
+\doxysubsubsection{\texorpdfstring{checkEvent()}{checkEvent()}}
+{\footnotesize\ttfamily bool Game\+::\+Nibbler\+::check\+Event (\begin{DoxyParamCaption}\item[{std\+::vector$<$ \mbox{\hyperlink{classGUI_1_1IDisplayModule_a2d007027d28d78652889f99c023e074c}{GUI\+::\+IDisplay\+Module\+::event\+\_\+t}} $>$}]{events }\end{DoxyParamCaption})}
+
+
+
+Check in what direction the snake is going. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em events} & events from the display module \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+false if the user wants to quit the game, true otherwise 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classGame_1_1Nibbler_af9285db0e26ea8214201f6ae557b5bf6}\label{classGame_1_1Nibbler_af9285db0e26ea8214201f6ae557b5bf6}} 
+\index{Game::Nibbler@{Game::Nibbler}!getMapWallPosFromFile@{getMapWallPosFromFile}}
+\index{getMapWallPosFromFile@{getMapWallPosFromFile}!Game::Nibbler@{Game::Nibbler}}
+\doxysubsubsection{\texorpdfstring{getMapWallPosFromFile()}{getMapWallPosFromFile()}}
+{\footnotesize\ttfamily int $\ast$$\ast$ Game\+::\+Nibbler\+::get\+Map\+Wall\+Pos\+From\+File (\begin{DoxyParamCaption}\item[{std\+::string}]{path }\end{DoxyParamCaption})}
+
+
+
+Get the Map Wall Pos From File object. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em path} & path to the file \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the map in a 2D array of int 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classGame_1_1Nibbler_a7a8bb93d3269b8360afcdc36d233dd85}\label{classGame_1_1Nibbler_a7a8bb93d3269b8360afcdc36d233dd85}} 
+\index{Game::Nibbler@{Game::Nibbler}!processFrame@{processFrame}}
+\index{processFrame@{processFrame}!Game::Nibbler@{Game::Nibbler}}
+\doxysubsubsection{\texorpdfstring{processFrame()}{processFrame()}}
+{\footnotesize\ttfamily bool Game\+::\+Nibbler\+::process\+Frame (\begin{DoxyParamCaption}\item[{std\+::vector$<$ \mbox{\hyperlink{classGUI_1_1IDisplayModule_a2d007027d28d78652889f99c023e074c}{GUI\+::\+IDisplay\+Module\+::event\+\_\+t}} $>$}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Process one frame of the game based on the events received. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em events} & The events received from the graphical lib. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True if the game is still running, False if the game is over. 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{classGame_1_1IGameModule_af9cdca60e3acecceefae08931a0b6fce}{Game\+::\+IGame\+Module}}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/games/nibbler/Nibbler.\+hpp\item 
+src/games/nibbler/Nibbler.\+cpp\end{DoxyCompactItemize}

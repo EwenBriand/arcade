@@ -313,7 +313,3 @@ void CORE::Core::launchGame()
 
     _displays->closeWindow();
 }
-
-// sdl input PT
-// finir + relancer le jeux PT
-// tout les texts ne sont pas refresh

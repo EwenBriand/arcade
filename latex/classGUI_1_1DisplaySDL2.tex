@@ -1,0 +1,252 @@
+\hypertarget{classGUI_1_1DisplaySDL2}{}\doxysection{GUI\+::Display\+SDL2 Class Reference}
+\label{classGUI_1_1DisplaySDL2}\index{GUI::DisplaySDL2@{GUI::DisplaySDL2}}
+Inheritance diagram for GUI\+::Display\+SDL2\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classGUI_1_1DisplaySDL2}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classGUI_1_1DisplaySDL2_ac600df499cc5200ec78c1e5c76c3a408}\label{classGUI_1_1DisplaySDL2_ac600df499cc5200ec78c1e5c76c3a408}} 
+void \mbox{\hyperlink{classGUI_1_1DisplaySDL2_ac600df499cc5200ec78c1e5c76c3a408}{set\+Units}} (const int \&pxpu) override
+\begin{DoxyCompactList}\small\item\em Set the relation between one in game unit and the number of pixels on the screen. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{classGUI_1_1DisplaySDL2_a9efffa010793f4a749b54cf74294f242}{get\+Units}} () const override
+\begin{DoxyCompactList}\small\item\em Get the Units object. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classGUI_1_1DisplaySDL2_a22c7e9087315e1ff9a82e259ee2398a7}{set\+Map\+Specs}} (\mbox{\hyperlink{classGUI_1_1IDisplayModule_a36782f4ed758333ccd2fc7af44d6697a}{map\+Specs\+\_\+t}} mapspecs) override
+\begin{DoxyCompactList}\small\item\em Set the Map Specs object. \end{DoxyCompactList}\item 
+std\+::vector$<$ \mbox{\hyperlink{classGUI_1_1IDisplayModule_a2d007027d28d78652889f99c023e074c}{event\+\_\+t}} $>$ \mbox{\hyperlink{classGUI_1_1DisplaySDL2_a3e60584548a00b9519d5b55a51ab438b}{poll\+Events}} () override
+\begin{DoxyCompactList}\small\item\em Collects the events that happened since the last call to poll\+Events. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classGUI_1_1DisplaySDL2_ada0485be1810b5fd8cb83183f13a6533}{load\+Sound}} (const std\+::string \&label, const std\+::string \&path) override
+\begin{DoxyCompactList}\small\item\em Load all the sounds from a directory. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classGUI_1_1DisplaySDL2_a4a06d60e97705b305a726b06c5307326}{play\+Sound}} (const std\+::string \&label, const bool \&loop=false) override
+\begin{DoxyCompactList}\small\item\em Play a sound. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classGUI_1_1DisplaySDL2_a1fc4c1fe50ad4ee2140a8eff8b9f0460}{set\+Window\+Size}} (const int \&w, const int \&h) override
+\begin{DoxyCompactList}\small\item\em Set the Window dimensions. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classGUI_1_1DisplaySDL2_a2b2653d20247731d3deff108a76688f9}{open\+Window}} (const int \&w, const int \&h) override
+\begin{DoxyCompactList}\small\item\em Opens the window for the graphical lib. Initializes the window. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classGUI_1_1DisplaySDL2_aa01ea887ac38f7b4d49fd7387949a7b9}\label{classGUI_1_1DisplaySDL2_aa01ea887ac38f7b4d49fd7387949a7b9}} 
+void \mbox{\hyperlink{classGUI_1_1DisplaySDL2_aa01ea887ac38f7b4d49fd7387949a7b9}{close\+Window}} () override
+\begin{DoxyCompactList}\small\item\em Closes the window for the graphical lib. Destroys the window. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classGUI_1_1DisplaySDL2_a415c897406c864fedc24f334ffe333cc}\label{classGUI_1_1DisplaySDL2_a415c897406c864fedc24f334ffe333cc}} 
+void \mbox{\hyperlink{classGUI_1_1DisplaySDL2_a415c897406c864fedc24f334ffe333cc}{clear\+Scr}} () override
+\begin{DoxyCompactList}\small\item\em Clears the screen. All the pixels will be set to black / transparent. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classGUI_1_1DisplaySDL2_a79476d855c18228111f42f3e107bd6bc}\label{classGUI_1_1DisplaySDL2_a79476d855c18228111f42f3e107bd6bc}} 
+void \mbox{\hyperlink{classGUI_1_1DisplaySDL2_a79476d855c18228111f42f3e107bd6bc}{draw}} () override
+\begin{DoxyCompactList}\small\item\em Draws the pixel map on the screen. The pixel map is a 2D array of pixels stored internally by the library, with dimensions set to w $\ast$ h (the dimensions of the window). \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classGUI_1_1DisplaySDL2_a0ee49bce5f0e7ec92d043a0b0cd9635d}{update\+Pixels}} (std\+::vector$<$ \mbox{\hyperlink{classGUI_1_1IDisplayModule_a286bc527b932f1cab962aa66e669a6e5}{pixel\+\_\+t}} $>$ pixels) override
+\begin{DoxyCompactList}\small\item\em Updates the pixel map with the new pixels. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classGUI_1_1DisplaySDL2_a1e288f64010acdeb736ea21016866cab}{set\+Text}} (std\+::string label, \mbox{\hyperlink{classGUI_1_1IDisplayModule_ad7efb3def9c1b1fcf9588d5d71e49ee4}{text\+\_\+t}} text) override
+\begin{DoxyCompactList}\small\item\em If text label does not exist create a new text, else update the existing one. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classGUI_1_1DisplaySDL2_aeb3cdc6cbeaf999fe2ccf013ca72bf0e}{set\+Sprite}} (char label, std\+::string path) override
+\begin{DoxyCompactList}\small\item\em If sprite label does not exist create a new sprite, else update the existing one. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classGUI_1_1DisplaySDL2_ad654d2750ffea7e08af284f8b52f4ba2}\label{classGUI_1_1DisplaySDL2_ad654d2750ffea7e08af284f8b52f4ba2}} 
+SDL\+\_\+\+Color {\bfseries get\+Color} (const color\+\_\+t \&color) const
+\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classGUI_1_1DisplaySDL2_a9efffa010793f4a749b54cf74294f242}\label{classGUI_1_1DisplaySDL2_a9efffa010793f4a749b54cf74294f242}} 
+\index{GUI::DisplaySDL2@{GUI::DisplaySDL2}!getUnits@{getUnits}}
+\index{getUnits@{getUnits}!GUI::DisplaySDL2@{GUI::DisplaySDL2}}
+\doxysubsubsection{\texorpdfstring{getUnits()}{getUnits()}}
+{\footnotesize\ttfamily int GUI\+::\+Display\+SDL2\+::get\+Units (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Get the Units object. 
+
+\begin{DoxyReturn}{Returns}
+int 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{classGUI_1_1IDisplayModule}{GUI\+::\+IDisplay\+Module}}.
+
+\mbox{\Hypertarget{classGUI_1_1DisplaySDL2_ada0485be1810b5fd8cb83183f13a6533}\label{classGUI_1_1DisplaySDL2_ada0485be1810b5fd8cb83183f13a6533}} 
+\index{GUI::DisplaySDL2@{GUI::DisplaySDL2}!loadSound@{loadSound}}
+\index{loadSound@{loadSound}!GUI::DisplaySDL2@{GUI::DisplaySDL2}}
+\doxysubsubsection{\texorpdfstring{loadSound()}{loadSound()}}
+{\footnotesize\ttfamily void GUI\+::\+Display\+SDL2\+::load\+Sound (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{label,  }\item[{const std\+::string \&}]{path }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Load all the sounds from a directory. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em dir} & The directory where sounds are. \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{classGUI_1_1IDisplayModule_af2b581ab4452f1e82572552f3f017bfe}{GUI\+::\+IDisplay\+Module}}.
+
+\mbox{\Hypertarget{classGUI_1_1DisplaySDL2_a2b2653d20247731d3deff108a76688f9}\label{classGUI_1_1DisplaySDL2_a2b2653d20247731d3deff108a76688f9}} 
+\index{GUI::DisplaySDL2@{GUI::DisplaySDL2}!openWindow@{openWindow}}
+\index{openWindow@{openWindow}!GUI::DisplaySDL2@{GUI::DisplaySDL2}}
+\doxysubsubsection{\texorpdfstring{openWindow()}{openWindow()}}
+{\footnotesize\ttfamily void GUI\+::\+Display\+SDL2\+::open\+Window (\begin{DoxyParamCaption}\item[{const int \&}]{w,  }\item[{const int \&}]{h }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Opens the window for the graphical lib. Initializes the window. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em w} & width of the window, in the unit system of the graphical lib. \\
+\hline
+{\em h} & height of the window, in the unit system of the graphical lib. \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{classGUI_1_1IDisplayModule_a0e13878619e76f2d8affc1889b69961b}{GUI\+::\+IDisplay\+Module}}.
+
+\mbox{\Hypertarget{classGUI_1_1DisplaySDL2_a4a06d60e97705b305a726b06c5307326}\label{classGUI_1_1DisplaySDL2_a4a06d60e97705b305a726b06c5307326}} 
+\index{GUI::DisplaySDL2@{GUI::DisplaySDL2}!playSound@{playSound}}
+\index{playSound@{playSound}!GUI::DisplaySDL2@{GUI::DisplaySDL2}}
+\doxysubsubsection{\texorpdfstring{playSound()}{playSound()}}
+{\footnotesize\ttfamily void GUI\+::\+Display\+SDL2\+::play\+Sound (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{label,  }\item[{const bool \&}]{loop = {\ttfamily false} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Play a sound. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em sound} & \+: the struct of the sound to play. \\
+\hline
+{\em loop} & is a boolean that indicates if the sound should be looped or not. Use it for your musics. \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{classGUI_1_1IDisplayModule_a05cf7e46e11ddd2c2a8d68d950450a4d}{GUI\+::\+IDisplay\+Module}}.
+
+\mbox{\Hypertarget{classGUI_1_1DisplaySDL2_a3e60584548a00b9519d5b55a51ab438b}\label{classGUI_1_1DisplaySDL2_a3e60584548a00b9519d5b55a51ab438b}} 
+\index{GUI::DisplaySDL2@{GUI::DisplaySDL2}!pollEvents@{pollEvents}}
+\index{pollEvents@{pollEvents}!GUI::DisplaySDL2@{GUI::DisplaySDL2}}
+\doxysubsubsection{\texorpdfstring{pollEvents()}{pollEvents()}}
+{\footnotesize\ttfamily std\+::vector$<$ \mbox{\hyperlink{classGUI_1_1IDisplayModule_a2d007027d28d78652889f99c023e074c}{GUI\+::\+IDisplay\+Module\+::event\+\_\+t}} $>$ GUI\+::\+Display\+SDL2\+::poll\+Events (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Collects the events that happened since the last call to poll\+Events. 
+
+\begin{DoxyReturn}{Returns}
+std\+::vector$<$event\+\_\+t$>$ the list of events that happened since the last call. 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{classGUI_1_1IDisplayModule_a6e177c05607797376faba87b8970cfa8}{GUI\+::\+IDisplay\+Module}}.
+
+\mbox{\Hypertarget{classGUI_1_1DisplaySDL2_a22c7e9087315e1ff9a82e259ee2398a7}\label{classGUI_1_1DisplaySDL2_a22c7e9087315e1ff9a82e259ee2398a7}} 
+\index{GUI::DisplaySDL2@{GUI::DisplaySDL2}!setMapSpecs@{setMapSpecs}}
+\index{setMapSpecs@{setMapSpecs}!GUI::DisplaySDL2@{GUI::DisplaySDL2}}
+\doxysubsubsection{\texorpdfstring{setMapSpecs()}{setMapSpecs()}}
+{\footnotesize\ttfamily void GUI\+::\+Display\+SDL2\+::set\+Map\+Specs (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classGUI_1_1IDisplayModule_a36782f4ed758333ccd2fc7af44d6697a}{map\+Specs\+\_\+t}}}]{mapspecs }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Set the Map Specs object. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em mapspecs} & specs of the map \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{classGUI_1_1IDisplayModule}{GUI\+::\+IDisplay\+Module}}.
+
+\mbox{\Hypertarget{classGUI_1_1DisplaySDL2_aeb3cdc6cbeaf999fe2ccf013ca72bf0e}\label{classGUI_1_1DisplaySDL2_aeb3cdc6cbeaf999fe2ccf013ca72bf0e}} 
+\index{GUI::DisplaySDL2@{GUI::DisplaySDL2}!setSprite@{setSprite}}
+\index{setSprite@{setSprite}!GUI::DisplaySDL2@{GUI::DisplaySDL2}}
+\doxysubsubsection{\texorpdfstring{setSprite()}{setSprite()}}
+{\footnotesize\ttfamily void GUI\+::\+Display\+SDL2\+::set\+Sprite (\begin{DoxyParamCaption}\item[{char}]{label,  }\item[{std\+::string}]{path }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+If sprite label does not exist create a new sprite, else update the existing one. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em label} & the label of the sprite to update this label should be the character contained in the pixel. \\
+\hline
+{\em path} & the path to the sprite. \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{classGUI_1_1IDisplayModule_a0cce0c0f48794dd0f0fcdcbe24a3acbd}{GUI\+::\+IDisplay\+Module}}.
+
+\mbox{\Hypertarget{classGUI_1_1DisplaySDL2_a1e288f64010acdeb736ea21016866cab}\label{classGUI_1_1DisplaySDL2_a1e288f64010acdeb736ea21016866cab}} 
+\index{GUI::DisplaySDL2@{GUI::DisplaySDL2}!setText@{setText}}
+\index{setText@{setText}!GUI::DisplaySDL2@{GUI::DisplaySDL2}}
+\doxysubsubsection{\texorpdfstring{setText()}{setText()}}
+{\footnotesize\ttfamily void GUI\+::\+Display\+SDL2\+::set\+Text (\begin{DoxyParamCaption}\item[{std\+::string}]{label,  }\item[{\mbox{\hyperlink{classGUI_1_1IDisplayModule_ad7efb3def9c1b1fcf9588d5d71e49ee4}{text\+\_\+t}}}]{text }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+If text label does not exist create a new text, else update the existing one. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em label} & the label of the text to update. \\
+\hline
+{\em text} & the new struct of the text to draw. It contain all the parameters of the text. \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{classGUI_1_1IDisplayModule_a5cb15a00f2c5227f3f5c15f4e45bf81b}{GUI\+::\+IDisplay\+Module}}.
+
+\mbox{\Hypertarget{classGUI_1_1DisplaySDL2_a1fc4c1fe50ad4ee2140a8eff8b9f0460}\label{classGUI_1_1DisplaySDL2_a1fc4c1fe50ad4ee2140a8eff8b9f0460}} 
+\index{GUI::DisplaySDL2@{GUI::DisplaySDL2}!setWindowSize@{setWindowSize}}
+\index{setWindowSize@{setWindowSize}!GUI::DisplaySDL2@{GUI::DisplaySDL2}}
+\doxysubsubsection{\texorpdfstring{setWindowSize()}{setWindowSize()}}
+{\footnotesize\ttfamily void GUI\+::\+Display\+SDL2\+::set\+Window\+Size (\begin{DoxyParamCaption}\item[{const int \&}]{w,  }\item[{const int \&}]{h }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Set the Window dimensions. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em w} & \\
+\hline
+{\em h} & \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{classGUI_1_1IDisplayModule_ae84c78b11d90f19728e3dcba1dd7476e}{GUI\+::\+IDisplay\+Module}}.
+
+\mbox{\Hypertarget{classGUI_1_1DisplaySDL2_a0ee49bce5f0e7ec92d043a0b0cd9635d}\label{classGUI_1_1DisplaySDL2_a0ee49bce5f0e7ec92d043a0b0cd9635d}} 
+\index{GUI::DisplaySDL2@{GUI::DisplaySDL2}!updatePixels@{updatePixels}}
+\index{updatePixels@{updatePixels}!GUI::DisplaySDL2@{GUI::DisplaySDL2}}
+\doxysubsubsection{\texorpdfstring{updatePixels()}{updatePixels()}}
+{\footnotesize\ttfamily void GUI\+::\+Display\+SDL2\+::update\+Pixels (\begin{DoxyParamCaption}\item[{std\+::vector$<$ \mbox{\hyperlink{classGUI_1_1IDisplayModule_a286bc527b932f1cab962aa66e669a6e5}{pixel\+\_\+t}} $>$}]{pixels }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Updates the pixel map with the new pixels. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em pixels} & a vector of pixel\+\_\+t, each pixel\+\_\+t representing a pixel to change on the map. Pixels that are not explicitly set will not be changed. \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{classGUI_1_1IDisplayModule_ab98aef29bdb25a54cbbc5971b83e854e}{GUI\+::\+IDisplay\+Module}}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/graphicals/sdl/Display\+SDL2.\+hpp\item 
+src/graphicals/sdl/Display\+SDL2.\+cpp\end{DoxyCompactItemize}

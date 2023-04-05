@@ -30,11 +30,36 @@ namespace GUI
             Sfml();
             ~Sfml();
             void setUnits(const int &pxpu) override;
+            /**
+             * @brief Get the Units object
+             *
+             * @return int
+             */
             int getUnits() const override;
-
+            /**
+             * @brief Set the Map Specs object
+             *
+             * @param mapspecs specs of the map
+             */
             void setMapSpecs(mapSpecs_t mapspecs) override;
-
+            /**
+             * @brief Check if a key is pressed
+             *
+             * @param key
+             * @param bindingKey
+             * @param events
+             * @param event
+             * @param charCode
+             */
             void checkKeyEvent(sf::Keyboard::Key key, GUI::Sfml::bindingType_t bindingKey, std::vector<event_t> &events, event_t event, int charCode = -1);
+            /**
+             * @brief Check if a mouse button is pressed
+             *
+             * @param mouse
+             * @param isPressed
+             * @param events
+             * @param event
+             */
             void checkMouseEvent(sf::Mouse::Button mouse, bool isPressed, std::vector<event_t> &events, event_t event);
             std::vector<event_t> pollEvents() override;
 
@@ -45,10 +70,26 @@ namespace GUI
             void openWindow(const int &w, const int &h) override;
             void closeWindow() override;
             void clearScr() override;
-
+            /**
+             * @brief Get the Color of a color_t
+             *
+             * @param color color_t rgb
+             * @return sf::Color
+             */
             sf::Color getColor(const color_t &color) const;
-
+            /**
+             * @brief Convert a text_t to a sf::Text
+             *
+             * @param text text_t
+             * @return sf::Text
+             */
             sf::Text textTosfText(const text_t &text);
+            /**
+             * @brief Convert a pixel_t to a sf::RectangleShape
+             *
+             * @param pixel pixel_t
+             * @return sf::RectangleShape
+             */
             sf::RectangleShape pixelTosfRect(const pixel_t &pixel);
 
             void draw() override;
